@@ -1,0 +1,739 @@
+---
+vendor: ArteryTek
+dvendor: ArteryTek
+name: AT32F4
+version: 0.0.1
+yaml_version: 1
+type: Chip_Support_Packages
+family_name: AT32
+series:
+  description: |-
+    AT32F4 is a new 32-bit high performance, low power consumption universal microcontroller family powered by the ARM Cortex-M4 RISC core,which targeted at various MCU application areas.
+    The family integrates features to simplify system design and provide customers wide range of comprehensive and superior cost effective MCU portfolios with proven technology and great innovation.
+
+      - LCD parallel interface, 8080/6800 modes
+      - 5 V-tolerant I/Os
+      - Timer with quadrature (incremental) encoder input
+      - 96-bit unique ID
+  series_name: AT32F4
+  cpu_info:
+    core: Cortex-M4
+    endian: Little-endian
+  source_files:
+    file:
+    - libraries\AT32F4xx_StdPeriph_Driver\src
+    - libraries\AT32F4xx_StdPeriph_Driver\inc
+    - libraries\CMSIS\Include
+    - libraries\CMSIS\CM4\DeviceSupport\at32f4xx_conf.h
+    - libraries\CMSIS\CM4\DeviceSupport\system_at32f4xx.h
+    - libraries\CMSIS\CM4\DeviceSupport\system_at32f4xx.c
+  peripheral: {}
+  sub_series:
+  - sub_series_name: AT32F403A
+    cpu_info:
+      fpu: '1'
+      mpu: '1'
+      max_clock: '240000000'
+    chips:
+    - chip_name: AT32F403ACCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ACC\link.lds
+          marco:
+          - AT32F403ACCT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403acct7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ACET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ACE\link.lds
+          marco:
+          - AT32F403ACET7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403acet7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ACGT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00100000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ACG\link.lds
+          marco:
+          - AT32F403ACGT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403acgt7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ACCU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ACC\link.lds
+          marco:
+          - AT32F403ACCU7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403accu7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ACEU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ACE\link.lds
+          marco:
+          - AT32F403ACEU7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403aceu7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ACGU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00100000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ACG\link.lds
+          marco:
+          - AT32F403ACGU7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403acgu7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ARCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ARC\link.lds
+          marco:
+          - AT32F403ARCT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403arct7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ARET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ARE\link.lds
+          marco:
+          - AT32F403ARET7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403aret7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403ARGT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00100000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403ARG\link.lds
+          marco:
+          - AT32F403ARGT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403argt7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403AVCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403AVC\link.lds
+          marco:
+          - AT32F403AVCT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403avct7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403AVET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403AVE\link.lds
+          marco:
+          - AT32F403AVET7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403avet7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F403AVGT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00100000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F403AVG\link.lds
+          marco:
+          - AT32F403AVGT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f403avgt7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F403A_407_V1.01.pdf
+      title: AT32F403A_407 Reference Manual
+    svd:
+      file: debug\svd\AT32F403Axx.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F403A
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F403A
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F403A
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\rtt
+  - sub_series_name: AT32F407
+    cpu_info:
+      fpu: '1'
+      mpu: '1'
+      max_clock: '240000000'
+    chips:
+    - chip_name: AT32F407RCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F407RC\link.lds
+          marco:
+          - AT32F407RCT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f407rct7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F407RET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F407RE\link.lds
+          marco:
+          - AT32F407RET7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f407ret7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F407RGT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00100000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F407RG\link.lds
+          marco:
+          - AT32F407RGT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f407rgt7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F407VCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F407VC\link.lds
+          marco:
+          - AT32F407VCT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f407vct7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F407VET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F407VE\link.lds
+          marco:
+          - AT32F407VET7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f407vet7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F407VGT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00100000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00018000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F407VG\link.lds
+          marco:
+          - AT32F407VGT7
+          files:
+          - libraries\CMSIS\CM4\DeviceSupport\startup\gcc\startup_at32f407vgt7.s
+          - libraries\CMSIS\CM4\DeviceSupport\at32f4xx.h
+          - libraries\CMSIS\Lib\GCC
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F403A_407_V1.01.pdf
+      title: AT32F403A_407 Reference Manual
+    svd:
+      file: debug\svd\AT32F407xx.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F407
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F407
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F407
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\rtt
