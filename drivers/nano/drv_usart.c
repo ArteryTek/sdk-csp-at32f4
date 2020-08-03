@@ -413,7 +413,7 @@ char rt_hw_console_getchar(void)
         {
             /* Clear Overrun Flag */
 			_uart_config->Instance->STS;
-			_uart_config->Instance-DT;
+			_uart_config->Instance->DT;
         }
         rt_thread_mdelay(10);
     }
