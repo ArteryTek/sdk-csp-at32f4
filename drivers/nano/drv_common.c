@@ -24,18 +24,11 @@ FINSH_FUNCTION_EXPORT_ALIAS(reboot, __cmd_reboot, Reboot System);
 void rt_hw_systick_init(void)
 {
     RCC_ClockType RCC_Clocks;
-    NVIC_InitType NVIC_InitStructure = {0};
 
     /* init system tick to 1KHz */
     RCC_GetClocksFreq(&RCC_Clocks);
     SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
     SysTick_Config(RCC_Clocks.SYSCLK_Freq / 1000);
-
-    NVIC_InitStructure.NVIC_IRQChannel = SysTick_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
 }
 
 /**

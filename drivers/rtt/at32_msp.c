@@ -178,8 +178,8 @@ void at32_msp_adc_init(void *Instance)
 
 void at32_msp_hwtmr_init(void *Instance)
 {
-#if defined (BSP_USING_HWTIMER3) || defined (BSP_USING_HWTIMER4) || \
-    defined (BSP_USING_HWTIMER5)
+#if defined (BSP_USING_HWTMR3) || defined (BSP_USING_HWTMR4) || \
+    defined (BSP_USING_HWTMR5)
     TMR_Type *TMRx = (TMR_Type *)Instance;
 
 #ifdef BSP_USING_HWTMR3
@@ -205,5 +205,5 @@ void at32_msp_hwtmr_init(void *Instance)
         RCC_APB1PeriphClockCmd(RCC_APB1PERIPH_TMR5, ENABLE);
     }
 #endif
-#endif /* BSP_USING_HWTIMER3 || BSP_USING_HWTIMER4 || BSP_USING_HWTIMER5 */
+#endif /* BSP_USING_HWTMR3 || BSP_USING_HWTMR4 || BSP_USING_HWTMR5 */
 }
