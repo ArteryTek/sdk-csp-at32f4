@@ -15,7 +15,7 @@
 #define LOG_TAG             "drv.hwtimer"
 #include <drv_log.h>
 
-#ifdef BSP_USING_HWTIMER
+#ifdef BSP_USING_HWTMR
 enum
 {
 #ifdef BSP_USING_HWTMR1
@@ -46,7 +46,7 @@ enum
     TMR7_INDEX,
 #endif 
 
-#ifdef BSP_USING_HW_TMR8
+#ifdef BSP_USING_HWTMR8
     TMR8_INDEX,
 #endif  
 

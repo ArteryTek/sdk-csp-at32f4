@@ -127,9 +127,6 @@ void NVIC_Configuration(void)
 {
     NVIC_InitType   NVIC_InitStructure;
 
-    /* Set the Vector Table base location at 0x08000000 */
-    NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);
-
     /* 2 bit for pre-emption priority, 2 bits for subpriority */
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); 
 

@@ -18,7 +18,6 @@ extern uint32_t Ticks;
 void clk_init(char *clk_source, int source_freq, int target_freq)
 {
     RCC_ClockType RCC_Clocks;
-    NVIC_InitType NVIC_InitStructure = {0};
 
     /* disbale interrupt */
     __set_PRIMASK(1);
@@ -31,11 +30,6 @@ void clk_init(char *clk_source, int source_freq, int target_freq)
     SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
     SysTick_Config(RCC_Clocks.SYSCLK_Freq / 1000);
 
-    NVIC_InitStructure.NVIC_IRQChannel = SysTick_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
     /* enable interrupt */
     __set_PRIMASK(0);
 }
