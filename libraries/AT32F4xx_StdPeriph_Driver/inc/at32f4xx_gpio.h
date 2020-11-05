@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_gpio.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx GPIO header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_GPIO_H
-#define __AT32F4xx_GPIO_H
+#ifndef __AT32F4XX_GPIO_H
+#define __AT32F4XX_GPIO_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -18,6 +18,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "at32f4xx.h"
+
+#if defined (AT32F403xx) || defined (AT32F413xx) || \
+    defined (AT32F415xx) || defined (AT32F403Axx)|| \
+    defined (AT32F407xx)
 
 /** @addtogroup at32f4xx_StdPeriph_Driver
   * @{
@@ -378,7 +382,7 @@ typedef enum
 #define AFIO_MAP4_TMR1_0001         ((uint32_t)0x80000081)  /*!< TMR1 Alternate Function mapping */
 #define AFIO_MAP4_TMR3_0010         ((uint32_t)0x800000A2)  /*!< TMR3 Alternate Function mapping 0010*/
 #define AFIO_MAP4_TMR3_0011         ((uint32_t)0x800000A3)  /*!< TMR3 Alternate Function mapping 0011*/
-#define AFIO_MAP4_TMR5_1000         ((uint32_t)0x800000C8)  /*!< TMR5 Alternate Function mapping 1000: CH4 */
+#define AFIO_MAP4_TMR5_1000         ((uint32_t)0x800000C8)  /*!< TMR5 channel4 internal remap */
 
 #define AFIO_MAP5_USART5_0001       ((uint32_t)0x80000101)  /*!< USART5 Alternate Function mapping 0001*/
 #define AFIO_MAP5_I2C1_0001         ((uint32_t)0x80000111)  /*!< I2C1 Alternate Function mapping 0001*/
@@ -412,11 +416,19 @@ typedef enum
 #define AFIO_MAP6_USART1_0001       ((uint32_t)0x800001C1)  /*!< USART1 Alternate Function mapping */
 #define AFIO_MAP6_USART2_0001       ((uint32_t)0x800001D1)  /*!< USART2 Alternate Function mapping */
 #define AFIO_MAP6_USART3_0001       ((uint32_t)0x800001E1)  /*!< USART3 Alternate Function mapping 0001*/
+#if defined (AT32F415xx)
+#define AFIO_MAP6_USART3_0010       ((uint32_t)0x800001E2)  /*!< USART3 Alternate Function mapping 0010*/
+#elif defined (AT32F403Axx) || defined (AT32F407xx)
 #define AFIO_MAP6_USART3_0011       ((uint32_t)0x800001E3)  /*!< USART3 Alternate Function mapping 0011*/
+#endif
+#if defined (AT32F403Axx) || defined (AT32F407xx)
+#define AFIO_MAP6_UART4_0010        ((uint32_t)0x800001F2)  /*!< UART4 Alternate Function mapping */
+#else
 #define AFIO_MAP6_UART4_0001        ((uint32_t)0x800001F1)  /*!< UART4 Alternate Function mapping */
+#endif
 
-#define AFIO_MAP7_SPIF_1000         ((uint32_t)0x80000208)  /*!< EXT_FLASH Alternate Function mapping */ 
-#define AFIO_MAP7_SPIF_1001         ((uint32_t)0x80000209)  /*!< EXT_FLASH Alternate Function enable */ 
+#define AFIO_MAP7_SPIF_1000         ((uint32_t)0x80000208)  /*!< Enable EXT_FLASH interface and bit[2:0] = 000 */ 
+#define AFIO_MAP7_SPIF_1001         ((uint32_t)0x80000209)  /*!< Enable EXT_FLASH interface and bit[2:0] = 001 */ 
 #define AFIO_MAP7_ADC1_0001         ((uint32_t)0x80000211)  /*!< ADC1 External Trigger Injected Conversion remapping */
 #define AFIO_MAP7_ADC1_0010         ((uint32_t)0x80000212)  /*!< ADC1 External Trigger Regular Conversion remapping */
 #define AFIO_MAP7_ADC1_0011         ((uint32_t)0x80000213)  /*!< ADC1 External Trigger Regular & Injected Conversion remapping */
@@ -426,12 +438,12 @@ typedef enum
 #define AFIO_MAP7_SWJTAG_0001       ((uint32_t)0x80000241)  /*!< Full SWJ Enabled (JTAG-DP + SW-DP) but without JTRST */
 #define AFIO_MAP7_SWJTAG_0010       ((uint32_t)0x80000242)  /*!< JTAG-DP Disabled and SW-DP Enabled */
 #define AFIO_MAP7_SWJTAG_0100       ((uint32_t)0x80000244)  /*!< Full SWJ Disabled (JTAG-DP + SW-DP) */
-#define AFIO_MAP7_PD01_0001         ((uint32_t)0x80000251)  /*!< PD01 Alternate Function mapping */  
-#define AFIO_MAP7_XMC_0001          ((uint32_t)0x80000261)  /*!< XMC Alternate Function mapping 0001 */
-#define AFIO_MAP7_XMC_0010          ((uint32_t)0x80000262)  /*!< XMC Alternate Function mapping 0010 */
-#define AFIO_MAP7_XMC_1000          ((uint32_t)0x80000268)  /*!< XMC Alternate Function mapping 1000 */
-#define AFIO_MAP7_XMC_1001          ((uint32_t)0x80000269)  /*!< XMC Alternate Function mapping 1001 */
-#define AFIO_MAP7_XMC_1010          ((uint32_t)0x8000026A)  /*!< XMC Alternate Function mapping 1011 */
+#define AFIO_MAP7_PD01_0001         ((uint32_t)0x80000251)  /*!< PD0/PD1 mapping on OSC_IN/OSC_OUT */  
+#define AFIO_MAP7_XMC_0001          ((uint32_t)0x80000261)  /*!< XMC_NADV connect to Pin and bit[26:24] = 001 */
+#define AFIO_MAP7_XMC_0010          ((uint32_t)0x80000262)  /*!< XMC_NADV connect to Pin and bit[26:24] = 010 */
+#define AFIO_MAP7_XMC_1000          ((uint32_t)0x80000268)  /*!< XMC_NADV not using and bit[26:24] = 000 */
+#define AFIO_MAP7_XMC_1001          ((uint32_t)0x80000269)  /*!< XMC_NADV not using and bit[26:24] = 001 */
+#define AFIO_MAP7_XMC_1010          ((uint32_t)0x8000026A)  /*!< XMC_NADV not using and bit[26:24] = 010 */
 
 #define AFIO_MAP8_ETH_0001          ((uint32_t)0x800002C1)  /*!< ETH Alternate Function mapping 0001*/
 #define AFIO_MAP8_ETH_0100          ((uint32_t)0x800002C4)  /*!< ETH Alternate Function mapping 0100*/
@@ -479,11 +491,11 @@ typedef enum
 
 #if defined (AT32F403Axx) || defined (AT32F407xx)
 #define AFIO_MAP4_TMR1_0011         ((uint32_t)0x80000083)  /*!< TMR1 Alternate Function mapping 0011*/
-#define AFIO_MAP4_TMR2_0001         ((uint32_t)0x80000091)  /*!< TMR2 Alternate Function mapping 1001*/
-#define AFIO_MAP4_TMR2_0010         ((uint32_t)0x80000092)  /*!< TMR2 Alternate Function mapping 1010*/
-#define AFIO_MAP4_TMR2_0011         ((uint32_t)0x80000093)  /*!< TMR2 Alternate Function mapping 1011*/
-#define AFIO_MAP4_TIM2ITR1_1000     ((uint32_t)0x80000098)  /*!< TMR2 Alternate Function mapping 1101*/
-#define AFIO_MAP4_TIM2ITR1_1100     ((uint32_t)0x8000009C)  /*!< TMR2 Alternate Function mapping 1110*/
+#define AFIO_MAP4_TMR2_0001         ((uint32_t)0x80000091)  /*!< TMR2 Alternate Function mapping bit[5:4] = 01*/
+#define AFIO_MAP4_TMR2_0010         ((uint32_t)0x80000092)  /*!< TMR2 Alternate Function mapping bit[5:4] = 10*/
+#define AFIO_MAP4_TMR2_0011         ((uint32_t)0x80000093)  /*!< TMR2 Alternate Function mapping bit[5:4] = 11*/
+#define AFIO_MAP4_TIM2ITR1_1000     ((uint32_t)0x80000098)  /*!< ETH PTP as input to TMR2_ITR1 */
+#define AFIO_MAP4_TIM2ITR1_1100     ((uint32_t)0x8000009C)  /*!< USBDEV SOF as input to TMR2_ITR1 */
 #define AFIO_MAP4_TMR4_0001         ((uint32_t)0x800000B1)  /*!< TMR5 Alternate Function mapping 0001: CH1/CH2*/
 #endif
 
@@ -661,11 +673,14 @@ void GPIO_PinsRemapConfig(uint32_t GPIO_Remap, FunctionalState NewState);
 void GPIO_EXTILineConfig(uint8_t GPIO_PortSource, uint8_t GPIO_PinSource);
 void GPIO_ETH_MediaInterfaceConfig(uint32_t GPIO_ETH_MediaInterface);
 
+#endif /* AT32F403xx || AT32F413xx || AT32F415xx
+          AT32F403Axx|| AT32F407xx */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __AT32F4xx_GPIO_H */
+#endif /* __AT32F4XX_GPIO_H */
 /**
   * @}
   */

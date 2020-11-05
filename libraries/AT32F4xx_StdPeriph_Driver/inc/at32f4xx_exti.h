@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_exti.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx EXTI header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_EXTI_H
-#define __AT32F4xx_EXTI_H
+#ifndef __AT32F4XX_EXTI_H
+#define __AT32F4XX_EXTI_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -106,14 +106,32 @@ typedef struct
 #define EXTI_Line15                         ((uint32_t)0x008000)  /*!< External interrupt line 15 */
 #define EXTI_Line16                         ((uint32_t)0x010000)  /*!< External interrupt line 16 Connected to the PVD Output */
 #define EXTI_Line17                         ((uint32_t)0x020000)  /*!< External interrupt line 17 Connected to the RTC Alarm event */
-#define EXTI_Line18                         ((uint32_t)0x040000)  /*!< External interrupt line 18 Connected to the USB Device FS
-                                                                      Wakeup from suspend event */
+#define EXTI_Line18                         ((uint32_t)0x040000)  /*!< External interrupt line 18 Connected to the USB Device FS Wakeup from suspend event */
 #define EXTI_Line19                         ((uint32_t)0x080000)  /*!< External interrupt line 19 Connected to the COMP1*/
+#ifdef AT32F421xx
+	#define EXTI_Line20                         ((uint32_t)0x100000)  /*!< External interrupt line 20 */
+  #define EXTI_Line21                         ((uint32_t)0x200000)  /*!< External interrupt line 21 Connected to the COMP1*/
+#endif
 #ifdef AT32F415xx
   #define EXTI_Line20                         ((uint32_t)0x100000)  /*!< External interrupt line 20 Connected to the COMP2*/
   #define EXTI_Line21                         ((uint32_t)0x200000)  /*!< External interrupt line 20 Connected to the RTC Temper_Pin and Temper_Stamp*/
   #define EXTI_Line22                         ((uint32_t)0x400000)  /*!< External interrupt line 20 Connected to the RTC Wakeup*/
+#endif
 
+#ifdef AT32F421xx
+  #define IS_EXTI_LINE(LINE)                  ((((LINE) & (uint32_t)0xFFC00000) == 0x00) && ((LINE) != (uint16_t)0x00))
+  #define IS_GET_EXTI_LINE(LINE)              (((LINE) == EXTI_Line0)  || ((LINE) == EXTI_Line1) || \
+                                             ((LINE) == EXTI_Line2)  || ((LINE) == EXTI_Line3) || \
+                                             ((LINE) == EXTI_Line4)  || ((LINE) == EXTI_Line5) || \
+                                             ((LINE) == EXTI_Line6)  || ((LINE) == EXTI_Line7) || \
+                                             ((LINE) == EXTI_Line8)  || ((LINE) == EXTI_Line9) || \
+                                             ((LINE) == EXTI_Line10) || ((LINE) == EXTI_Line11) || \
+                                             ((LINE) == EXTI_Line12) || ((LINE) == EXTI_Line13) || \
+                                             ((LINE) == EXTI_Line14) || ((LINE) == EXTI_Line15) || \
+                                             ((LINE) == EXTI_Line16) || ((LINE) == EXTI_Line17) || \
+                                             ((LINE) == EXTI_Line18) || ((LINE) == EXTI_Line19) || \
+                                             ((LINE) == EXTI_Line20) || ((LINE) == EXTI_Line21))
+#elif defined AT32F415xx
   #define IS_EXTI_LINE(LINE)                  ((((LINE) & (uint32_t)0xFF800000) == 0x00) && ((LINE) != (uint16_t)0x00))
   #define IS_GET_EXTI_LINE(LINE)              (((LINE) == EXTI_Line0)  || ((LINE) == EXTI_Line1) || \
                                              ((LINE) == EXTI_Line2)  || ((LINE) == EXTI_Line3) || \
@@ -140,7 +158,6 @@ typedef struct
                                              ((LINE) == EXTI_Line16) || ((LINE) == EXTI_Line17) || \
                                              ((LINE) == EXTI_Line18) || ((LINE) == EXTI_Line19))
 #endif
-
 
 /**
   * @}
@@ -175,7 +192,7 @@ void EXTI_ClearIntPendingBit(uint32_t EXTI_Line);
 }
 #endif
 
-#endif /* __AT32F4xx_EXTI_H */
+#endif /* __AT32F4XX_EXTI_H */
 /**
   * @}
   */

@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_flash.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx FMC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_FLASH_H
-#define __AT32F4xx_FLASH_H
+#ifndef __AT32F4XX_FLASH_H
+#define __AT32F4XX_FLASH_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,22 +68,22 @@ typedef enum
   */
 
 /* Values to be used with AT32F4xx Medium-density devices */
-#define FLASH_WRPRT_PAGE_0to3               ((uint32_t)0x00000001) /*!< AT32F4xx Medium-density devices: Write protection of page 0 to 3 */
-#define FLASH_WRPRT_PAGE_4to7               ((uint32_t)0x00000002) /*!< AT32F4xx Medium-density devices: Write protection of page 4 to 7 */
-#define FLASH_WRPRT_PAGE_8to11              ((uint32_t)0x00000004) /*!< AT32F4xx Medium-density devices: Write protection of page 8 to 11 */
-#define FLASH_WRPRT_PAGE_12to15             ((uint32_t)0x00000008) /*!< AT32F4xx Medium-density devices: Write protection of page 12 to 15 */
-#define FLASH_WRPRT_PAGE_16to19             ((uint32_t)0x00000010) /*!< AT32F4xx Medium-density devices: Write protection of page 16 to 19 */
-#define FLASH_WRPRT_PAGE_20to23             ((uint32_t)0x00000020) /*!< AT32F4xx Medium-density devices: Write protection of page 20 to 23 */
-#define FLASH_WRPRT_PAGE_24to27             ((uint32_t)0x00000040) /*!< AT32F4xx Medium-density devices: Write protection of page 24 to 27 */
-#define FLASH_WRPRT_PAGE_28to31             ((uint32_t)0x00000080) /*!< AT32F4xx Medium-density devices: Write protection of page 28 to 31 */
-#define FLASH_WRPRT_PAGE_32to35             ((uint32_t)0x00000100) /*!< AT32F4xx Medium-density devices: Write protection of page 32 to 35 */
-#define FLASH_WRPRT_PAGE_36to39             ((uint32_t)0x00000200) /*!< AT32F4xx Medium-density devices: Write protection of page 36 to 39 */
-#define FLASH_WRPRT_PAGE_40to43             ((uint32_t)0x00000400) /*!< AT32F4xx Medium-density devices: Write protection of page 40 to 43 */
-#define FLASH_WRPRT_PAGE_44to47             ((uint32_t)0x00000800) /*!< AT32F4xx Medium-density devices: Write protection of page 44 to 47 */
-#define FLASH_WRPRT_PAGE_48to51             ((uint32_t)0x00001000) /*!< AT32F4xx Medium-density devices: Write protection of page 48 to 51 */
-#define FLASH_WRPRT_PAGE_52to55             ((uint32_t)0x00002000) /*!< AT32F4xx Medium-density devices: Write protection of page 52 to 55 */
-#define FLASH_WRPRT_PAGE_56to59             ((uint32_t)0x00004000) /*!< AT32F4xx Medium-density devices: Write protection of page 56 to 59 */
-#define FLASH_WRPRT_PAGE_60to63             ((uint32_t)0x00008000) /*!< AT32F4xx Medium-density devices: Write protection of page 60 to 63 */
+#define FLASH_WRPRT_PAGE_0to3               ((uint32_t)0x00000001) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 0 to 3 */
+#define FLASH_WRPRT_PAGE_4to7               ((uint32_t)0x00000002) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 4 to 7 */
+#define FLASH_WRPRT_PAGE_8to11              ((uint32_t)0x00000004) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 8 to 11 */
+#define FLASH_WRPRT_PAGE_12to15             ((uint32_t)0x00000008) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 12 to 15 */
+#define FLASH_WRPRT_PAGE_16to19             ((uint32_t)0x00000010) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 16 to 19 */
+#define FLASH_WRPRT_PAGE_20to23             ((uint32_t)0x00000020) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 20 to 23 */
+#define FLASH_WRPRT_PAGE_24to27             ((uint32_t)0x00000040) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 24 to 27 */
+#define FLASH_WRPRT_PAGE_28to31             ((uint32_t)0x00000080) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 28 to 31 */
+#define FLASH_WRPRT_PAGE_32to35             ((uint32_t)0x00000100) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 32 to 35 */
+#define FLASH_WRPRT_PAGE_36to39             ((uint32_t)0x00000200) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 36 to 39 */
+#define FLASH_WRPRT_PAGE_40to43             ((uint32_t)0x00000400) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 40 to 43 */
+#define FLASH_WRPRT_PAGE_44to47             ((uint32_t)0x00000800) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 44 to 47 */
+#define FLASH_WRPRT_PAGE_48to51             ((uint32_t)0x00001000) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 48 to 51 */
+#define FLASH_WRPRT_PAGE_52to55             ((uint32_t)0x00002000) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 52 to 55 */
+#define FLASH_WRPRT_PAGE_56to59             ((uint32_t)0x00004000) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 56 to 59 */
+#define FLASH_WRPRT_PAGE_60to63             ((uint32_t)0x00008000) /*!< AT32F4xx Medium-density and AT32F421xx devices: Write protection of page 60 to 63 */
 #define FLASH_WRPRT_PAGE_64to67             ((uint32_t)0x00010000) /*!< AT32F4xx Medium-density devices: Write protection of page 64 to 67 */
 #define FLASH_WRPRT_PAGE_68to71             ((uint32_t)0x00020000) /*!< AT32F4xx Medium-density devices: Write protection of page 68 to 71 */
 #define FLASH_WRPRT_PAGE_72to75             ((uint32_t)0x00040000) /*!< AT32F4xx Medium-density devices: Write protection of page 72 to 75 */
@@ -215,7 +215,7 @@ typedef enum
 
 #if defined(AT32F403Cx_XL) || defined(AT32F403Rx_XL) || defined(AT32F403Vx_XL) || defined(AT32F403Zx_XL) || \
     defined(AT32F403ACGU7) || defined(AT32F403ACGT7) || defined(AT32F403ARGT7) || defined(AT32F403AVGT7) || \
-    defined(AT32F407RGT7)  || defined(AT32F407VGT7)
+    defined(AT32F407RGT7)  || defined(AT32F407VGT7)  || defined(AT32F407AVGT7)
 /**
   * @}
   */
@@ -248,7 +248,7 @@ typedef enum
 
 #if defined(AT32F403Cx_XL) || defined(AT32F403Rx_XL) || defined(AT32F403Vx_XL) || defined(AT32F403Zx_XL) || \
     defined(AT32F403ACGU7) || defined(AT32F403ACGT7) || defined(AT32F403ARGT7) || defined(AT32F403AVGT7) || \
-    defined(AT32F407RGT7)  || defined(AT32F407VGT7)
+    defined(AT32F407RGT7)  || defined(AT32F407VGT7)  || defined(AT32F407AVGT7)
 #define FLASH_INT_BANK2                     ((uint32_t)0x80000000)
 #define FLASH_INT_BANK2_MASK                (~FLASH_INT_BANK2)
 #define FLASH_INT_BANK2_FLR                 ((uint32_t)0x80000400)  /*!< FPEC BANK2 error interrupt source */
@@ -286,7 +286,7 @@ typedef enum
 
 #if defined(AT32F403Cx_XL) || defined(AT32F403Rx_XL) || defined(AT32F403Vx_XL) || defined(AT32F403Zx_XL) || \
     defined(AT32F403ACGU7) || defined(AT32F403ACGT7) || defined(AT32F403ARGT7) || defined(AT32F403AVGT7) || \
-    defined(AT32F407RGT7)  || defined(AT32F407VGT7)
+    defined(AT32F407RGT7)  || defined(AT32F407VGT7)  || defined(AT32F407AVGT7)
 #define FLASH_FLAG_BANK2                    ((uint32_t)0x80000000)
 #define FLASH_FLAG_BNK2_BSY                 ((uint32_t)0x80000001)  /*!< FLASH BANK2 Busy flag */
 #define FLASH_FLAG_BNK2_PRCDN               ((uint32_t)0x80000020)  /*!< FLASH BANK2 End of Operation flag */
@@ -353,21 +353,24 @@ FLASH_Status FLASH_UserOptionByteConfig(uint16_t UOB_IWDG, uint16_t UOB_STOP, ui
 uint32_t FLASH_GetUserOptionByte(void);
 uint32_t FLASH_GetWriteProtectStatus(void);
 FlagStatus FLASH_GetReadProtectStatus(void);
-FlagStatus FLASH_GetPrefetchBufferStatus(void);
 void FLASH_INTConfig(uint32_t FLASH_INT, FunctionalState NewState);
 FlagStatus FLASH_GetFlagStatus(uint32_t FLASH_FLAG);
 void FLASH_ClearFlag(uint32_t FLASH_FLAG);
 FLASH_Status FLASH_GetStatus(void);
 FLASH_Status FLASH_WaitForProcess(uint32_t Timeout);
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 /*------------ Functions used only for at32f415 devices -----*/
 FLASH_Status FLASH_SYS_AP(void);
-FLASH_Status FLASH_SlibSysEnable(uint32_t Psw,uint8_t data_start_page);
 FlagStatus FLASH_GetOptionByteProtectStatus(void);
 FLASH_Status FLASH_RDPandOptionByteProtectEnable(void);
 void FLASH_OptionByteProtectDisable(void);
-#endif /* AT32F415xx */
+#endif /* AT32F415xx || AT32F421xx */
+#if defined (AT32F421xx)
+FLASH_Status FLASH_SlibSysEnable(uint32_t Psw,uint8_t instr_start_page);
+#elif defined (AT32F415xx)
+FLASH_Status FLASH_SlibSysEnable(uint32_t Psw,uint8_t data_start_page);
+#endif
 
 /*------------ New function used for all at32f4xx devices -----*/
 void FLASH_UnlockBank1(void);
@@ -378,7 +381,7 @@ FLASH_Status FLASH_WaitForBank1Process(uint32_t Timeout);
 
 #if defined(AT32F403Cx_XL) || defined(AT32F403Rx_XL) || defined(AT32F403Vx_XL) || defined(AT32F403Zx_XL) || \
     defined(AT32F403ACGU7) || defined(AT32F403ACGT7) || defined(AT32F403ARGT7) || defined(AT32F403AVGT7) || \
-    defined(AT32F407RGT7)  || defined(AT32F407VGT7)
+    defined(AT32F407RGT7)  || defined(AT32F407VGT7)  || defined(AT32F407AVGT7)
 /*---- New Functions used only with at32f403_XL density devices -----*/
 void FLASH_UnlockBank2(void);
 void FLASH_LockBank2(void);
@@ -388,7 +391,7 @@ FLASH_Status FLASH_WaitForBank2Process(uint32_t Timeout);
 FLASH_Status FLASH_BootOptConfig(uint16_t FLASH_BOOT);
 #endif
 
-#if !defined (AT32F415xx)
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
 /*---- New Functions for extrenal flash -----*/
 void FLASH_UnlockBank3(void);
 void FLASH_LockBank3(void);
@@ -399,20 +402,25 @@ void FLASH_Bank3EncEndAddrConfig(uint32_t EndAddress);
 #endif
 
 /*---- New Functions for SLIB -----*/
+#if defined (AT32F421xx)
+FLASH_Status FLASH_SlibMainEnable(uint32_t Psw, uint16_t StartPage, uint16_t InstrPage, uint16_t EndPage);
+#else
 FLASH_Status FLASH_SlibMainEnable(uint32_t Psw, uint16_t StartPage, uint16_t DataPage, uint16_t EndPage);
+#endif
 uint32_t FLASH_SlibDisable(uint32_t dwPsw);
-#if !defined (AT32F415xx)
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
 uint32_t FLASH_GetSlibCurCnt(void);
 #endif
 uint8_t FLASH_GetSlibState(void);
 uint16_t FLASH_GetSlibStartPage(void);
 uint16_t FLASH_GetSlibDataStartPage(void);
+uint16_t FLASH_GetSlibInstrStartPage(void);
 uint16_t FLASH_GetSlibEndPage(void);
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __AT32F4xx_FLASH_H */
+#endif /* __AT32F4XX_FLASH_H */
 /**
   * @}
   */

@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_spi.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx SPI header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_SPI_H
-#define __AT32F4xx_SPI_H
+#ifndef __AT32F4XX_SPI_H
+#define __AT32F4XX_SPI_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -117,9 +117,12 @@ typedef struct
                                              ((PERIPH) == SPI4)    || \
                                              ((PERIPH) == I2S2EXT) || \
                                              ((PERIPH) == I2S3EXT))
+#elif defined (AT32F421xx)
+#define IS_SPI_ALL_PERIPH(PERIPH)           (((PERIPH) == SPI1)    || \
+                                             ((PERIPH) == SPI2))
 #endif
 
-#if defined (AT32F413xx) || defined (AT32F415xx)
+#if defined (AT32F413xx) || defined (AT32F415xx) || defined (AT32F421xx)
 #define IS_SPI_I2S_PERIPH(PERIPH)           (((PERIPH) == SPI1) || \
                                              ((PERIPH) == SPI2))
 #elif defined (AT32F403xx)
@@ -497,7 +500,7 @@ void SPI_I2S_ClearINTPendingBit(SPI_Type* SPIx, uint8_t SPI_I2S_INT);
 }
 #endif
 
-#endif /*__AT32F4xx_SPI_H */
+#endif /*__AT32F4XX_SPI_H */
 /**
   * @}
   */

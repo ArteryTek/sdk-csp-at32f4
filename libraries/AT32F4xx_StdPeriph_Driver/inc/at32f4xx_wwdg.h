@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_wwdg.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx WWDG header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_WWDG_H
-#define __AT32F4xx_WWDG_H
+#ifndef __AT32F4XX_WWDG_H
+#define __AT32F4XX_WWDG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -86,7 +86,7 @@ void WWDG_ClearFlag(void);
 }
 #endif
 
-#endif /* __AT32F4xx_WWDG_H */
+#endif /* __AT32F4XX_WWDG_H */
 
 /**
   * @}

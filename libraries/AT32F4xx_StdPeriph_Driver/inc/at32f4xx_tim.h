@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_tim.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx TIMER header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_TIM_H
-#define __AT32F4xx_TIM_H
+#ifndef __AT32F4XX_TIM_H
+#define __AT32F4XX_TIM_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -205,6 +205,14 @@ typedef struct
                                       ((PERIPH) == TMR12)|| \
                                       ((PERIPH) == TMR13)|| \
                                       ((PERIPH) == TMR14))
+#elif defined (AT32F421xx)
+#define IS_TMR_ALL_PERIPH(PERIPH)    (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3) || \
+                                      ((PERIPH) == TMR6) || \
+                                      ((PERIPH) == TMR14)|| \
+                                      ((PERIPH) == TMR15)|| \
+                                      ((PERIPH) == TMR16)|| \
+                                      ((PERIPH) == TMR17))
 #endif
 
 
@@ -223,6 +231,12 @@ typedef struct
 #elif defined (AT32F403Axx) || defined (AT32F407xx)
 #define IS_TMR_LIST1_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
                                       ((PERIPH) == TMR8))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST1_PERIPH(PERIPH)  (((PERIPH) == TMR1)  || \
+                                      ((PERIPH) == TMR14) || \
+                                      ((PERIPH) == TMR15) || \
+                                      ((PERIPH) == TMR16) || \
+                                      ((PERIPH) == TMR17))
 #endif
 
 /* LIST2: TMR 1, 8, 15 */
@@ -234,11 +248,15 @@ typedef struct
 #define IS_TMR_LIST2_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
                                       ((PERIPH) == TMR8))
 #elif defined (AT32F415xx)
-#define IS_TMR_LIST2_PERIPH(PERIPH)  (((PERIPH) == TMR1))
-
+#define IS_TMR_LIST2_PERIPH(PERIPH)  ((PERIPH) == TMR1)
 #elif defined (AT32F403Axx) || defined (AT32F407xx)
 #define IS_TMR_LIST2_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
                                       ((PERIPH) == TMR8))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST2_PERIPH(PERIPH)  (((PERIPH) == TMR1)  || \
+                                      ((PERIPH) == TMR15) || \
+                                      ((PERIPH) == TMR16) || \
+                                      ((PERIPH) == TMR17))
 #endif
 
 
@@ -271,6 +289,9 @@ typedef struct
                                       ((PERIPH) == TMR4) || \
                                       ((PERIPH) == TMR5) || \
                                       ((PERIPH) == TMR8))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST3_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3))
 #endif
 									                                 
 /* LIST4: TMR 1, 2, 3, 4, 5, 8, 15 */
@@ -302,6 +323,12 @@ typedef struct
                                       ((PERIPH) == TMR4) || \
                                       ((PERIPH) == TMR5) || \
                                       ((PERIPH) == TMR8))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST4_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3) || \
+                                      ((PERIPH) == TMR15)|| \
+                                      ((PERIPH) == TMR16)|| \
+                                      ((PERIPH) == TMR17))
 #endif
 
 /* LIST5: TMR 1, 2, 3, 4, 5, 8 and 15 */ 
@@ -334,6 +361,12 @@ typedef struct
                                       ((PERIPH) == TMR4) || \
                                       ((PERIPH) == TMR5) || \
                                       ((PERIPH) == TMR8))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST5_PERIPH(PERIPH)  (((PERIPH) == TMR1)  || \
+                                      ((PERIPH) == TMR3)  || \
+                                      ((PERIPH) == TMR15) || \
+                                      ((PERIPH) == TMR16) || \
+                                      ((PERIPH) == TMR17))
 #endif
 
 /* LIST6: TMR 1, 2, 3, 4, 5, 8, 9, 12 and 15 */
@@ -371,6 +404,10 @@ typedef struct
                                       ((PERIPH) == TMR8) || \
                                       ((PERIPH) == TMR9) || \
                                       ((PERIPH) == TMR12))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST6_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3) || \
+                                      ((PERIPH) == TMR15))
 #endif
 
 /* LIST7: TMR 1, 2, 3, 4, 5, 6, 7, 8, 9, 12 and 15 */
@@ -412,6 +449,10 @@ typedef struct
                                       ((PERIPH) == TMR8) || \
                                       ((PERIPH) == TMR9) || \
                                       ((PERIPH) == TMR12))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST7_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3) || \
+                                      ((PERIPH) == TMR15))
 #endif
 
 /* LIST8: TMR 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15 */  
@@ -461,6 +502,13 @@ typedef struct
                                       ((PERIPH) == TMR12)|| \
                                       ((PERIPH) == TMR13)|| \
                                       ((PERIPH) == TMR14))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST8_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3) || \
+                                      ((PERIPH) == TMR14)|| \
+                                      ((PERIPH) == TMR15)|| \
+                                      ((PERIPH) == TMR16)|| \
+                                      ((PERIPH) == TMR17))
 #endif
 
 /* LIST9: TMR 1, 2, 3, 4, 5, 6, 7, 8, 15 */
@@ -496,11 +544,19 @@ typedef struct
                                       ((PERIPH) == TMR6) || \
                                       ((PERIPH) == TMR7) || \
                                       ((PERIPH) == TMR8))
+#elif defined (AT32F421xx)
+#define IS_TMR_LIST9_PERIPH(PERIPH)  (((PERIPH) == TMR1) || \
+                                      ((PERIPH) == TMR3) || \
+                                      ((PERIPH) == TMR6) || \
+                                      ((PERIPH) == TMR15)|| \
+                                      ((PERIPH) == TMR16)|| \
+                                      ((PERIPH) == TMR17))
 #endif
 
-/*LIST10:TIM 2, 5*/																	 
+/*LIST10:TIM 2, 5*/
 #define IS_TMR_PLUSMODE_PERIPH(PERIPH) (((PERIPH)==TMR2) ||\
-																			 ((PERIPH)==TMR5))
+										((PERIPH)==TMR5))
+                    
 /**
   * @}
   */ 
@@ -779,8 +835,6 @@ typedef struct
 #define  TMR_ICPolarity_Falling            ((uint16_t)0x0002)
 #define  TMR_ICPolarity_BothEdge           ((uint16_t)0x000A)
 #define IS_TMR_IC_POLARITY(POLARITY)       (((POLARITY) == TMR_ICPolarity_Rising) || \
-                                            ((POLARITY) == TMR_ICPolarity_Falling))
-#define IS_TMR_IC_POLARITY_LITE(POLARITY)  (((POLARITY) == TMR_ICPolarity_Rising) || \
                                             ((POLARITY) == TMR_ICPolarity_Falling)|| \
                                             ((POLARITY) == TMR_ICPolarity_BothEdge))                                      
 /**
@@ -951,7 +1005,25 @@ typedef struct
 /**
   * @}
   */ 
+  
+/** @defgroup TMR14_REMAP_sources 
+  * @{
+  */ 
+#if defined (AT32F421xx)     
+#define TMR14_CH1_TO_GPIO                   ((uint16_t)0x0000)   
+#define TMR14_CH1_TO_RTCCLK                 ((uint16_t)0x0001)   
+#define TMR14_CH1_TO_HSE_DIV_32             ((uint16_t)0x0002)   
+#define TMR14_CH1_TO_MCO                    ((uint16_t)0x0003)                         
+#define IS_TMR14_REMAP_SOURCE(SOURCE)       (((SOURCE) == TMR14_CH1_TO_GPIO)       ||\
+                                             ((SOURCE) == TMR14_CH1_TO_RTCCLK)     ||\
+                                             ((SOURCE) == TMR14_CH1_TO_HSE_DIV_32) ||\
+                                             ((SOURCE) == TMR14_CH1_TO_MCO))                                       
+#endif  
 
+/**
+  * @}
+  */  
+  
 /** @defgroup TMR_External_Trigger_Prescaler 
   * @{
   */
@@ -1371,6 +1443,7 @@ void TMR_SetIC2DIV(TMR_Type* TMRx, uint16_t TMR_ICPSC);
 void TMR_SetIC3DIV(TMR_Type* TMRx, uint16_t TMR_ICPSC);
 void TMR_SetIC4DIV(TMR_Type* TMRx, uint16_t TMR_ICPSC);
 void TMR_SetClockDivision(TMR_Type* TMRx, uint16_t TMR_CKD);
+void TMR_14_TI1RMP(uint16_t TMR14_TI1RMP);
 uint32_t TMR_GetCapture1(TMR_Type* TMRx);
 uint32_t TMR_GetCapture2(TMR_Type* TMRx);
 uint32_t TMR_GetCapture3(TMR_Type* TMRx);
@@ -1386,7 +1459,7 @@ void TMR_ClearITPendingBit(TMR_Type* TMRx, uint16_t TMR_INT);
 }
 #endif
 
-#endif /*__AT32F4xx_TIM_H */
+#endif /*__AT32F4XX_TIM_H */
 /**
   * @}
   */ 

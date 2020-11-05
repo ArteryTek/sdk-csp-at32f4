@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
   * File   : startup_at32f407rgt7.s
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : AT32F4xx Devices vector table for GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
@@ -477,4 +477,3 @@ g_pfnVectors:
    .weak      ETH_WKUP_IRQHandler
    .thumb_set ETH_WKUP_IRQHandler,Default_Handler
 
-/************************ (C) COPYRIGHT Artery Tek *****END OF FILE****/

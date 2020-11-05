@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_rcc.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx RCC source file
   **************************************************************************
   */
@@ -63,7 +63,7 @@
 #define CFG_OFFSET                  (RCC_OFFSET + 0x04)
 
 /* --- BDC Register ---*/
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined(AT32F421xx)
 /* Alias word address of ERTCEN bit */
 #define BDC_OFFSET                  (RCC_OFFSET + 0x20)
 #define ERTCEN_BitPos                0x0F
@@ -622,7 +622,7 @@ void RCC_LSICmd(FunctionalState NewState)
   *(__IO uint32_t *) CTRLSTS_LSIEN_BB = (uint32_t)NewState;
 }
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 /**
   * @brief  Configures the ERTC clock (ERTCCLK).
   * @note   Once the ERTC clock is selected it can't be changed unless the Backup domain is reset.
@@ -660,7 +660,7 @@ void RCC_RTCCLKConfig(uint32_t RCC_RTCCLKSelect)
 }
 #endif
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 /**
   * @brief  Enables or disables the ERTC clock.
   * @note   This function must be used only after the ERTC clock was selected using the RCC_ERTCCLKConfig function.
@@ -697,9 +697,12 @@ void RCC_RTCCLKCmd(FunctionalState NewState)
   */
 void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks)
 {
-#if defined (AT32F415xx)
-  uint32_t pllcfgen = 0, pllfref = 0, pllns = 0, pllms = 0, pllfr = 0;
-  uint32_t retfref = 0, retfr = 0; 
+#if defined (AT32F415xx) || defined (AT32F421xx)
+  uint32_t pllcfgen = 0, pllns = 0, pllms = 0, pllfr = 0;
+  uint32_t pllsrcfreq = 0, retfr = 0; 
+#endif
+#if defined (AT32F403Axx)|| defined (AT32F407xx)
+  uint32_t prediv = 0;
 #endif
   uint32_t tmp = 0, pllmult = 0, pllrefclk = 0, psc = 0;
 
@@ -709,7 +712,14 @@ void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks)
   switch (tmp)
   {
   case 0x00:  /* HSI used as system clock */
+#if !defined (AT32F403xx)
+    if(BIT_READ(RCC->MISC, RCC_HSI_DIV_EN) && BIT_READ(RCC->MISC2, RCC_HSI_SYS_CTRL))
+      RCC_Clocks->SYSCLK_Freq = HSI_VALUE * 6;
+    else
+      RCC_Clocks->SYSCLK_Freq = HSI_VALUE;
+#else
     RCC_Clocks->SYSCLK_Freq = HSI_VALUE;
+#endif
     break;
 
   case 0x04:  /* HSE used as system clock */
@@ -717,28 +727,45 @@ void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks)
     break;
 
   case 0x08:  /* PLL used as system clock */
-#if defined (AT32F415xx)
+    pllrefclk = RCC->CFG & RCC_CFG_PLLRC;
+
+#if defined (AT32F415xx) || defined (AT32F421xx)
     /* Get_ClocksFreq for PLLconfig2 */
     pllcfgen = BIT_READ(RCC->PLL, PLL_CFGEN_MASK);
 
     if(pllcfgen == PLL_CFGEN_ENABLE)
     {
-      pllfref = BIT_READ(RCC->PLL, PLL_FREF_MASK);
       pllns = BIT_READ(RCC->PLL, PLL_NS_MASK);
       pllms = BIT_READ(RCC->PLL, PLL_MS_MASK);
       pllfr = BIT_READ(RCC->PLL, PLL_FR_MASK);
 
-      RCC_FREF_VALUE(pllfref, retfref);
       RCC_FR_VALUE(pllfr, retfr);
 
-      RCC_Clocks->SYSCLK_Freq = (retfref * (pllns >> PLL_NS_POS)) / \
-      ((pllms >> PLL_MS_POS) * retfr) * 1000000;
+      if (pllrefclk == 0x00)
+      {
+        /* HSI oscillator clock divided by 2 selected as PLL clock entry */
+        pllsrcfreq = (HSI_VALUE >> 1);
+      }
+      else
+      {
+        /* HSE selected as PLL clock entry */
+        if ((RCC->CFG & RCC_CFG_PLLHSEPSC) != (uint32_t)RESET)
+        {
+          pllsrcfreq = (HSE_VALUE >> 1);
+        }
+        else
+        {
+          pllsrcfreq = HSE_VALUE;
+        }
+      }
+        
+      RCC_Clocks->SYSCLK_Freq = (pllsrcfreq * (pllns >> PLL_NS_POS)) / \
+      ((pllms >> PLL_MS_POS) * retfr);
     }else
 #endif
     {
       /* Get PLL clock source and multiplication factor ----------------------*/
       pllmult = BIT_READ(RCC->CFG, RCC_CFG_PLLMULT);
-      pllrefclk = RCC->CFG & RCC_CFG_PLLRC;
       pllmult = RCC_GET_PLLMULT(pllmult);
   
       if (pllrefclk == 0x00)
@@ -751,8 +778,15 @@ void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks)
         /* HSE selected as PLL clock entry */
         if ((RCC->CFG & RCC_CFG_PLLHSEPSC) != (uint32_t)RESET)
         {
+#if defined (AT32F403Axx)|| defined (AT32F407xx)
+          prediv = (RCC->MISC2 & RCC_HSE_DIV_MASK);
+          prediv = prediv >> RCC_HSE_DIV_POS;
+          /* HSE oscillator clock divided by 2 */
+          RCC_Clocks->SYSCLK_Freq = (HSE_VALUE / (prediv + 2)) * pllmult;
+#else
           /* HSE oscillator clock divided by 2 */
           RCC_Clocks->SYSCLK_Freq = (HSE_VALUE >> 1) * pllmult;
+#endif
         }
         else
         {
@@ -760,7 +794,7 @@ void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks)
         }
       }
     }
-#if !defined (AT32F415xx)
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
     if (((RCC->CFG & RCC_CFG_PLLRANGE) == 0) && (RCC_Clocks->SYSCLK_Freq > RCC_PLL_RANGE))
     {
       /* Not setup PLLRANGE, fixed in 72 MHz */
@@ -818,6 +852,11 @@ void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks)
   *     @arg RCC_AHBPERIPH_XMC
   *     @arg RCC_AHBPERIPH_SDIO1
   *     @arg RCC_AHBPERIPH_SDIO2
+  *   Only for F421
+  *     @arg RCC_AHBPERIPH_GPIOA
+  *     @arg RCC_AHBPERIPH_GPIOB
+  *     @arg RCC_AHBPERIPH_GPIOC
+  *     @arg RCC_AHBPERIPH_GPIOF
   *
   * @note SRAM and FLASH clock can be disabled only during sleep mode.
   * @param  NewState: new state of the specified peripheral clock.
@@ -851,6 +890,10 @@ void RCC_AHBPeriphClockCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState)
   *          RCC_APB2PERIPH_TMR8,   RCC_APB2PERIPH_USART1,  RCC_APB2PERIPH_ADC3,
   *          RCC_APB2PERIPH_TMR15,  RCC_APB2PERIPH_TMR9,    RCC_APB2PERIPH_TMR10,
   *          RCC_APB2PERIPH_TMR11
+  *   Not for F421
+  *     @arg RCC_APB2PERIPH_GPIOA,  RCC_APB2PERIPH_GPIOB,   RCC_APB2PERIPH_GPIOC,
+  *          RCC_APB2PERIPH_GPIOC,  RCC_APB2PERIPH_GPIOD,   RCC_APB2PERIPH_GPIOE,
+  *          RCC_APB2PERIPH_GPIOE,  RCC_APB2PERIPH_GPIOF,   RCC_APB2PERIPH_GPIOG
   * @param  NewState: new state of the specified peripheral clock.
   *   This parameter can be: ENABLE or DISABLE.
   * @retval None
@@ -904,7 +947,8 @@ void RCC_APB1PeriphClockCmd(uint32_t RCC_APB1Periph, FunctionalState NewState)
   }
 }
 
-#if defined (AT32F403Axx) || defined (AT32F407xx)
+#if defined (AT32F403Axx) || defined (AT32F407xx) || \
+    defined (AT32F421xx)
 /**
   * @brief  Forces or releases High Speed AHB Bus reset.
   * @param  RCC_AHBPeriph: specifies the AHB peripheral to reset.
@@ -1038,38 +1082,30 @@ void RCC_HSEClockFailureDetectorCmd(FunctionalState NewState)
   */
 void RCC_CLKOUTConfig(uint32_t RCC_CLKOUT)
 {
-    uint32_t tmpreg = 0;
+  uint32_t tmpreg = 0;
 
-		/* Check the parameters */
-		assert_param(IS_RCC_CLKOUT(RCC_CLKOUT));
+  /* Check the parameters */
+  assert_param(IS_RCC_CLKOUT(RCC_CLKOUT));
 
-    if((RCC_CLKOUT >> 28) == 0)
-		{
-			// Clear CLKOUT[3];
-			RCC->MISC &= ~RCC_MISC_CLKOUT_3;
+  tmpreg = RCC->CFG;
+  /* Clear CLKOUT[3] */
+  RCC->MISC &= ~RCC_MISC_CLKOUT_3;
+  /* Clear CLKOUT[2:0] bits */
+  tmpreg &= ~RCC_CFG_CLKOUT;
 
-			tmpreg = RCC->CFG;
-			/* Clear CLKOUT[2:0] bits */
-			tmpreg &= ~RCC_CFG_CLKOUT;
-			/* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
-			tmpreg |= RCC_CLKOUT;
-			/* Store the new value */
-			RCC->CFG = tmpreg;
-		}
-		else if((RCC_CLKOUT >> 28) == 1)
-		{
-			// Set CLKOUT[3];
-			RCC->MISC &= ~RCC_MISC_CLKOUT_3;
-			RCC->MISC |= RCC_MISC_CLKOUT_3;
-
-			tmpreg = RCC->CFG;
-			/* Clear CLKOUT[2:0] bits */
-			tmpreg &= ~RCC_CFG_CLKOUT;
-			/* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
-			tmpreg |= (RCC_CLKOUT & 0xFFFFFFF);
-			/* Store the new value */
-			RCC->CFG = tmpreg;
-		}
+  if((RCC_CLKOUT & 0x10000000) == 0x0)
+  {
+    /* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
+    tmpreg |= RCC_CLKOUT;
+  }
+  else
+  {
+    RCC->MISC |= RCC_MISC_CLKOUT_3;
+    /* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
+    tmpreg |= (RCC_CLKOUT & 0xFFFFFFF);
+  }
+  /* Store the new value */
+  RCC->CFG = tmpreg;
 }
 #else
 /**
@@ -1102,43 +1138,35 @@ void RCC_CLKOUTConfig(uint32_t RCC_CLKOUT)
   */
 void RCC_CLKOUTConfig(uint32_t RCC_CLKOUT, uint32_t RCC_CLKOUTPRE)
 {
-    uint32_t tmpreg = 0;
+  uint32_t tmpreg = 0;
 
-		/* Check the parameters */
-		assert_param(IS_RCC_CLKOUT(RCC_CLKOUT));
-    assert_param(IS_RCC_MCO(RCC_CLKOUTPRE));
-  
-    /* Config MCOPRE */
-    RCC->MISC &= ~RCC_MCOPRE_MASK;
-    RCC->MISC |= RCC_CLKOUTPRE;
+  /* Check the parameters */
+  assert_param(IS_RCC_CLKOUT(RCC_CLKOUT));
+  assert_param(IS_RCC_MCO(RCC_CLKOUTPRE));
 
-    if((RCC_CLKOUT >> 28) == 0)
-		{
-			// Clear CLKOUT[3];
-			RCC->MISC &= ~RCC_MISC_CLKOUT_3;
+  /* Config MCOPRE */
+  RCC->MISC &= ~RCC_MCOPRE_MASK;
+  RCC->MISC |= RCC_CLKOUTPRE;
 
-			tmpreg = RCC->CFG;
-			/* Clear CLKOUT[2:0] bits */
-			tmpreg &= ~RCC_CFG_CLKOUT;
-			/* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
-			tmpreg |= RCC_CLKOUT;
-			/* Store the new value */
-			RCC->CFG = tmpreg;
-		}
-		else if((RCC_CLKOUT >> 28) == 1)
-		{
-			// Set CLKOUT[3];
-			RCC->MISC &= ~RCC_MISC_CLKOUT_3;
-			RCC->MISC |= RCC_MISC_CLKOUT_3;
+  tmpreg = RCC->CFG;
+  /* Clear CLKOUT[3] */
+  RCC->MISC &= ~RCC_MISC_CLKOUT_3;
+  /* Clear CLKOUT[2:0] bits */
+  tmpreg &= ~RCC_CFG_CLKOUT;
 
-			tmpreg = RCC->CFG;
-			/* Clear CLKOUT[2:0] bits */
-			tmpreg &= ~RCC_CFG_CLKOUT;
-			/* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
-			tmpreg |= (RCC_CLKOUT & 0xFFFFFFF);
-			/* Store the new value */
-			RCC->CFG = tmpreg;
-		}
+  if((RCC_CLKOUT & 0x10000000) == 0x0)
+  {
+    /* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
+    tmpreg |= RCC_CLKOUT;
+  }
+  else
+  {
+    RCC->MISC |= RCC_MISC_CLKOUT_3;
+    /* Set CLKOUT[2:0] bits according to RCC_CLKOUT value */
+    tmpreg |= (RCC_CLKOUT & 0xFFFFFFF);
+  }
+  /* Store the new value */
+  RCC->CFG = tmpreg;
 }
 #endif
 /**
@@ -1283,7 +1311,8 @@ static void RCC_HSEENDelay(uint32_t delay)
 }
 
 #if defined (AT32F413xx) || defined (AT32F415xx) || \
-    defined (AT32F403Axx)|| defined (AT32F407xx)
+    defined (AT32F403Axx)|| defined (AT32F407xx) || \
+    defined (AT32F421xx)
 /**
   * @brief  Enables or disables the Auto Step Mode.
   * @note   This function called when sysclk greater than 108Mhz.
@@ -1295,13 +1324,34 @@ void RCC_StepModeCmd(FunctionalState NewState)
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   if(ENABLE == NewState)
-	{
-    RCC->MISC2 |= RCC_MISC2_AUTO_STEP_EN;
-	}
-	else
-	{
-    RCC->MISC2 &= ~RCC_MISC2_AUTO_STEP_EN;
-	}
+  {
+    RCC->MISC2 |= RCC_AUTO_STEP_EN;
+  }
+  else
+  {
+    RCC->MISC2 &= ~RCC_AUTO_STEP_EN;
+  }
+}
+
+/**
+  * @brief  Enables or disables to get system clock source from HSI 48M directly.
+  * @note   Attention: If enable, the hsi clock frequency also has fixed 48M.
+  * @param  NewState: new state of the system clock source. This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+void RCC_HSI2SYS48M(FunctionalState NewState)
+{
+  /* Check the parameters */
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  if(ENABLE == NewState)
+  {
+    RCC->MISC  |= RCC_HSI_DIV_EN;
+    RCC->MISC2 |= RCC_HSI_SYS_CTRL;
+  }
+  else
+  {
+    RCC->MISC2 &= ~RCC_HSI_SYS_CTRL;
+  }
 }
 
 /**
@@ -1315,15 +1365,14 @@ void RCC_HSI2USB48M(FunctionalState NewState)
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   if(ENABLE == NewState)
-	{
-    RCC->MISC  |= RCC_MISC_HSI_DIV_EN;
-    RCC->MISC2 |= RCC_MISC2_HSI_FOR_USB;
-	}
-	else
-	{
-    RCC->MISC  &= ~RCC_MISC_HSI_DIV_EN;
-    RCC->MISC2 &= ~RCC_MISC2_HSI_FOR_USB;
-	}
+  {
+    RCC->MISC  |= RCC_HSI_DIV_EN;
+    RCC->MISC2 |= RCC_HSI_FOR_USB;
+  }
+  else
+  {
+    RCC->MISC2 &= ~RCC_HSI_FOR_USB;
+  }
 }
 #endif
 
@@ -1360,13 +1409,13 @@ void RCC_USBINTRemap(FunctionalState NewState)
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   if(ENABLE == NewState)
-	{
+  {
     RCC->INTCTRL |= RCC_INTCTRL_USB_INT_CTRL;
-	}
-	else
-	{
+  }
+  else
+  {
     RCC->INTCTRL &= ~RCC_INTCTRL_USB_INT_CTRL;
-	}
+  }
 }
 
 /**
@@ -1380,37 +1429,91 @@ void RCC_MCO2TMR10(FunctionalState NewState)
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   if(ENABLE == NewState)
-	{
+  {
     RCC->TEST  |= RCC_TEST_MCO2TMR_EN;
-	}
-	else
-	{
+  }
+  else
+  {
     RCC->TEST  &= ~RCC_TEST_MCO2TMR_EN;
-	}
+  }
 }
 #endif
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
+/**
+  * @brief  Config pll reference clock for tradition configuration method(RCC_CFG_MULT).
+  * @note   This function must be called before PLL enabled, and HSE_VALUE must be
+  *         corresponding to reality.
+  * @param  hse_value: equal to HSE_VALUE;
+  * @retval None
+  */
+void RCC_PLLFrefTableConfig(uint32_t hse_value)
+{
+  uint32_t pllrefclk = 0, pll_reg = 0;
+  uint32_t pllrcfreq = 0;
+
+  pllrefclk = RCC->CFG & RCC_CFG_PLLRC;
+
+  pll_reg = RCC->PLL;
+  pll_reg &= ~(PLL_FREF_MASK | PLL_CFGEN_MASK);
+
+  if (pllrefclk == 0x00)
+  {
+    /* HSI oscillator clock divided by 2 selected as PLL clock entry */
+    pll_reg |= PLL_FREF_4M;
+  }
+  else
+  {
+    pllrcfreq = hse_value;
+    /* HSE selected as PLL clock entry */
+    if ((RCC->CFG & RCC_CFG_PLLHSEPSC) != (uint32_t)RESET)
+    {
+      /* HSE oscillator clock divided by 2 */
+      pllrcfreq /= 2;
+    }
+
+    if((pllrcfreq > 3900000U) && (pllrcfreq < 5000000U))
+    {
+        pll_reg |= PLL_FREF_4M;
+    }
+    else if((pllrcfreq > 5200000U) && (pllrcfreq < 6250000U))
+    {
+        pll_reg |= PLL_FREF_6M;
+    }
+    else if((pllrcfreq > 7812500U) && (pllrcfreq < 8330000U))
+    {
+        pll_reg |= PLL_FREF_8M;
+    }
+    else if((pllrcfreq > 8330000U) && (pllrcfreq < 12500000U))
+    {
+        pll_reg |= PLL_FREF_12M;
+    }
+    else if((pllrcfreq > 15625000U) && (pllrcfreq < 20830000U))
+    {
+        pll_reg |= PLL_FREF_16M;
+    }
+    else if((pllrcfreq > 20830000U) && (pllrcfreq < 31255000U))
+    {
+        pll_reg |= PLL_FREF_25M;
+    }
+  }
+
+  RCC->PLL = pll_reg;
+}
+
 /**
   * @brief  Config pll with RCC_PLL.
   * @note   This function can usd RCC_PLL register to config pll, not RCC_CFG_MULT.
-  *                        PLL_freq_n_Mhz * PLL_ns
-  *         PLL clock = -------------------------------
+  *                        PLL_rc_freq_n_Mhz * PLL_ns
+  *         PLL clock = --------------------------------
   *                           PLL_ms * PLL_fr_n
   *         ATTEMTION:
   *                  31 <= PLL_ns <= 500
   *                  1  <= PLL_ms <= 15
   *
-  *                       PLL_freq_n_Mhz * PLL_ns
-  *         500Mhz <=  ------------------------------ <= 1000Mhz
+  *                       PLL_rc_freq_n_Mhz * PLL_ns
+  *         500Mhz <=  -------------------------------- <= 1000Mhz
   *                               PLL_ms
-  * @param  PLL_fref: The freqence of PLL source clock.
-  *     @arg PLL_FREF_4M :  reference clock 4Mhz
-  *     @arg PLL_FREF_6M :  reference clock 6Mhz
-  *     @arg PLL_FREF_8M :  reference clock 8Mhz
-  *     @arg PLL_FREF_12M:  reference clock 12Mhz
-  *     @arg PLL_FREF_16M:  reference clock 16Mhz
-  *     @arg PLL_FREF_25M:  reference clock 25Mhz
   * @param  PLL_ns: PLL register ns value.
   * @param  PLL_ms: PLL register ms value.
   * @param  PLL_fr: VCO output divider
@@ -1422,19 +1525,35 @@ void RCC_MCO2TMR10(FunctionalState NewState)
   *     @arg PLL_FR_32:  output divider 32
   * @retval None
   */
-void RCC_PLLconfig2(uint32_t PLL_fref, uint32_t PLL_ns, uint32_t PLL_ms, uint32_t PLL_fr)
+void RCC_PLLconfig2(uint32_t PLL_ns, uint32_t PLL_ms, uint32_t PLL_fr)
 {
-	volatile uint32_t result = 0;
-  uint32_t pll_reg = 0, ret = 0;
+  volatile uint32_t result = 0;
+  uint32_t pll_reg = 0, pllrefclk = 0, pllrcfreq = 0;
 
   assert_param(IS_RCC_FR(PLL_fr));
-  assert_param(IS_RCC_FREF(PLL_fref));
   assert_param(IS_RCC_NS_VALUE(PLL_ns));
   assert_param(IS_RCC_MS_VALUE(PLL_ms));
 
-  RCC_FREF_VALUE(PLL_fref, ret);
+  pllrefclk = RCC->CFG & RCC_CFG_PLLRC;
 
-  result = PLL_ns * ret / PLL_ms;
+  if (pllrefclk == 0x00)
+  {
+    /* HSI oscillator clock divided by 2 selected as PLL clock entry */
+    pllrcfreq = (HSI_VALUE >> 1);
+  }
+  else
+  {
+    pllrcfreq = HSE_VALUE;
+
+    /* HSE selected as PLL clock entry */
+    if ((RCC->CFG & RCC_CFG_PLLHSEPSC) != (uint32_t)RESET)
+    {
+      /* HSE oscillator clock divided by 2 */
+      pllrcfreq = (pllrcfreq >> 1);
+    }
+  }
+
+  result = (pllrcfreq / 1000000) * PLL_ns / PLL_ms;
 
   assert_param(IS_RCC_RESULT_VALUE(result));
 
@@ -1444,7 +1563,7 @@ void RCC_PLLconfig2(uint32_t PLL_fref, uint32_t PLL_ns, uint32_t PLL_ms, uint32_
   pll_reg &= ~(PLL_FR_MASK | PLL_MS_MASK | PLL_NS_MASK | PLL_FREF_MASK | PLL_CFGEN_MASK);
 
   /* Config pll */
-  pll_reg |= (PLL_fref | (PLL_ns << PLL_NS_POS) | (PLL_ms << PLL_MS_POS) | PLL_fr);
+  pll_reg |= ((PLL_ns << PLL_NS_POS) | (PLL_ms << PLL_MS_POS) | PLL_fr);
 
   /* Enable PLLGEN */
   pll_reg |= PLL_CFGEN_ENABLE;

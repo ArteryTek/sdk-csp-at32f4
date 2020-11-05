@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_tim.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx TTMER source file
   **************************************************************************
   */
@@ -118,16 +118,19 @@ void TMR_Reset(TMR_Type* TMRx)
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR1, ENABLE);
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR1, DISABLE);
   }
+#if !defined (AT32F421xx)
   else if (TMRx == TMR2)
   {
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR2, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR2, DISABLE);
   }
+#endif
   else if (TMRx == TMR3)
   {
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR3, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR3, DISABLE);
   }
+#if !defined (AT32F421xx)
   else if (TMRx == TMR4)
   {
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR4, ENABLE);
@@ -138,25 +141,29 @@ void TMR_Reset(TMR_Type* TMRx)
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR5, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR5, DISABLE);
   }
-#if defined (AT32F403xx)
+#endif
+#if defined (AT32F403xx) || defined (AT32F421xx) || defined (AT32F403Axx)|| defined (AT32F407xx)
   else if (TMRx == TMR6)
   {
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR6, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR6, DISABLE);
   }
+#endif
+#if defined (AT32F403xx)|| defined (AT32F403Axx)|| defined (AT32F407xx)
   else if (TMRx == TMR7)
   {
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR7, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR7, DISABLE);
   }
 #endif
-#if defined (AT32F403xx) || defined (AT32F413xx)
+#if defined (AT32F403xx) || defined (AT32F413xx)|| defined (AT32F403Axx)|| defined (AT32F407xx)
   else if (TMRx == TMR8)
   {
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR8, ENABLE);
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR8, DISABLE);
   }
 #endif
+#if !defined (AT32F421xx)
   else if (TMRx == TMR9)
   {
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR9, ENABLE);
@@ -172,6 +179,7 @@ void TMR_Reset(TMR_Type* TMRx)
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR11, ENABLE);
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR11, DISABLE);
   }
+#endif
 #if defined (AT32F403xx)
   else if (TMRx == TMR12)
   {
@@ -192,6 +200,28 @@ void TMR_Reset(TMR_Type* TMRx)
   {
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR15, ENABLE);
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR15, DISABLE);
+  }
+#endif
+#if defined (AT32F421xx)
+  else if (TMRx == TMR14)
+  {
+    RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR14, ENABLE);
+    RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_TMR14, DISABLE);
+  }
+  else if (TMRx == TMR15)
+  {
+    RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR15, ENABLE);
+    RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR15, DISABLE);
+  }
+  else if (TMRx == TMR16)
+  {
+    RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR16, ENABLE);
+    RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR16, DISABLE);
+  }
+  else if (TMRx == TMR17)
+  {
+    RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR17, ENABLE);
+    RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_TMR17, DISABLE);
   }
 #endif
 }
@@ -216,14 +246,21 @@ void TMR_TimeBaseInit(TMR_Type* TMRx, TMR_TimerBaseInitType* TMR_TimeBaseInitStr
 
   tmpcr1 = TMRx->CTRL1;
 
-  if((TMRx == TMR1) || (TMRx == TMR2) ||
-#if !defined (AT32F415xx)
+  if((TMRx == TMR1) || 
+#if !defined (AT32F421xx)
+     (TMRx == TMR2) || (TMRx == TMR4) || (TMRx == TMR5) ||
+#endif
+
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
      (TMRx == TMR8) ||
 #endif
 #if defined (AT32F403xx)
      (TMRx == TMR15) ||
 #endif
-     (TMRx == TMR3) || (TMRx == TMR4) || (TMRx == TMR5))
+#if defined (AT32F421xx)
+     (TMRx == TMR14) || (TMRx == TMR15) || (TMRx == TMR16) || (TMRx == TMR17) ||
+#endif
+      (TMRx == TMR3))
   {
     /* Select the Counter Mode */
     tmpcr1 &= (uint16_t)(~((uint16_t)(TMR_CTRL1_DIR | TMR_CTRL1_CMSEL)));
@@ -232,6 +269,24 @@ void TMR_TimeBaseInit(TMR_Type* TMRx, TMR_TimerBaseInitType* TMR_TimeBaseInitStr
 
 #ifdef AT32F403xx
   if((TMRx != TMR6) && (TMRx != TMR7))
+  {
+    /* Set the clock division */
+    tmpcr1 &= (uint16_t)(~((uint16_t)TMR_CTRL1_CLKDIV));
+    tmpcr1 |= (uint32_t)TMR_TimeBaseInitStruct->TMR_ClockDivision;
+  }
+#endif
+  
+#if defined AT32F403Axx || defined AT32F407xx
+if((TMRx != TMR6) && (TMRx != TMR7))
+{
+  /* Set the clock division */
+  tmpcr1 &= (uint16_t)(~((uint16_t)TMR_CTRL1_CLKDIV));
+  tmpcr1 |= (uint32_t)TMR_TimeBaseInitStruct->TMR_ClockDivision;
+}
+#endif
+  
+#ifdef AT32F421xx
+  if(TMRx != TMR6)
   {
     /* Set the clock division */
     tmpcr1 &= (uint16_t)(~((uint16_t)TMR_CTRL1_CLKDIV));
@@ -253,6 +308,8 @@ void TMR_TimeBaseInit(TMR_Type* TMRx, TMR_TimerBaseInitType* TMR_TimeBaseInitStr
     if ((TMRx == TMR1) || (TMRx == TMR8))
 #elif defined AT32F403xx
     if ((TMRx == TMR1) || (TMRx == TMR8) || (TMRx == TMR15))
+#elif defined AT32F421xx
+    if ((TMRx == TMR1) || (TMRx == TMR16) || (TMRx == TMR17))
 #endif
   {
     /* Set the Repetition Counter value */
@@ -273,10 +330,11 @@ void TMR_TimeBaseInit(TMR_Type* TMRx, TMR_TimerBaseInitType* TMR_TimeBaseInitStr
   *         TMR_Plus_Mode_Disable	
   * @retval None
   */
+#if !defined (AT32F421xx)
 void TMR_SelectPlusMode(TMR_Type* TMRx, uint16_t TMRx_PLUS_MODE_STATE)
 {
 	/* Check the parameters */
-  assert_param(IS_TMR_PLUSMODE_PERIPH(TMRx));
+    assert_param(IS_TMR_PLUSMODE_PERIPH(TMRx));
 	assert_param(IS_TMR_PLUS_MODE_STATE(TMRx_PLUS_MODE_STATE));
 	/*Config TIMx plus mode*/
 	if((TMRx == TMR2) || (TMRx == TMR5))
@@ -295,7 +353,7 @@ void TMR_SelectPlusMode(TMR_Type* TMRx, uint16_t TMRx_PLUS_MODE_STATE)
 		}
 	}
 }
-
+#endif
 
 
 /**
@@ -346,6 +404,8 @@ void TMR_OC1Init(TMR_Type* TMRx, TMR_OCInitType* TMR_OCInitStruct)
     if ((TMRx == TMR1) || (TMRx == TMR8))
 #elif defined AT32F403xx
     if ((TMRx == TMR1) || (TMRx == TMR8) || (TMRx == TMR15))
+#elif defined AT32F421xx
+    if ((TMRx == TMR1) || (TMRx == TMR3) || (TMRx == TMR14) || (TMRx == TMR15) || (TMRx == TMR16) || (TMRx == TMR17))
 #endif  
   {
     assert_param(IS_TMR_OUTPUTN_STATE(TMR_OCInitStruct->TMR_OutputNState));
@@ -436,6 +496,8 @@ void TMR_OC2Init(TMR_Type* TMRx, TMR_OCInitType* TMR_OCInitStruct)
     if ((TMRx == TMR1) || (TMRx == TMR8))
 #elif defined AT32F403xx
     if ((TMRx == TMR1) || (TMRx == TMR8) || (TMRx == TMR15))
+#elif defined AT32F421xx
+    if ((TMRx == TMR1) || (TMRx == TMR3) || (TMRx == TMR15))
 #endif
   {
     assert_param(IS_TMR_OUTPUTN_STATE(TMR_OCInitStruct->TMR_OutputNState));
@@ -524,6 +586,8 @@ void TMR_OC3Init(TMR_Type* TMRx, TMR_OCInitType* TMR_OCInitStruct)
     if ((TMRx == TMR1) || (TMRx == TMR8))
 #elif defined AT32F403xx
     if ((TMRx == TMR1) || (TMRx == TMR8) || (TMRx == TMR15))
+#elif defined AT32F421xx
+    if ((TMRx == TMR1) || (TMRx == TMR3))
 #endif
   {
     assert_param(IS_TMR_OUTPUTN_STATE(TMR_OCInitStruct->TMR_OutputNState));
@@ -611,6 +675,8 @@ void TMR_OC4Init(TMR_Type* TMRx, TMR_OCInitType* TMR_OCInitStruct)
     if ((TMRx == TMR1) || (TMRx == TMR8))
 #elif defined AT32F403xx
     if ((TMRx == TMR1) || (TMRx == TMR8) || (TMRx == TMR15))
+#elif defined AT32F421xx
+    if ((TMRx == TMR1) || (TMRx == TMR3))
 #endif
   {
     assert_param(IS_TMR_OCIDLE_STATE(TMR_OCInitStruct->TMR_OCIdleState));
@@ -648,23 +714,7 @@ void TMR_ICInit(TMR_Type* TMRx, TMR_ICInitType* TMR_ICInitStruct)
   assert_param(IS_TMR_IC_SELECTION(TMR_ICInitStruct->TMR_ICSelection));
   assert_param(IS_TMR_IC_DIV(TMR_ICInitStruct->TMR_ICDIV));
   assert_param(IS_TMR_IC_FILTER(TMR_ICInitStruct->TMR_ICFilter));
-
-    if((TMRx == TMR1) || (TMRx == TMR2) ||
-#if !defined (AT32F415xx)
-     (TMRx == TMR8) ||
-#endif
-#if defined (AT32F403xx)
-     (TMRx == TMR15) || 
-#endif
-
-     (TMRx == TMR3) || (TMRx == TMR4) || (TMRx == TMR5))
-  {
-    assert_param(IS_TMR_IC_POLARITY(TMR_ICInitStruct->TMR_ICPolarity));
-  }
-  else
-  {
-    assert_param(IS_TMR_IC_POLARITY_LITE(TMR_ICInitStruct->TMR_ICPolarity));
-  }
+  assert_param(IS_TMR_IC_POLARITY(TMR_ICInitStruct->TMR_ICPolarity));
 
   if (TMR_ICInitStruct->TMR_Channel == TMR_Channel_1)
   {
@@ -2605,6 +2655,21 @@ uint16_t TMR_GetDIV(TMR_Type* TMRx)
   return TMRx->DIV;
 }
 
+#if defined (AT32F421xx) 
+/**
+  * @brief  Set the TMR14 remap for channel1.
+  * @param  TMR14_TI1RMP: the vaule for TMR14 remap.
+  * @retval None
+  */
+void TMR_14_TI1RMP(uint16_t TMR14_TI1RMP)
+{
+  /* Check the parameters */
+  assert_param(IS_TMR14_REMAP_SOURCE(TMR14_TI1RMP));
+  
+  TMR14->RMP = TMR14_TI1RMP;
+}
+#endif
+
 /**
   * @brief  Checks whether the specified TMR flag is set or not.
   * @param  TMRx: where x can be 1 to 15 to select the TMR peripheral.
@@ -2791,15 +2856,21 @@ static void TI1_Config(TMR_Type* TMRx, uint16_t TMR_ICPolarity, uint16_t TMR_ICS
   tmpccmr1 &= (uint16_t)(((uint16_t)~((uint16_t)TMR_CCM1_C1SEL)) & ((uint16_t)~((uint16_t)TMR_CCM1_IC1F)));
   tmpccmr1 |= (uint16_t)(TMR_ICSelection | (uint16_t)(TMR_ICFilter << (uint16_t)4));
 
+  if((TMRx == TMR1) || 
+#if !defined (AT32F421xx)
+     (TMRx == TMR2) || (TMRx == TMR4) || (TMRx == TMR5) ||
+#endif
 
-  if((TMRx == TMR1) || (TMRx == TMR2) ||
-#if !defined (AT32F415xx)
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
      (TMRx == TMR8) ||
 #endif
 #if defined (AT32F403xx)
      (TMRx == TMR15) ||
 #endif
-      (TMRx == TMR3) || (TMRx == TMR4) || (TMRx == TMR5))
+#if defined (AT32F421xx)
+     (TMRx == TMR14) || (TMRx == TMR15) || (TMRx == TMR16) || (TMRx == TMR17) ||
+#endif  
+      (TMRx == TMR3))
   {
     /* Select the Polarity and set the CC1E Bit */
     tmpccer &= (uint16_t)~((uint16_t)(TMR_CCE_C1P));
@@ -2847,14 +2918,21 @@ static void TI2_Config(TMR_Type* TMRx, uint16_t TMR_ICPolarity, uint16_t TMR_ICS
   tmpccmr1 |= (uint16_t)(TMR_ICFilter << 12);
   tmpccmr1 |= (uint16_t)(TMR_ICSelection << 8);
 
-  if((TMRx == TMR1) || (TMRx == TMR2) ||
-#if !defined (AT32F415xx)
+  if((TMRx == TMR1) || 
+#if !defined (AT32F421xx)
+     (TMRx == TMR2) || (TMRx == TMR4) || (TMRx == TMR5) ||
+#endif
+
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
      (TMRx == TMR8) ||
 #endif
 #if defined (AT32F403xx)
      (TMRx == TMR15) ||
 #endif
-      (TMRx == TMR3) || (TMRx == TMR4) || (TMRx == TMR5))
+#if defined (AT32F421xx)
+     (TMRx == TMR15) ||
+#endif 
+      (TMRx == TMR3))
   {
     /* Select the Polarity and set the CC2E Bit */
     tmpccer &= (uint16_t)~((uint16_t)(TMR_CCE_C2P));
@@ -2901,14 +2979,18 @@ static void TI3_Config(TMR_Type* TMRx, uint16_t TMR_ICPolarity, uint16_t TMR_ICS
   tmpccmr2 &= (uint16_t)(((uint16_t)~((uint16_t)TMR_CCM2_C3SEL)) & ((uint16_t)~((uint16_t)TMR_CCM2_IC3DF)));
   tmpccmr2 |= (uint16_t)(TMR_ICSelection | (uint16_t)(TMR_ICFilter << (uint16_t)4));
 
-  if((TMRx == TMR1) || (TMRx == TMR2) ||
-#if !defined (AT32F415xx)
+  if((TMRx == TMR1) || 
+#if !defined (AT32F421xx)
+     (TMRx == TMR2) || (TMRx == TMR4) || (TMRx == TMR5) ||
+#endif
+
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
      (TMRx == TMR8) ||
 #endif
 #if defined (AT32F403xx)
      (TMRx == TMR15) ||
 #endif
-      (TMRx == TMR3) || (TMRx == TMR4) || (TMRx == TMR5))
+      (TMRx == TMR3))
   {
     /* Select the Polarity and set the CC3E Bit */
     tmpccer &= (uint16_t)~((uint16_t)(TMR_CCE_C3P));
@@ -2957,14 +3039,18 @@ static void TI4_Config(TMR_Type* TMRx, uint16_t TMR_ICPolarity, uint16_t TMR_ICS
   tmpccmr2 |= (uint16_t)(TMR_ICSelection << 8);
   tmpccmr2 |= (uint16_t)(TMR_ICFilter << 12);
 
-  if((TMRx == TMR1) || (TMRx == TMR2) ||
-#if !defined (AT32F415xx)
+  if((TMRx == TMR1) || 
+#if !defined (AT32F421xx)
+     (TMRx == TMR2) || (TMRx == TMR4) || (TMRx == TMR5) ||
+#endif
+
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
      (TMRx == TMR8) ||
 #endif
 #if defined (AT32F403xx)
      (TMRx == TMR15) ||
 #endif
-      (TMRx == TMR3) || (TMRx == TMR4) || (TMRx == TMR5))
+      (TMRx == TMR3))
   {
     /* Select the Polarity and set the CC4E Bit */
     tmpccer &= (uint16_t)~((uint16_t)(TMR_CCE_C4P));

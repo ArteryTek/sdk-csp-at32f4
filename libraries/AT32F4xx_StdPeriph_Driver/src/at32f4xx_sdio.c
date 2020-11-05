@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_sdio.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx SDIO source file
   **************************************************************************
   */
@@ -20,6 +20,9 @@
   * @brief SDIO driver modules
   * @{
   */
+
+#if defined (AT32F403xx) || defined (AT32F413xx) || defined (AT32F415xx) || \
+    defined (AT32F403Axx)|| defined (AT32F407xx)
 
 /** @defgroup SDIO_Private_TypesDefinitions
   * @{
@@ -901,6 +904,9 @@ void SDIO_ClearINTPendingBit(SDIO_Type * SDIOx, uint32_t SDIO_INT)
 /**
   * @}
   */
+
+#endif /* AT32F403xx || AT32F413xx || AT32F415xx || \
+          AT32F403Axx|| AT32F407xx */
 
 /**
   * @}

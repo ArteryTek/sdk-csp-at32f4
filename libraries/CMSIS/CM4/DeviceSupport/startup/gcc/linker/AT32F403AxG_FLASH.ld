@@ -11,7 +11,6 @@
 **
 **                Set memory bank area and size if external memory is used.
 **
-**  Target      : Artery Tek AT32
 **
 **  Environment : Arm gcc toolchain
 **

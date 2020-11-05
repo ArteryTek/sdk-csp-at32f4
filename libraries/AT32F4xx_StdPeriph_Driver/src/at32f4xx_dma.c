@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_dma.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx DMA source file
   **************************************************************************
   */
@@ -139,6 +139,7 @@ void DMA_Reset(DMA_Channel_Type* DMAy_Channelx)
     /* Reset interrupt pending bits for DMA1 Channel5 */
     DMA1->ICLR |= DMA1_CHANNEL5_INT_MASK;
   }
+#if !defined (AT32F421xx)
   else if (DMAy_Channelx == DMA1_Channel6)
   {
     /* Reset interrupt pending bits for DMA1 Channel6 */
@@ -174,6 +175,7 @@ void DMA_Reset(DMA_Channel_Type* DMAy_Channelx)
     /* Reset interrupt pending bits for DMA2 Channel5 */
     DMA2->ICLR |= DMA2_CHANNEL5_INT_MASK;
   }
+#endif
 }
 
 /**
@@ -269,7 +271,7 @@ void DMA_Flexible_Config(DMA_Type* DMAx,uint8_t Flex_Channelx,uint8_t Hardware_I
 	}
 	else if(Flex_Channelx == Flex_Channel4)/* channel5 */
 	{
-		DMAx->DMA_SRC_SEL0 &= (uint32_t)(~((~0x00)<<24));
+		DMAx->DMA_SRC_SEL0 &= (uint32_t)(~((~(uint32_t)(0x00))<<24));
 		DMAx->DMA_SRC_SEL0 |= (uint32_t)((Hardware_ID<<24));			
 	}	
 	else if(Flex_Channelx == Flex_Channel5)/* channel5 */
@@ -479,12 +481,14 @@ FlagStatus DMA_GetFlagStatus(uint32_t DMAy_FLAG)
   assert_param(IS_DMA_GET_FLAG(DMAy_FLAG));
 
   /* Calculate the used DMAy */
+#if !defined (AT32F421xx)
   if ((DMAy_FLAG & FLAG_Mask) != (uint32_t)RESET)
   {
     /* Get DMA2 ISR register value */
     tmpreg = DMA2->ISTS ;
   }
   else
+#endif
   {
     /* Get DMA1 ISR register value */
     tmpreg = DMA1->ISTS ;
@@ -566,12 +570,14 @@ void DMA_ClearFlag(uint32_t DMAy_FLAG)
   assert_param(IS_DMA_CLEAR_FLAG(DMAy_FLAG));
 
   /* Calculate the used DMAy */
+#if !defined (AT32F421xx)
   if ((DMAy_FLAG & FLAG_Mask) != (uint32_t)RESET)
   {
     /* Clear the selected DMAy flags */
     DMA2->ICLR = DMAy_FLAG;
   }
   else
+#endif
   {
     /* Clear the selected DMAy flags */
     DMA1->ICLR = DMAy_FLAG;
@@ -641,12 +647,14 @@ ITStatus DMA_GetITStatus(uint32_t DMAy_INT)
   assert_param(IS_DMA_GET_INT(DMAy_INT));
 
   /* Calculate the used DMA */
+#if !defined (AT32F421xx)
   if ((DMAy_INT & FLAG_Mask) != (uint32_t)RESET)
   {
     /* Get DMA2 ISR register value */
     tmpreg = DMA2->ISTS;
   }
   else
+#endif
   {
     /* Get DMA1 ISR register value */
     tmpreg = DMA1->ISTS;
@@ -728,12 +736,14 @@ void DMA_ClearITPendingBit(uint32_t DMAy_INT)
   assert_param(IS_DMA_CLEAR_INT(DMAy_INT));
 
   /* Calculate the used DMAy */
+#if !defined (AT32F421xx)
   if ((DMAy_INT & FLAG_Mask) != (uint32_t)RESET)
   {
     /* Clear the selected DMAy interrupt pending bits */
     DMA2->ICLR = DMAy_INT;
   }
   else
+#endif
   {
     /* Clear the selected DMAy interrupt pending bits */
     DMA1->ICLR = DMAy_INT;

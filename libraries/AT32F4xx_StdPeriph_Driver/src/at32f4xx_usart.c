@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_usart.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx USART source file
   **************************************************************************
   */
@@ -77,6 +77,9 @@
 #define CTRL3_ONEBITE_Set           ((u16)0x0800)  /* USART ONEBITE mode Enable Mask */
 #define CTRL3_ONEBITE_Reset         ((u16)0xF7FF)  /* USART ONEBITE mode Disable Mask */
 
+/* USART Swap Mask */
+#define CTRL2_SWAP_Set             ((u16)0x8000)  /* USART OVER8 mode Enable Mask */
+#define CTRL2_SWAP_Reset           ((u16)0x7FFF)  /* USART OVER8 mode Disable Mask */
 /**
   * @}
   */
@@ -131,6 +134,7 @@ void USART_Reset(USART_Type* USARTx)
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_USART2, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_USART2, DISABLE);
   }
+#if !defined (AT32F421xx)
   else if (USARTx == USART3)
   {
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_USART3, ENABLE);
@@ -146,6 +150,7 @@ void USART_Reset(USART_Type* USARTx)
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_UART5, ENABLE);
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_UART5, DISABLE);
   }
+#endif
 #if defined (AT32F403Axx)|| defined (AT32F407xx)  
   else if (USARTx == USART6)
   {
@@ -1058,6 +1063,35 @@ void USART_ClearITPendingBit(USART_Type* USARTx, uint16_t USART_INT)
   itmask = ((uint16_t)0x01 << (uint16_t)bitpos);
   USARTx->STS = (uint16_t)~itmask;
 }
+
+/**
+  * @brief  Enables or disables the USART's swap function.
+  * @param  USARTx: Select the USART or the UART peripheral.
+  *   This parameter can be one of the following values:
+  *   USART1 or USART2.
+  * @param  NewState: new state of the swap function.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+#if defined (AT32F421xx)
+void USART_SWAP(USART_Type* USARTx, FunctionalState NewState)
+{
+  /* Check the parameters */
+  assert_param(IS_USART_ALL_PERIPH(USARTx));
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+
+  if (NewState != DISABLE)
+  {
+    /* Enable the SWAP bit in the USART CR2 register */
+    USARTx->CTRL2 |= CTRL2_SWAP_Set;
+  }
+  else
+  {
+    /* Disable the SWAP bit in the USART CR2 register */
+    USARTx->CTRL2 &= CTRL2_SWAP_Reset;
+  }
+}
+#endif
 /**
   * @}
   */
