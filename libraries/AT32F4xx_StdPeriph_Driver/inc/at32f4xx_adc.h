@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_adc.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ADC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_ADC_H
-#define __AT32F4xx_ADC_H
+#ifndef __AT32F4XX_ADC_H
+#define __AT32F4XX_ADC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,7 +77,7 @@ typedef struct
 #elif defined (AT32F413xx)
 #define IS_ADC_ALL_PERIPH(PERIPH)           (((PERIPH) == ADC1) || \
                                              ((PERIPH) == ADC2))
-#elif defined (AT32F415xx)
+#elif defined (AT32F415xx) || defined (AT32F421xx)
 #define IS_ADC_ALL_PERIPH(PERIPH)           (((PERIPH) == ADC1))
 #endif
 
@@ -86,7 +86,7 @@ typedef struct
     defined (AT32F407xx)
 #define IS_ADC_DMA_PERIPH(PERIPH)           (((PERIPH) == ADC1) || \
                                              ((PERIPH) == ADC3))
-#elif defined (AT32F413xx) || defined (AT32F415xx)
+#elif defined (AT32F413xx) || defined (AT32F415xx) || defined (AT32F421xx)
 #define IS_ADC_DMA_PERIPH(PERIPH)           (((PERIPH) == ADC1))
 #endif
 
@@ -96,6 +96,7 @@ typedef struct
   */
 
 #define ADC_Mode_Independent                ((uint32_t)0x00000000)
+#if (!defined (AT32F421xx)) && (!defined (AT32F415xx))
 #define ADC_Mode_RegInjecSimult             ((uint32_t)0x00010000)
 #define ADC_Mode_RegSimult_AlterTrig        ((uint32_t)0x00020000)
 #define ADC_Mode_InjecSimult_FastInterl     ((uint32_t)0x00030000)
@@ -105,7 +106,10 @@ typedef struct
 #define ADC_Mode_FastInterl                 ((uint32_t)0x00070000)
 #define ADC_Mode_SlowInterl                 ((uint32_t)0x00080000)
 #define ADC_Mode_AlterTrig                  ((uint32_t)0x00090000)
-
+#endif
+#if defined (AT32F421xx) || defined (AT32F415xx)
+#define IS_ADC_MODE(MODE)                   (((MODE) == ADC_Mode_Independent))
+#else
 #define IS_ADC_MODE(MODE)                   (((MODE) == ADC_Mode_Independent) || \
                                              ((MODE) == ADC_Mode_RegInjecSimult) || \
                                              ((MODE) == ADC_Mode_RegSimult_AlterTrig) || \
@@ -116,6 +120,8 @@ typedef struct
                                              ((MODE) == ADC_Mode_FastInterl) || \
                                              ((MODE) == ADC_Mode_SlowInterl) || \
                                              ((MODE) == ADC_Mode_AlterTrig))
+#endif
+
 /**
   * @}
   */
@@ -126,15 +132,22 @@ typedef struct
 
 #define ADC_ExternalTrig_TMR1_CC1_ADC12             ((uint32_t)0x00000000) /*!< For ADC1 and ADC2 */
 #define ADC_ExternalTrig_TMR1_CC2_ADC12             ((uint32_t)0x00020000) /*!< For ADC1 and ADC2 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrig_TMR2_CC2_ADC12             ((uint32_t)0x00060000) /*!< For ADC1 and ADC2 */
+#endif
 #define ADC_ExternalTrig_TMR3_TRGO_ADC12            ((uint32_t)0x00080000) /*!< For ADC1 and ADC2 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrig_TMR4_CC4_ADC12             ((uint32_t)0x000A0000) /*!< For ADC1 and ADC2 */
+#endif
 #define ADC_ExternalTrig_Ext_INT11_TMR8_TRGO_ADC12  ((uint32_t)0x000C0000) /*!< For ADC1 and ADC2 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrig_TMR8_CC1_ADC12             ((uint32_t)0x020C0000) /*!< For ADC1 and ADC2 */
 #define ADC_ExternalTrig_TMR8_CC2_ADC12             ((uint32_t)0x020E0000) /*!< For ADC1 and ADC2 */
-                                                    
+#endif
+
 #define ADC_ExternalTrig_TMR1_CC3                   ((uint32_t)0x00040000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrig_None                       ((uint32_t)0x000E0000) /*!< For ADC1, ADC2 and ADC3 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrig_TMR15_CC1                  ((uint32_t)0x02000000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrig_TMR15_CC2                  ((uint32_t)0x02020000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrig_TMR15_CC3                  ((uint32_t)0x02040000) /*!< For ADC1, ADC2 and ADC3 */
@@ -150,7 +163,11 @@ typedef struct
 #define ADC_ExternalTrig_TMR5_CC3_ADC3              ((uint32_t)0x000C0000) /*!< For ADC3 only */
 #define ADC_ExternalTrig_TMR1_CC1_ADC3              ((uint32_t)0x020C0000) /*!< For ADC3 only */
 #define ADC_ExternalTrig_TMR8_CC3_ADC3              ((uint32_t)0x020E0000) /*!< For ADC3 only */
+#else
+#define ADC_ExternalTrig_TMR15_CC1                  ((uint32_t)0x000A0000) /*!< For ADC1, ADC2 and ADC3 */
+#endif
 
+#if !defined (AT32F421xx)
 #define IS_ADC_EXT_TRIG(REGTRIG)                    (((REGTRIG) == ADC_ExternalTrig_TMR1_CC1_ADC12) || \
                                                      ((REGTRIG) == ADC_ExternalTrig_TMR1_CC2_ADC12) || \
                                                      ((REGTRIG) == ADC_ExternalTrig_TMR2_CC2_ADC12) || \
@@ -175,6 +192,16 @@ typedef struct
                                                      ((REGTRIG) == ADC_ExternalTrig_TMR5_CC3_ADC3) || \
                                                      ((REGTRIG) == ADC_ExternalTrig_TMR1_CC1_ADC3) || \
                                                      ((REGTRIG) == ADC_ExternalTrig_TMR8_CC3_ADC3))
+#else
+#define IS_ADC_EXT_TRIG(REGTRIG)                    (((REGTRIG) == ADC_ExternalTrig_TMR1_CC1_ADC12) || \
+                                                     ((REGTRIG) == ADC_ExternalTrig_TMR1_CC2_ADC12) || \
+                                                     ((REGTRIG) == ADC_ExternalTrig_TMR3_TRGO_ADC12) || \
+                                                     ((REGTRIG) == ADC_ExternalTrig_Ext_INT11_TMR8_TRGO_ADC12) || \
+                                                     ((REGTRIG) == ADC_ExternalTrig_TMR1_CC3) || \
+                                                     ((REGTRIG) == ADC_ExternalTrig_None) || \
+                                                     ((REGTRIG) == ADC_ExternalTrig_TMR15_CC1))
+#endif
+
 /**
   * @}
   */
@@ -257,22 +284,29 @@ typedef struct
 /** @defgroup ADC_external_trigger_sources_for_injected_channels_conversion
   * @{
   */
-
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrigInjec_TMR2_TRGO_ADC12             ((uint32_t)0x00002000) /*!< For ADC1 and ADC2 */
 #define ADC_ExternalTrigInjec_TMR2_CC1_ADC12              ((uint32_t)0x00003000) /*!< For ADC1 and ADC2 */
+#endif
 #define ADC_ExternalTrigInjec_TMR3_CC4_ADC12              ((uint32_t)0x00004000) /*!< For ADC1 and ADC2 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrigInjec_TMR4_TRGO_ADC12             ((uint32_t)0x00005000) /*!< For ADC1 and ADC2 */
+#endif
 #define ADC_ExternalTrigInjec_Ext_INT15_TMR8_CC4_ADC12    ((uint32_t)0x00006000) /*!< For ADC1 and ADC2 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrigInjec_TMR8_CC1_ADC12              ((uint32_t)0x01006000) /*!< For ADC1 and ADC2 */
-                                                    
+ #endif                                                   
 #define ADC_ExternalTrigInjec_TMR1_TRGO                   ((uint32_t)0x00000000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrigInjec_TMR1_CC4                    ((uint32_t)0x00001000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrigInjec_None                        ((uint32_t)0x00007000) /*!< For ADC1, ADC2 and ADC3 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrigInjec_TMR15_CC1                   ((uint32_t)0x01000000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrigInjec_TMR15_CC2                   ((uint32_t)0x01001000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrigInjec_TMR15_CC3                   ((uint32_t)0x01002000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrigInjec_TMR15_CC4                   ((uint32_t)0x01003000) /*!< For ADC1, ADC2 and ADC3 */
+#endif
 #define ADC_ExternalTrigInjec_TMR15_TRGO                  ((uint32_t)0x01004000) /*!< For ADC1, ADC2 and ADC3 */
+#if !defined (AT32F421xx)
 #define ADC_ExternalTrigInjec_TMR1_CC1                    ((uint32_t)0x01005000) /*!< For ADC1, ADC2 and ADC3 */
 #define ADC_ExternalTrigInjec_TMR8_TRGO                   ((uint32_t)0x01007000) /*!< For ADC1, ADC2 and ADC3 */
                                                     
@@ -282,7 +316,8 @@ typedef struct
 #define ADC_ExternalTrigInjec_TMR5_TRGO_ADC3              ((uint32_t)0x00005000) /*!< For ADC3 only */
 #define ADC_ExternalTrigInjec_TMR5_CC4_ADC3               ((uint32_t)0x00006000) /*!< For ADC3 only */
 #define ADC_ExternalTrigInjec_TMR1_CC2_ADC3               ((uint32_t)0x01006000) /*!< For ADC3 only */
-
+#endif
+#if !defined (AT32F421xx)
 #define IS_ADC_EXT_INJEC_TRIG(INJTRIG)              (((INJTRIG) == ADC_ExternalTrigInjec_TMR2_TRGO_ADC12) || \
                                                      ((INJTRIG) == ADC_ExternalTrigInjec_TMR2_CC1_ADC12) || \
                                                      ((INJTRIG) == ADC_ExternalTrigInjec_TMR3_CC4_ADC12) || \
@@ -305,6 +340,15 @@ typedef struct
                                                      ((INJTRIG) == ADC_ExternalTrigInjec_TMR5_TRGO_ADC3) || \
                                                      ((INJTRIG) == ADC_ExternalTrigInjec_TMR5_CC4_ADC3) || \
                                                      ((INJTRIG) == ADC_ExternalTrigInjec_TMR1_CC2_ADC3))
+#else
+#define IS_ADC_EXT_INJEC_TRIG(INJTRIG)              (((INJTRIG) == ADC_ExternalTrigInjec_TMR3_CC4_ADC12) || \
+                                                     ((INJTRIG) == ADC_ExternalTrigInjec_Ext_INT15_TMR8_CC4_ADC12) || \
+                                                     ((INJTRIG) == ADC_ExternalTrigInjec_TMR1_TRGO) || \
+                                                     ((INJTRIG) == ADC_ExternalTrigInjec_TMR1_CC4) || \
+                                                     ((INJTRIG) == ADC_ExternalTrigInjec_None) || \
+                                                     ((INJTRIG) == ADC_ExternalTrigInjec_TMR15_TRGO))
+#endif
+
                                         
 /**
   * @}
@@ -509,7 +553,7 @@ void ADC_ClearINTPendingBit(ADC_Type* ADCx, uint16_t ADC_INT);
 }
 #endif
 
-#endif /*__AT32F4xx_ADC_H */
+#endif /*__AT32F4XX_ADC_H */
 
 /**
   * @}

@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_ertc.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ERTC source file
   **************************************************************************
   */
@@ -20,7 +20,7 @@
   * @{
   */
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -292,7 +292,7 @@ void ERTC_ExitInitMode(void)
 }
 
 /**
-  * @brief  Waits until the ERTC Time and Date registers (RTC_TR and RTC_DR) are 
+  * @brief  Waits until the ERTC Time and Date registers (RTC_TIME and RTC_DATE) are 
   *         synchronized with ERTC APB clock.
   * @note   The ERTC Resynchronization mode is write protected, use the 
   *         ERTC_WriteProtectionCmd(DISABLE) before calling this function. 
@@ -301,7 +301,7 @@ void ERTC_ExitInitMode(void)
   *         the software must first clear the RSF flag. 
   *         The software must then wait until it is set again before reading 
   *         the calendar, which means that the calendar registers have been 
-  *         correctly copied into the RTC_TR and RTC_DR shadow registers.   
+  *         correctly copied into the RTC_TIME and RTC_DATE shadow registers.   
   * @param  None
   * @retval An ErrorStatus enumeration value:
   *          - SUCCESS: ERTC registers are synchronised
@@ -520,7 +520,7 @@ ErrorStatus ERTC_SetTimeValue(uint32_t ERTC_Format, ERTC_TimeType* ERTC_TimeStru
   } 
   else
   {
-    /* Set the RTC_TR register */
+    /* Set the RTC_TIME register */
     ERTC->TIME = (uint32_t)(tmpreg & ERTC_TIME_RESERVED_MASK);
 
     /* Exit Initialization mode */
@@ -577,12 +577,15 @@ void ERTC_TimeStructInit(ERTC_TimeType* ERTC_TimeStruct)
   */
 void ERTC_GetTimeValue(uint32_t ERTC_Format, ERTC_TimeType* ERTC_TimeStruct)
 {
-  uint32_t tmpreg = 0;
+  __IO uint32_t tmpreg = 0;
 
   /* Check the parameters */
   assert_param(IS_ERTC_FORMAT(ERTC_Format));
 
-  /* Get the RTC_TR register */
+  /* Update the RTC_TIME register */  
+  tmpreg = ERTC->CTRL;
+
+  /* Get the RTC_TIME register */
   tmpreg = (uint32_t)(ERTC->TIME & ERTC_TIME_RESERVED_MASK); 
   
   /* Fill the structure fields with the read parameters */
@@ -688,7 +691,7 @@ ErrorStatus ERTC_SetDateValue(uint32_t ERTC_Format, ERTC_DateType* ERTC_DateStru
   } 
   else
   {
-    /* Set the RTC_DR register */
+    /* Set the RTC_DATE register */
     ERTC->DATE = (uint32_t)(tmpreg & ERTC_DATE_RESERVED_MASK);
 
     /* Exit Initialization mode */
@@ -745,12 +748,15 @@ void ERTC_DateStructInit(ERTC_DateType* ERTC_DateStruct)
   */
 void ERTC_GetDateValue(uint32_t ERTC_Format, ERTC_DateType* ERTC_DateStruct)
 {
-  uint32_t tmpreg = 0;
+  __IO uint32_t tmpreg = 0;
 
   /* Check the parameters */
   assert_param(IS_ERTC_FORMAT(ERTC_Format));
   
-  /* Get the RTC_TR register */
+  /* Update the RTC_DATE register */  
+  tmpreg = ERTC->CTRL;
+  
+  /* Get the RTC_DATE register */
   tmpreg = (uint32_t)(ERTC->DATE & ERTC_DATE_RESERVED_MASK); 
 
   /* Fill the structure fields with the read parameters */
@@ -2445,7 +2451,7 @@ static uint8_t ERTC_Bcd2ToByte(uint8_t Value)
   * @}
   */ 
 
-#endif /* AT32F415xx */
+#endif /* AT32F415xx || AT32F421xx */
 
 /**
   * @}

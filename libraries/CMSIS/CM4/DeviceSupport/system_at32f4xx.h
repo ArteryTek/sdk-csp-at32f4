@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : system_at32f4xx.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : CMSIS Cortex-M4 system header file.
   **************************************************************************
   */
@@ -19,8 +19,8 @@
 /**
   * @brief Define to prevent recursive inclusion
   */
-#ifndef __SYSTEM_AT32F4xx_H
-#define __SYSTEM_AT32F4xx_H
+#ifndef __SYSTEM_AT32F4XX_H
+#define __SYSTEM_AT32F4XX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,7 +76,7 @@ extern void SystemCoreClockUpdate(void);
 }
 #endif
 
-#endif /*__SYSTEM_AT32F4xx_H */
+#endif /*__SYSTEM_AT32F4XX_H */
 
 /**
   * @}

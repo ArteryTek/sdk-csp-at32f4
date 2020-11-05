@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_acc.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ACC header file
   **************************************************************************
   */
 
 
  /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32f4xx_ACC_H
-#define __AT32f4xx_ACC_H
+#ifndef __AT32F4XX_ACC_H
+#define __AT32F4XX_ACC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,7 +77,7 @@ void ACC_ClearFlag(uint16_t ACC_FLAG);
 }
 #endif
 
-#endif /* __AT32F4xx_ACC_H */
+#endif /* __AT32F4XX_ACC_H */
 
 /**
   * @}

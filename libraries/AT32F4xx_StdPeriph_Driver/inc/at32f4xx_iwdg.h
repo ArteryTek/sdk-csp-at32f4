@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_iwdg.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx IWDG header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_IWDG_H
-#define __AT32F4xx_IWDG_H
+#ifndef __AT32F4XX_IWDG_H
+#define __AT32F4XX_IWDG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -112,7 +112,7 @@ FlagStatus IWDG_GetFlagStatus(uint16_t IWDG_FLAG);
 }
 #endif
 
-#endif /* __AT32F4xx_IWDG_H */
+#endif /* __AT32F4XX_IWDG_H */
 /**
   * @}
   */

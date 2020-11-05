@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_dbgmcu.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx MCUDBG source file
   **************************************************************************
   */
@@ -15,12 +15,12 @@
   * @{
   */
 
-/** @defgroup DBGMCU
-  * @brief DBGMCU driver modules
+/** @defgroup MCUDBG
+  * @brief MCUDBG driver modules
   * @{
   */
 
-/** @defgroup DBGMCU_Private_TypesDefinitions
+/** @defgroup MCUDBG_Private_TypesDefinitions
   * @{
   */
 
@@ -28,7 +28,7 @@
   * @}
   */
 
-/** @defgroup DBGMCU_Private_Defines
+/** @defgroup MCUDBG_Private_Defines
   * @{
   */
 
@@ -37,7 +37,7 @@
   * @}
   */
 
-/** @defgroup DBGMCU_Private_Macros
+/** @defgroup MCUDBG_Private_Macros
   * @{
   */
 
@@ -45,7 +45,7 @@
   * @}
   */
 
-/** @defgroup DBGMCU_Private_Variables
+/** @defgroup MCUDBG_Private_Variables
   * @{
   */
 
@@ -53,7 +53,7 @@
   * @}
   */
 
-/** @defgroup DBGMCU_Private_FunctionPrototypes
+/** @defgroup MCUDBG_Private_FunctionPrototypes
   * @{
   */
 
@@ -61,7 +61,7 @@
   * @}
   */
 
-/** @defgroup DBGMCU_Private_Functions
+/** @defgroup MCUDBG_Private_Functions
   * @{
   */
 
@@ -72,7 +72,7 @@
   */
 uint32_t MCUDBG_GetRevID(void)
 {
-  return(DBGMCU->IDCR >> 16);
+  return(MCUDBG->IDCR >> 16);
 }
 
 /**
@@ -82,13 +82,13 @@ uint32_t MCUDBG_GetRevID(void)
   */
 uint32_t MCUDBG_GetDevID(void)
 {
-  return(DBGMCU->IDCR & IDCODE_DEVID_MASK);
+  return(MCUDBG->IDCR & IDCODE_DEVID_MASK);
 }
 
 /**
   * @brief  Configures the specified peripheral and low power mode behavior
   *   when the MCU under Debug mode.
-  * @param  DBGMCU_Periph: specifies the peripheral and low power mode.
+  * @param  MCUDBG_Periph: specifies the peripheral and low power mode.
   *   This parameter can be any combination of the following values:
   *     @arg MCUDBG_SLEEP: Keep debugger connection during SLEEP mode
   *     @arg MCUDBG_STOP: Keep debugger connection during STOP mode
@@ -118,19 +118,19 @@ uint32_t MCUDBG_GetDevID(void)
   *   This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
-void MCUDBG_PeriphDebugModeConfig(uint32_t DBGMCU_Periph, FunctionalState NewState)
+void MCUDBG_PeriphDebugModeConfig(uint32_t MCUDBG_Periph, FunctionalState NewState)
 {
   /* Check the parameters */
-  assert_param(IS_MCUDBG_PERIPH(DBGMCU_Periph));
+  assert_param(IS_MCUDBG_PERIPH(MCUDBG_Periph));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
 
   if (NewState != DISABLE)
   {
-    DBGMCU->CTRL |= DBGMCU_Periph;
+    MCUDBG->CTRL |= MCUDBG_Periph;
   }
   else
   {
-    DBGMCU->CTRL &= ~DBGMCU_Periph;
+    MCUDBG->CTRL &= ~MCUDBG_Periph;
   }
 }
 

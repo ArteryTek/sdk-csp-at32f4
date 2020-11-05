@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_rtc.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx RTC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_RTC_H
-#define __AT32F4xx_RTC_H
+#ifndef __AT32F4XX_RTC_H
+#define __AT32F4XX_RTC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -107,7 +107,7 @@ void RTC_ClearINTPendingBit(uint16_t RTC_INT);
 }
 #endif
 
-#endif /* __AT32F4xx_RTC_H */
+#endif /* __AT32F4XX_RTC_H */
 /**
   * @}
   */

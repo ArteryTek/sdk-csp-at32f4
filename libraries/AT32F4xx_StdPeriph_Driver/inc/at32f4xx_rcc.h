@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_rcc.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx RCC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_RCC_H
-#define __AT32F4xx_RCC_H
+#ifndef __AT32F4XX_RCC_H
+#define __AT32F4XX_RCC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -291,7 +291,7 @@ typedef struct
   */
 
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 /** @defgroup ERTC_clock_source
   * @{
   */
@@ -321,11 +321,15 @@ typedef struct
   */
 
 #define RCC_AHBPERIPH_DMA1          ((uint32_t)0x00000001)
-#define RCC_AHBPERIPH_DMA2          ((uint32_t)0x00000002)
 #define RCC_AHBPERIPH_SRAM          ((uint32_t)0x00000004)
 #define RCC_AHBPERIPH_FLASH         ((uint32_t)0x00000010)
 #define RCC_AHBPERIPH_CRC           ((uint32_t)0x00000040)
+
+
+#if !defined (AT32F421xx)
+#define RCC_AHBPERIPH_DMA2          ((uint32_t)0x00000002)
 #define RCC_AHBPERIPH_SDIO1         ((uint32_t)0x00000400)
+#endif
 
 #if defined (AT32F403xx) || defined (AT32F403Axx) || \
     defined (AT32F407xx)
@@ -338,10 +342,13 @@ typedef struct
 #define RCC_AHBPERIPH_ETHMACTX      ((uint32_t)0x00008000)
 #define RCC_AHBPERIPH_ETHMACRX      ((uint32_t)0x00010000)
 #define RCC_AHBPERIPH_ETHMACPTP     ((uint32_t)0x10000000)
-#endif
-
-#if defined (AT32F415xx)
+#elif defined (AT32F415xx)
 #define RCC_AHBPERIPH_USB           ((uint32_t)0x00001000)
+#elif defined (AT32F421xx)
+#define RCC_AHBPERIPH_GPIOA         ((uint32_t)0x00020000)
+#define RCC_AHBPERIPH_GPIOB         ((uint32_t)0x00040000)
+#define RCC_AHBPERIPH_GPIOC         ((uint32_t)0x00080000)
+#define RCC_AHBPERIPH_GPIOF         ((uint32_t)0x00400000)
 #endif
 
 #if defined (AT32F403xx)
@@ -352,6 +359,8 @@ typedef struct
 #define IS_RCC_AHB_PERIPH(PERIPH)   ((((PERIPH) & 0xFFFFEBA8) == 0x00) && ((PERIPH) != 0x00))
 #elif defined (AT32F403Axx) || defined (AT32F407xx)
 #define IS_RCC_AHB_PERIPH(PERIPH)   ((((PERIPH) & 0xEFFE32A8) == 0x00) && ((PERIPH) != 0x00))
+#elif defined (AT32F421xx)
+#define IS_RCC_AHB_PERIPH(PERIPH)   ((((PERIPH) & 0xFFB1FFAA) == 0x00) && ((PERIPH) != 0x00))
 #endif
 
 
@@ -362,23 +371,27 @@ typedef struct
 /** @defgroup APB2_peripheral
   * @{
   */
+#define RCC_APB2PERIPH_ADC1         ((uint32_t)0x00000200)
+#define RCC_APB2PERIPH_TMR1         ((uint32_t)0x00000800)
+#define RCC_APB2PERIPH_SPI1         ((uint32_t)0x00001000)
+#define RCC_APB2PERIPH_USART1       ((uint32_t)0x00004000)
 
+#if !defined (AT32F421xx)
+#define RCC_APB2PERIPH_ADC2         ((uint32_t)0x00000400)
+#define RCC_APB2PERIPH_TMR9         ((uint32_t)0x00080000)
+#define RCC_APB2PERIPH_TMR10        ((uint32_t)0x00100000)
+#define RCC_APB2PERIPH_TMR11        ((uint32_t)0x00200000)
 #define RCC_APB2PERIPH_AFIO         ((uint32_t)0x00000001)
 #define RCC_APB2PERIPH_GPIOA        ((uint32_t)0x00000004)
 #define RCC_APB2PERIPH_GPIOB        ((uint32_t)0x00000008)
 #define RCC_APB2PERIPH_GPIOC        ((uint32_t)0x00000010)
 #define RCC_APB2PERIPH_GPIOD        ((uint32_t)0x00000020)
-#if !defined (AT32F403Axx) || !defined (AT32F407xx)
+#endif
+
+#if !defined (AT32F403Axx) && !defined (AT32F407xx) && \
+    !defined (AT32F421xx)
 #define RCC_APB2PERIPH_GPIOF        ((uint32_t)0x00000080)
 #endif
-#define RCC_APB2PERIPH_ADC1         ((uint32_t)0x00000200)
-#define RCC_APB2PERIPH_ADC2         ((uint32_t)0x00000400)
-#define RCC_APB2PERIPH_TMR1         ((uint32_t)0x00000800)
-#define RCC_APB2PERIPH_SPI1         ((uint32_t)0x00001000)
-#define RCC_APB2PERIPH_USART1       ((uint32_t)0x00004000)
-#define RCC_APB2PERIPH_TMR9         ((uint32_t)0x00080000)
-#define RCC_APB2PERIPH_TMR10        ((uint32_t)0x00100000)
-#define RCC_APB2PERIPH_TMR11        ((uint32_t)0x00200000)
 
 #if defined (AT32F403xx)
 #define RCC_APB2PERIPH_GPIOE        ((uint32_t)0x00000040)
@@ -392,17 +405,22 @@ typedef struct
 #define RCC_APB2PERIPH_USART6       ((uint32_t)0x01000000)
 #define RCC_APB2PERIPH_UART7        ((uint32_t)0x02000000)
 #define RCC_APB2PERIPH_UART8        ((uint32_t)0x04000000)
+#elif defined (AT32F421xx)
+#define RCC_APB2PERIPH_SYSCFGCOMP   ((uint32_t)0x00000001)
+#define RCC_APB2PERIPH_TMR15        ((uint32_t)0x00010000)
+#define RCC_APB2PERIPH_TMR16        ((uint32_t)0x00020000)
+#define RCC_APB2PERIPH_TMR17        ((uint32_t)0x00040000)
 #endif
 
-#if !defined (AT32F415xx)
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
 #define RCC_APB2PERIPH_TMR8         ((uint32_t)0x00002000)
 #endif
 
-#if !defined (AT32F403xx)
+#if !defined (AT32F403xx) && !defined (AT32F421xx)
 #define RCC_APB2PERIPH_ACC          ((uint32_t)0x00400000)
 #endif
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 #define RCC_APB2PERIPH_EFCB         ((uint32_t)0x00800000)
 #endif
 
@@ -414,6 +432,8 @@ typedef struct
 #define IS_RCC_APB2_PERIPH(PERIPH)  ((((PERIPH) & 0xFF078142) == 0x00) && ((PERIPH) != 0x00))
 #elif defined (AT32F403Axx) || defined (AT32F407xx)
 #define IS_RCC_APB2_PERIPH(PERIPH)  ((((PERIPH) & 0xF8070182) == 0x00) && ((PERIPH) != 0x00))
+#elif defined (AT32F421xx)
+#define IS_RCC_APB2_PERIPH(PERIPH)  ((((PERIPH) & 0xFFF8A5FE) == 0x00) && ((PERIPH) != 0x00))
 #endif
 
 /**
@@ -424,20 +444,23 @@ typedef struct
   * @{
   */
 
-#define RCC_APB1PERIPH_TMR2         ((uint32_t)0x00000001)
 #define RCC_APB1PERIPH_TMR3         ((uint32_t)0x00000002)
-#define RCC_APB1PERIPH_TMR4         ((uint32_t)0x00000004)
-#define RCC_APB1PERIPH_TMR5         ((uint32_t)0x00000008)
 #define RCC_APB1PERIPH_WWDG         ((uint32_t)0x00000800)
 #define RCC_APB1PERIPH_SPI2         ((uint32_t)0x00004000)
 #define RCC_APB1PERIPH_USART2       ((uint32_t)0x00020000)
+#define RCC_APB1PERIPH_I2C1         ((uint32_t)0x00200000)
+#define RCC_APB1PERIPH_I2C2         ((uint32_t)0x00400000)
+#define RCC_APB1PERIPH_PWR          ((uint32_t)0x10000000)
+
+#if !defined (AT32F421xx)
+#define RCC_APB1PERIPH_TMR2         ((uint32_t)0x00000001)
+#define RCC_APB1PERIPH_TMR4         ((uint32_t)0x00000004)
+#define RCC_APB1PERIPH_TMR5         ((uint32_t)0x00000008)
 #define RCC_APB1PERIPH_USART3       ((uint32_t)0x00040000)
 #define RCC_APB1PERIPH_UART4        ((uint32_t)0x00080000)
 #define RCC_APB1PERIPH_UART5        ((uint32_t)0x00100000)
-#define RCC_APB1PERIPH_I2C1         ((uint32_t)0x00200000)
-#define RCC_APB1PERIPH_I2C2         ((uint32_t)0x00400000)
 #define RCC_APB1PERIPH_CAN1         ((uint32_t)0x02000000)
-#define RCC_APB1PERIPH_PWR          ((uint32_t)0x10000000)
+#endif
 
 #if defined (AT32F403xx) || defined (AT32F403Axx) || \
     defined (AT32F407xx)
@@ -449,6 +472,9 @@ typedef struct
 #define RCC_APB1PERIPH_SPI3         ((uint32_t)0x00008000)
 #define RCC_APB1PERIPH_SPI4         ((uint32_t)0x00010000)
 #define RCC_APB1PERIPH_DAC          ((uint32_t)0x20000000)
+#elif defined (AT32F421xx)
+#define RCC_APB1PERIPH_TMR6         ((uint32_t)0x00000010)
+#define RCC_APB1PERIPH_TMR14        ((uint32_t)0x00000100)
 #endif
 
 #if defined (AT32F403xx)
@@ -461,10 +487,12 @@ typedef struct
 #define RCC_APB1PERIPH_CAN2         ((uint32_t)0x04000000)
 #endif
 
-#if !defined (AT32F415xx)
+#if !defined (AT32F415xx) && !defined (AT32F421xx)
 #define RCC_APB1PERIPH_USB          ((uint32_t)0x00800000)
 #define RCC_APB1PERIPH_BKP          ((uint32_t)0x08000000)
-#else
+#endif
+
+#if defined (AT32F415xx) 
 #define RCC_APB1PERIPH_COMP         ((uint32_t)0x00000200)
 #endif
 
@@ -473,9 +501,11 @@ typedef struct
 #elif defined (AT32F413xx)
 #define IS_RCC_APB1_PERIPH(PERIPH)  ((((PERIPH) & 0x6501B7F0) == 0x00) && ((PERIPH) != 0x00))
 #elif defined (AT32F415xx)
-#define IS_RCC_APB1_PERIPH(PERIPH)  ((((PERIPH) & 0xED81B3F0) == 0x00) && ((PERIPH) != 0x00))
+#define IS_RCC_APB1_PERIPH(PERIPH)  ((((PERIPH) & 0xED81B5F0) == 0x00) && ((PERIPH) != 0x00))
 #elif defined (AT32F403Axx) || defined (AT32F407xx)
 #define IS_RCC_APB1_PERIPH(PERIPH)  ((((PERIPH) & 0xC1003600) == 0x00) && ((PERIPH) != 0x00))
+#elif defined (AT32F421xx)
+#define IS_RCC_APB1_PERIPH(PERIPH)  ((((PERIPH) & 0xEF9DB6ED) == 0x00) && ((PERIPH) != 0x00))
 #endif
 /**
   * @}
@@ -516,6 +546,7 @@ typedef struct
 /** @defgroup HSE_Divider
   * @{
   */
+#define RCC_HSE_DIV_POS             12
 #define RCC_HSE_DIV_MASK            RCC_MISC2_HSE_DIV_CTRL
 #define RCC_HSE_DIV_2               RCC_MISC2_HSE_DIV_CTRL_2
 #define RCC_HSE_DIV_3               RCC_MISC2_HSE_DIV_CTRL_3
@@ -524,6 +555,20 @@ typedef struct
 
 #define IS_RCC_HSEDIV(CLK)          (((CLK) == RCC_HSE_DIV_2) || ((CLK) == RCC_HSE_DIV_3) || \
                                      ((CLK) == RCC_HSE_DIV_4) || ((CLK) == RCC_HSE_DIV_5))
+/**
+  * @}
+  */
+
+/** @defgroup RCC miscellaneous register
+  * @{
+  */
+#if !defined (AT32F403xx)
+#define RCC_HSI_DIV_EN              RCC_MISC_HSI_DIV_EN
+#define RCC_AUTO_STEP_EN            RCC_MISC2_AUTO_STEP_EN
+#define RCC_HSI_FOR_USB             RCC_MISC2_HSI_FOR_USB
+#define RCC_HSI_SYS_CTRL            RCC_MISC2_HSI_SYS_CTRL
+#endif
+
 /**
   * @}
   */
@@ -590,8 +635,8 @@ typedef struct
   * @}
   */
 
-#if defined (AT32F415xx)
-/** @defgroup RCC_PLL_Register_For_F415
+#if defined (AT32F415xx) || defined (AT32F421xx)
+/** @defgroup RCC_PLL_Register
   * @{
   */
 #define PLL_FR_POS                   0
@@ -607,7 +652,7 @@ typedef struct
 #define PLL_MS_MASK                  ((uint32_t)0x000000F0)
 
 #define PLL_NS_POS                   8
-#define PLL_NS_MASK                  ((uint32_t)0x0000FF00)
+#define PLL_NS_MASK                  ((uint32_t)0x0001FF00)
 
 #define PLL_FREF_POS                 24
 #define PLL_FREF_MASK                ((uint32_t)0x07000000)
@@ -626,41 +671,9 @@ typedef struct
                                       ((PLL_FR) == PLL_FR_4)    || ((PLL_FR) == PLL_FR_8)      || \
                                       ((PLL_FR) == PLL_FR_16)   || ((PLL_FR) == PLL_FR_32))
 
-#define IS_RCC_FREF(PLL_FREF)        (((PLL_FREF) == PLL_FREF_4M)  || ((PLL_FREF) == PLL_FREF_6M)    || \
-                                      ((PLL_FREF) == PLL_FREF_8M)  || ((PLL_FREF) == PLL_FREF_12M)   || \
-                                      ((PLL_FREF) == PLL_FREF_16M) || ((PLL_FREF) == PLL_FREF_25M))
-
 #define IS_RCC_MS_VALUE(VALUE)       (((VALUE) >= 0x1) && ((VALUE) <= 0xF))
 #define IS_RCC_NS_VALUE(VALUE)       (((VALUE) >= 0x1F) && ((VALUE) <= 0x1F4))
 #define IS_RCC_RESULT_VALUE(VALUE)   (((VALUE) >= 0x1F4) && ((VALUE) <= 0x3E8))
-
-#define RCC_FREF_VALUE(VALUE, RET)   do                         \
-                                     {                          \
-                                       switch (VALUE)           \
-                                       {                        \
-                                         case PLL_FREF_4M:      \
-                                         RET = 4;               \
-                                         break;                 \
-                                         case PLL_FREF_6M:      \
-                                         RET = 6;               \
-                                         break;                 \
-                                         case PLL_FREF_8M:      \
-                                         RET = 8;               \
-                                         break;                 \
-                                         case PLL_FREF_12M:     \
-                                         RET = 12;              \
-                                         break;                 \
-                                         case PLL_FREF_16M:     \
-                                         RET = 16;              \
-                                         break;                 \
-                                         case PLL_FREF_25M:     \
-                                         RET = 25;              \
-                                         break;                 \
-                                         default:               \
-                                         RET = 0;               \
-                                         break;                 \
-                                       }                        \
-                                     }while(0)
 
 #define RCC_FR_VALUE(VALUE, RET)     do                         \
                                      {                          \
@@ -727,7 +740,7 @@ void RCC_INTConfig(uint8_t RCC_INT, FunctionalState NewState);
 void RCC_ADCCLKConfig(uint32_t RCC_PCLK2_Div);
 void RCC_LSEConfig(uint8_t RCC_LSE);
 void RCC_LSICmd(FunctionalState NewState);
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 void RCC_ERTCCLKConfig(uint32_t RCC_ERTCCLKSelect);
 void RCC_ERTCCLKCmd(FunctionalState NewState);
 #else
@@ -738,7 +751,8 @@ void RCC_GetClocksFreq(RCC_ClockType* RCC_Clocks);
 void RCC_AHBPeriphClockCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState);
 void RCC_APB2PeriphClockCmd(uint32_t RCC_APB2Periph, FunctionalState NewState);
 void RCC_APB1PeriphClockCmd(uint32_t RCC_APB1Periph, FunctionalState NewState);
-#if defined (AT32F403Axx) || defined (AT32F407xx)
+#if defined (AT32F403Axx) || defined (AT32F407xx) || \
+    defined (AT32F421xx)
 void RCC_AHBPeriphResetCmd(uint32_t RCC_AHBPeriph, FunctionalState NewState);
 #endif
 void RCC_APB2PeriphResetCmd(uint32_t RCC_APB2Periph, FunctionalState NewState);
@@ -757,10 +771,12 @@ void RCC_ClearINTPendingBit(uint8_t RCC_INT);
 void RCC_USBCLKConfig(uint32_t RCC_USBCLKSelect);
 void RCC_StepModeCmd(FunctionalState NewState);
 void RCC_USBINTRemap(FunctionalState NewState);
+void RCC_HSI2SYS48M(FunctionalState NewState);
 void RCC_HSI2USB48M(FunctionalState NewState);
 void RCC_MCO2TMR10(FunctionalState NewState);
-#if defined (AT32F415xx)
-void RCC_PLLconfig2(uint32_t PLL_FREF, uint32_t PLL_NS, uint32_t PLL_MS, \
+#if defined (AT32F415xx) || defined (AT32F421xx)
+void RCC_PLLFrefTableConfig(uint32_t hse_value);
+void RCC_PLLconfig2(uint32_t PLL_NS, uint32_t PLL_MS, \
                     uint32_t PLL_FR);
 #endif
 #if defined (AT32F403Axx) || defined (AT32F407xx)
@@ -771,7 +787,7 @@ void RCC_HSEDivConfig(uint32_t HSEDiv);
 }
 #endif
 
-#endif /* __AT32F4xx_RCC_H */
+#endif /* __AT32F4XX_RCC_H */
 /**
   * @}
   */

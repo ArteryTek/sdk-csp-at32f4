@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_adc.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ADC source file
   **************************************************************************
   */
@@ -177,6 +177,7 @@ void ADC_Reset(ADC_Type* ADCx)
     /* Release ADC1 from reset state */
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_ADC1, DISABLE);
   }
+#if !defined (AT32F421xx) && !defined (AT32F415xx)
   else if (ADCx == ADC2)
   {
     /* Enable ADC2 reset state */
@@ -184,7 +185,8 @@ void ADC_Reset(ADC_Type* ADCx)
     /* Release ADC2 from reset state */
     RCC_APB2PeriphResetCmd(RCC_APB2PERIPH_ADC2, DISABLE);
   }
-#ifdef AT32F403xx
+#endif
+#if  defined (AT32F403xx) || defined (AT32F403Axx)
   else if (ADCx == ADC3)
   {
     /* Enable ADC3 reset state */

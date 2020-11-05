@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_sdio.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx SDIO header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_SDIO_H
-#define __AT32F4xx_SDIO_H
+#ifndef __AT32F4XX_SDIO_H
+#define __AT32F4XX_SDIO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -510,7 +510,7 @@ void SDIO_ClearINTPendingBit(SDIO_Type * SDIOx, uint32_t SDIO_INT);
 }
 #endif
 
-#endif /* __AT32F4xx_SDIO_H */
+#endif /* __AT32F4XX_SDIO_H */
 /**
   * @}
   */

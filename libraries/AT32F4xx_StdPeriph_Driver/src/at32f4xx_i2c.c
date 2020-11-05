@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_i2c.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx I2C source file
   **************************************************************************
   */
@@ -174,6 +174,16 @@ void I2C_DeInit(I2C_Type* I2Cx)
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_I2C3, ENABLE);
     /* Release I2C3 from reset state */
     RCC_APB1PeriphResetCmd(RCC_APB1PERIPH_I2C3, DISABLE);
+  }
+#endif
+  
+#if defined (AT32F403Axx) || defined (AT32F407xx)
+  else if (I2Cx == I2C3)
+  {
+    /* Enable I2C3 reset state */
+    RCC_APB1PeriphResetCmd(RCC_APB2PERIPH_I2C3, ENABLE);
+    /* Release I2C3 from reset state */
+    RCC_APB1PeriphResetCmd(RCC_APB2PERIPH_I2C3, DISABLE);
   }
 #endif
 }

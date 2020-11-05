@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_eth.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ETH header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_ETH_H
-#define __AT32F4xx_ETH_H
+#ifndef __AT32F4XX_ETH_H
+#define __AT32F4XX_ETH_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -19,6 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "at32f4xx.h"
 
+#define DM9162
+//#define DP83848
 /** @addtogroup at32f4xx_StdPeriph_Driver
   * @{
   */
@@ -484,8 +486,10 @@ typedef struct  {
 /** 
   * @brief  For dm9162  
   */ 
+#ifdef DM9162
 #define PHY_Speed_Status            ((u16)0x2000)       /*!< Configured information of Speed: 10Mbps */
 #define PHY_Duplex_Status           ((u16)0x0100)       /*!< Configured information of Duplex: Full-duplex */
+#endif
 #define PHY_FullDuplex_Speed_100_Status   ((u16)0x8000)
 #define PHY_HalfDuplex_Speed_100_Status   ((u16)0x4000)
 #define PHY_FullDuplex_Speed_10_Status   ((u16)0x2000)
@@ -495,8 +499,10 @@ typedef struct  {
 /** 
   * @brief  For DP83848  
   */ 
-//#define PHY_Speed_Status            ((u16)0x0002)    /*!< Configured information of Speed: 10Mbps */
-//#define PHY_Duplex_Status           ((u16)0x0100)    /*!< Configured information of Duplex: Full-duplex */
+#ifdef DP83848
+#define PHY_Speed_Status            ((u16)0x0002)    /*!< Configured information of Speed: 10Mbps */
+#define PHY_Duplex_Status           ((u16)0x0004)    /*!< Configured information of Duplex: Full-duplex */
+#endif
 #define IS_ETH_PHY_ADDRESS(ADDRESS) ((ADDRESS) <= 0x20)
 #define IS_ETH_PHY_REG(REG) (((REG) == PHY_BCR) || \
                              ((REG) == PHY_BSR) || \
@@ -1724,7 +1730,7 @@ uint32_t ETH_GetPTPRegister(uint32_t ETH_PTPReg);
 }
 #endif
 
-#endif /* __AT32F4xx_ETH_H */
+#endif /* __AT32F4XX_ETH_H */
 /**
   * @}
   */ 
@@ -1734,4 +1740,3 @@ uint32_t ETH_GetPTPRegister(uint32_t ETH_PTPReg);
   * @}
   */ 
 
-/******************* (C) COPYRIGHT 2009 Artery Technology *****END OF FILE****/

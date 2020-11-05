@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_bkp.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx BKP header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_BKP_H
-#define __AT32F4xx_BKP_H
+#ifndef __AT32F4XX_BKP_H
+#define __AT32F4XX_BKP_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -182,7 +182,7 @@ void BKP_ClearIntPendingBit(void);
 }
 #endif
 
-#endif /* __AT32F4xx_BKP_H */
+#endif /* __AT32F4XX_BKP_H */
 /**
   * @}
   */

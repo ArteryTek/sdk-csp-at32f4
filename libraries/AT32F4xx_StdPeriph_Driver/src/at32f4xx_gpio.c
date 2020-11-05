@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_gpio.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx GPIO source file
   **************************************************************************
   */
@@ -21,6 +21,8 @@
   * @brief GPIO driver modules
   * @{
   */
+#if defined (AT32F403xx) || defined (AT32F413xx) || defined (AT32F415xx) || \
+    defined (AT32F403Axx)|| defined (AT32F407xx)
 
 /** @defgroup GPIO_Private_TypesDefinitions
   * @{
@@ -1197,6 +1199,9 @@ void GPIO_ETH_MediaInterfaceConfig(uint32_t GPIO_ETH_MediaInterface)
 /**
   * @}
   */
+
+#endif /* AT32F403xx || AT32F413xx || AT32F415xx || \
+          AT32F403Axx|| AT32F407xx */
 
 /**
   * @}

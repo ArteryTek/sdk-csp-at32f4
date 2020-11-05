@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_can.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx CAN header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_CAN_H
-#define __AT32F4xx_CAN_H
+#ifndef __AT32F4XX_CAN_H
+#define __AT32F4XX_CAN_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -673,7 +673,7 @@ void CAN_ClearINTPendingBit(CAN_Type* CANx, uint32_t CAN_INT);
 }
 #endif
 
-#endif /* __AT32F4xx_CAN_H */
+#endif /* __AT32F4XX_CAN_H */
 /**
   * @}
   */

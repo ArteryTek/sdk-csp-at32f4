@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_dma.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx DMA header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_DMA_H
-#define __AT32F4xx_DMA_H
+#ifndef __AT32F4XX_DMA_H
+#define __AT32F4XX_DMA_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,7 +79,13 @@ typedef struct
 /** @defgroup DMA_Exported_Constants
   * @{
   */
-
+#if defined (AT32F421xx)
+#define IS_DMA_ALL_PERIPH(PERIPH)           (((PERIPH) == DMA1_Channel1) || \
+                                             ((PERIPH) == DMA1_Channel2) || \
+                                             ((PERIPH) == DMA1_Channel3) || \
+                                             ((PERIPH) == DMA1_Channel4) || \
+                                             ((PERIPH) == DMA1_Channel5))
+#elif defined (AT32F413xx) || defined (AT32F415xx) || defined (AT32F403Axx) || defined (AT32F407xx)
 #define IS_DMA_ALL_PERIPH(PERIPH)           (((PERIPH) == DMA1_Channel1) || \
                                              ((PERIPH) == DMA1_Channel2) || \
                                              ((PERIPH) == DMA1_Channel3) || \
@@ -91,7 +97,23 @@ typedef struct
                                              ((PERIPH) == DMA2_Channel2) || \
                                              ((PERIPH) == DMA2_Channel3) || \
                                              ((PERIPH) == DMA2_Channel4) || \
-                                             ((PERIPH) == DMA2_Channel5))
+                                             ((PERIPH) == DMA2_Channel5) || \
+                                             ((PERIPH) == DMA2_Channel6) || \
+                                             ((PERIPH) == DMA2_Channel7))
+#elif defined (AT32F403xx)
+#define IS_DMA_ALL_PERIPH(PERIPH)           (((PERIPH) == DMA1_Channel1) || \
+                                             ((PERIPH) == DMA1_Channel2) || \
+                                             ((PERIPH) == DMA1_Channel3) || \
+                                             ((PERIPH) == DMA1_Channel4) || \
+                                             ((PERIPH) == DMA1_Channel5) || \
+                                             ((PERIPH) == DMA1_Channel6) || \
+                                             ((PERIPH) == DMA1_Channel7) || \
+                                             ((PERIPH) == DMA2_Channel1) || \
+                                             ((PERIPH) == DMA2_Channel2) || \
+                                             ((PERIPH) == DMA2_Channel3) || \
+                                             ((PERIPH) == DMA2_Channel4) || \
+                                             ((PERIPH) == DMA2_Channel5))                                            
+#endif
 
 
 /** @defgroup DMA_flexible_channel
@@ -198,6 +220,7 @@ typedef struct
 #define DMA_FLEXIBLE_TIM8_CH4       ((uint8_t)0x73)
 
 #define IS_DMA_ALL_HARDWARE_ID(HARDWARE_ID)     (((HARDWARE_ID) == DMA_FLEXIBLE_ADC1)     || ((HARDWARE_ID) == DMA_FLEXIBLE_ADC3)|| \
+												 ((HARDWARE_ID) == DMA_FLEXIBLE_DAC1)     || ((HARDWARE_ID) == DMA_FLEXIBLE_DAC2)|| \
                                                  ((HARDWARE_ID) == DMA_FLEXIBLE_SPI1_RX)  || ((HARDWARE_ID) == DMA_FLEXIBLE_SPI1_TX)|| \
                                                  ((HARDWARE_ID) == DMA_FLEXIBLE_SPI2_RX)  || ((HARDWARE_ID) == DMA_FLEXIBLE_SPI2_TX)  || \
                                                  ((HARDWARE_ID) == DMA_FLEXIBLE_SPI3_RX)  || ((HARDWARE_ID) == DMA_FLEXIBLE_SPI3_TX)  || \
@@ -399,9 +422,17 @@ typedef struct
 #define DMA2_INT_GL5                        ((uint32_t)0x10010000)
 #define DMA2_INT_TC5                        ((uint32_t)0x10020000)
 #define DMA2_INT_HT5                        ((uint32_t)0x10040000)
-#define DMA2_INT_ERR5                        ((uint32_t)0x10080000)
+#define DMA2_INT_ERR5                       ((uint32_t)0x10080000)
+#define DMA2_INT_GL6                        ((uint32_t)0x10100000)
+#define DMA2_INT_TC6                        ((uint32_t)0x10200000)
+#define DMA2_INT_HT6                        ((uint32_t)0x10400000)
+#define DMA2_INT_ERR6                       ((uint32_t)0x10800000)
+#define DMA2_INT_GL7                        ((uint32_t)0x11000000)
+#define DMA2_INT_TC7                        ((uint32_t)0x12000000)
+#define DMA2_INT_HT7                        ((uint32_t)0x14000000)
+#define DMA2_INT_ERR7                       ((uint32_t)0x18000000)
 
-#define IS_DMA_CLEAR_INT(INT)               (((((INT) & 0xF0000000) == 0x00) || (((INT) & 0xEFF00000) == 0x00)) && ((INT) != 0x00))
+#define IS_DMA_CLEAR_INT(INT)               (((((INT) & 0xF0000000) == 0x00) || (((INT) & 0xE0000000) == 0x00)) && ((INT) != 0x00))
 
 #define IS_DMA_GET_INT(INT)                 (((INT) == DMA1_INT_GL1) || ((INT) == DMA1_INT_TC1) || \
                                              ((INT) == DMA1_INT_HT1) || ((INT) == DMA1_INT_ERR1) || \
@@ -426,7 +457,11 @@ typedef struct
                                              ((INT) == DMA2_INT_GL4) || ((INT) == DMA2_INT_TC4) || \
                                              ((INT) == DMA2_INT_HT4) || ((INT) == DMA2_INT_ERR4) || \
                                              ((INT) == DMA2_INT_GL5) || ((INT) == DMA2_INT_TC5) || \
-                                             ((INT) == DMA2_INT_HT5) || ((INT) == DMA2_INT_ERR5))
+                                             ((INT) == DMA2_INT_HT5) || ((INT) == DMA2_INT_ERR5)|| \
+                                             ((INT) == DMA2_INT_GL6) || ((INT) == DMA2_INT_TC6) || \
+                                             ((INT) == DMA2_INT_HT6) || ((INT) == DMA2_INT_ERR6) || \
+                                             ((INT) == DMA2_INT_GL7) || ((INT) == DMA2_INT_TC7) || \
+                                             ((INT) == DMA2_INT_HT7) || ((INT) == DMA2_INT_ERR7))
 
 /**
   * @}
@@ -484,8 +519,16 @@ typedef struct
 #define DMA2_FLAG_TC5                       ((uint32_t)0x10020000)
 #define DMA2_FLAG_HT5                       ((uint32_t)0x10040000)
 #define DMA2_FLAG_ERR5                      ((uint32_t)0x10080000)
+#define DMA2_FLAG_GL6                       ((uint32_t)0x10100000)
+#define DMA2_FLAG_TC6                       ((uint32_t)0x10200000)
+#define DMA2_FLAG_HT6                       ((uint32_t)0x10400000)
+#define DMA2_FLAG_ERR6                      ((uint32_t)0x10800000)
+#define DMA2_FLAG_GL7                       ((uint32_t)0x11000000)
+#define DMA2_FLAG_TC7                       ((uint32_t)0x12000000)
+#define DMA2_FLAG_HT7                       ((uint32_t)0x14000000)
+#define DMA2_FLAG_ERR7                      ((uint32_t)0x18000000)
 
-#define IS_DMA_CLEAR_FLAG(FLAG)             (((((FLAG) & 0xF0000000) == 0x00) || (((FLAG) & 0xEFF00000) == 0x00)) && ((FLAG) != 0x00))
+#define IS_DMA_CLEAR_FLAG(FLAG)             (((((FLAG) & 0xF0000000) == 0x00) || (((FLAG) & 0xE0000000) == 0x00)) && ((FLAG) != 0x00))
 
 #define IS_DMA_GET_FLAG(FLAG)               (((FLAG) == DMA1_FLAG_GL1) || ((FLAG) == DMA1_FLAG_TC1) || \
                                              ((FLAG) == DMA1_FLAG_HT1) || ((FLAG) == DMA1_FLAG_ERR1) || \
@@ -510,7 +553,11 @@ typedef struct
                                              ((FLAG) == DMA2_FLAG_GL4) || ((FLAG) == DMA2_FLAG_TC4) || \
                                              ((FLAG) == DMA2_FLAG_HT4) || ((FLAG) == DMA2_FLAG_ERR4) || \
                                              ((FLAG) == DMA2_FLAG_GL5) || ((FLAG) == DMA2_FLAG_TC5) || \
-                                             ((FLAG) == DMA2_FLAG_HT5) || ((FLAG) == DMA2_FLAG_ERR5))
+                                             ((FLAG) == DMA2_FLAG_HT5) || ((FLAG) == DMA2_FLAG_ERR5)|| \
+                                             ((FLAG) == DMA2_FLAG_GL6) || ((FLAG) == DMA2_FLAG_TC6) || \
+                                             ((FLAG) == DMA2_FLAG_HT6) || ((FLAG) == DMA2_FLAG_ERR6) || \
+                                             ((FLAG) == DMA2_FLAG_GL7) || ((FLAG) == DMA2_FLAG_TC7) || \
+                                             ((FLAG) == DMA2_FLAG_HT7) || ((FLAG) == DMA2_FLAG_ERR7))
 /**
   * @}
   */
@@ -558,7 +605,7 @@ void DMA_Flexible_Config(DMA_Type *DMAx,uint8_t Flex_Channelx,uint8_t Hardware_I
 }
 #endif
 
-#endif /*__AT32F4xx_DMA_H */
+#endif /*__AT32F4XX_DMA_H */
 /**
   * @}
   */

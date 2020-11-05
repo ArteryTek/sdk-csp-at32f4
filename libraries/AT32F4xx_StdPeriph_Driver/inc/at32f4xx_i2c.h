@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_i2c.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx I2C header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_I2C_H
-#define __AT32F4xx_I2C_H
+#ifndef __AT32F4XX_I2C_H
+#define __AT32F4XX_I2C_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,7 +65,7 @@ typedef struct
   * @{
   */
 
-#if defined (AT32F413xx) || defined (AT32F415xx)
+#if defined (AT32F413xx) || defined (AT32F415xx) || defined (AT32F421xx)
 #define IS_I2C_ALL_PERIPH(PERIPH)       (((PERIPH) == I2C1) || \
                                          ((PERIPH) == I2C2))
 #elif defined (AT32F403xx) || defined (AT32F403Axx) || \
@@ -470,26 +470,27 @@ typedef struct
 
 /*===========================      End of Events Description           ==========================================*/
 
-#define IS_I2C_EVENT(EVENT)     (((EVENT) == I2C_EVENT_SLAVE_ADDRESS_TRANSMITTER_MATCHED)           || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_ADDRESS_RECEIVER_MATCHED)              || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_SECONDADDRESS_TRANSMITTER_MATCHED)     || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_SECONDADDRESS_RECEIVER_MATCHED)        || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_GENERALCALLADDRESS_MATCHED)            || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_DATA_RECEIVED)                         || \
-                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_RECEIVED | I2C_FLAG_DUALF))      || \
-                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_RECEIVED | I2C_FLAG_GCADDRF))    || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_DATA_TRANSMITTED)                      || \
-                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_TRANSMITTED | I2C_FLAG_DUALF))   || \
-                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_TRANSMITTED | I2C_FLAG_GCADDRF)) || \
-                                 ((EVENT) == I2C_EVENT_SLAVE_STOP_DETECTED)                         || \
-                                 ((EVENT) == I2C_EVENT_MASTER_START_GENERATED)                      || \
-                                 ((EVENT) == I2C_EVENT_MASTER_ADDRESS)                              || \
-                                 ((EVENT) == I2C_EVENT_MASTER_TRANSMITTER)                          || \
-                                 ((EVENT) == I2C_EVENT_MASTER_ADDRESS_WITH_RECEIVER)                || \
-                                 ((EVENT) == I2C_EVENT_MASTER_DATA_RECEIVED)                        || \
-                                 ((EVENT) == I2C_EVENT_MASTER_DATA_TRANSMITTED)                     || \
-                                 ((EVENT) == I2C_EVENT_MASTER_DATA_TRANSMITTING)                    || \
-                                 ((EVENT) == I2C_EVENT_MASTER_ADDRESS10_GENERATED)                  || \
+#define IS_I2C_EVENT(EVENT)     (((EVENT) == I2C_EVENT_SLAVE_ADDRESS_TRANSMITTER_MATCHED)                || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_ADDRESS_RECEIVER_MATCHED)                   || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_SECONDADDRESS_TRANSMITTER_MATCHED)          || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_SECONDADDRESS_RECEIVER_MATCHED)             || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_GENERALCALLADDRESS_MATCHED)                 || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_DATA_RECEIVED)                              || \
+                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_RECEIVED | I2C_FLAG_DUALF))           || \
+                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_RECEIVED | I2C_FLAG_GCADDRF))         || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_DATA_TRANSMITTED)                           || \
+                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_TRANSMITTED | I2C_FLAG_DUALF))        || \
+                                 ((EVENT) == (I2C_EVENT_SLAVE_DATA_TRANSMITTED | I2C_FLAG_GCADDRF))      || \
+                                 ((EVENT) == I2C_EVENT_SLAVE_STOP_DETECTED)                              || \
+                                 ((EVENT) == I2C_EVENT_MASTER_START_GENERATED)                           || \
+                                 ((EVENT) == I2C_EVENT_MASTER_ADDRESS)                                   || \
+                                 ((EVENT) == I2C_EVENT_MASTER_TRANSMITTER)                               || \
+                                 ((EVENT) == I2C_EVENT_MASTER_ADDRESS_WITH_RECEIVER)                     || \
+                                 ((EVENT) == I2C_EVENT_MASTER_DATA_RECEIVED)                             || \
+                                 ((EVENT) == I2C_EVENT_MASTER_DATA_TRANSMITTED)                          || \
+                                 ((EVENT) == I2C_EVENT_MASTER_DATA_TRANSMITTING)                         || \
+                                 ((EVENT) == I2C_EVENT_MASTER_ADDRESS10_GENERATED)                       || \
+                                 ((EVENT) == (I2C_EVENT_MASTER_ADDRESS | I2C_EVENT_MASTER_TRANSMITTER))  || \
                                  ((EVENT) == I2C_EVENT_SLAVE_ACK_FAILURE_DETECTED))
 /**
   * @}
@@ -666,7 +667,7 @@ void I2C_ClearITPendingBit(I2C_Type* I2Cx, uint32_t I2C_INT);
 }
 #endif
 
-#endif /*__AT32F4xx_I2C_H */
+#endif /*__AT32F4XX_I2C_H */
 /**
   * @}
   */

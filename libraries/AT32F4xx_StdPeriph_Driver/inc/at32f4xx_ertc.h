@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_ertc.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ERTC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_ERTC_H
-#define __AT32F4xx_ERTC_H
+#ifndef __AT32F4XX_ERTC_H
+#define __AT32F4XX_ERTC_H
 
 
 /* Includes ------------------------------------------------------------------*/
@@ -854,7 +854,7 @@ void ERTC_ClearINTPendingBINT(uint32_t ERTC_INT);
 }
 #endif
 
-#endif /*__AT32F4xx_RCC_H */
+#endif /*__AT32F4XX_RCC_H */
 
 /**
   * @}

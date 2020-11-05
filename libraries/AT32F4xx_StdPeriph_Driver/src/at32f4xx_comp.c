@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_comp.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx COMP source file
   **************************************************************************
   */
@@ -20,13 +20,18 @@
   * @{
   */ 
 
-#if defined (AT32F415xx)
+#if defined (AT32F415xx) || defined (AT32F421xx)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* CTRLSTS1 register Mask */
-#define COMP_CTRLSTS1_CLEAR_MASK              ((uint32_t)0x00003FFE)
-#define COMP_CTRLSTS2_CLEAR_MASK              ((uint32_t)0x00000003)
+#ifdef AT32F421xx
+#define COMP_CTRLSTS1_CLEAR_MASK              ((uint32_t)0x00039C7C)
+#define COMP_INPINPUT_CLEAR_MASK              ((uint32_t)0x00000180)
+#else
+#define COMP_CTRLSTS1_CLEAR_MASK              ((uint32_t)0x00003F74)
+#define COMP_INPINPUT_CLEAR_MASK              ((uint32_t)0x00000003)
+#endif
 #define COMP_HIGH_PULSE_CLEAR_MASK            ((uint16_t)0x003F) 
 #define COMP_LOW_PULSE_CLEAR_MASK             ((uint16_t)0x003F)
 
@@ -48,7 +53,7 @@
   */
 void COMP_Reset(void)
 {
-  COMP->CTRLSTS1 = ((uint32_t)0x00000000);    /*!< Set COMP_CTRLSTS register to reset value */
+  COMP->CTRLSTS1 = ((uint32_t)0x00000080);    /*!< Set COMP_CTRLSTS register to reset value */
 }
 
 /**
@@ -119,17 +124,27 @@ void COMP_SelectINPInput(uint32_t COMP_Selection, uint32_t COMP_INPInput)
   assert_param(IS_COMP_ALL_PERIPH(COMP_Selection));
   assert_param(IS_COMP_NONINVERTING_INPUT(COMP_INPInput));
 
+#ifdef AT32F421xx
+  /*!< Get the COMP_CTRLSTS register value */
+  tmpreg = COMP->CTRLSTS1;
+#else
   /*!< Get the COMP_CTRLSTS register value */
   tmpreg = COMP->CTRLSTS2;
-
+#endif
+  
   /*!< Clear the COMPxINPSEL bits */ 
-  tmpreg &= (uint32_t) ~(COMP_CTRLSTS2_CLEAR_MASK<<COMP_Selection);
+  tmpreg &= (uint32_t) ~(COMP_INPINPUT_CLEAR_MASK<<COMP_Selection);
 
   /*!< Set COMPxINPSEL bits according to COMP_InitStruct->COMP_NonInvertingInput value */
   tmpreg |= (uint32_t)(COMP_INPInput<<COMP_Selection);
 
+#ifdef AT32F421xx
+  /*!< Write to COMP_CTRLSTS2 register */
+  COMP->CTRLSTS1 = tmpreg;  
+#else
   /*!< Write to COMP_CTRLSTS2 register */
   COMP->CTRLSTS2 = tmpreg;  
+#endif
 }
 
 /**
@@ -144,7 +159,7 @@ void COMP_StructInit(COMP_InitType* COMP_InitStruct)
   COMP_InitStruct->COMP_Output = COMP_Output_None;
   COMP_InitStruct->COMP_OutPolarity = COMP_OutPolarity_NonInverted;
   COMP_InitStruct->COMP_Hysteresis = COMP_Hysteresis_No;
-  COMP_InitStruct->COMP_Mode = COMP_Mode_Slow;
+  COMP_InitStruct->COMP_Mode = COMP_Mode_Fast;
 }
 
 /**
@@ -238,17 +253,18 @@ uint32_t COMP_GetOutputState(uint32_t COMP_Selection)
   /* Check if selected comparator output is high */
   if ((COMP->CTRLSTS1 & (COMP_CTRLSTS_COMP1OUT<<COMP_Selection)) != 0)
   {
-    compout = COMP_OutputState_High;
+    compout = SET;
   }
   else
   {
-    compout = COMP_OutputState_Low;
+    compout = RESET;
   }
 
   /* Return the comparator output level */
   return (uint32_t)(compout);
 }
 
+#ifdef AT32F415
 /**
   * @brief  Enables or disables the window mode.
   * @note   In window mode, COMP1 and COMP2 non inverting inputs are connected
@@ -275,6 +291,7 @@ void COMP_WindowCmd(FunctionalState NewState)
     COMP->CTRLSTS1 &= (uint32_t)(~COMP_CTRLSTS_WNDWEN);
   }
 }
+#endif
 
 /**
   * @brief  Lock the selected comparator (COMP1/COMP2) configuration.
@@ -295,6 +312,7 @@ void COMP_LockConfig(uint32_t COMP_Selection)
   COMP->CTRLSTS1 |= (uint32_t) (COMP_CTRLSTS_COMP1LOCK<<COMP_Selection);
 }
 
+#ifdef AT32F421xx
 /**
   * @brief  Configure COMP Glitch Filter.
   * @note   G_FILTER_EN, HIGH_PULSE and LOW_PULSE registers will
@@ -350,10 +368,71 @@ void COMP_FilterConfig(uint16_t COMP_HighPulseCnt, uint16_t COMP_LowPulseCnt, Fu
 }
 
 /**
+  * @brief  Configure COMP blanking source.
+  * @param  Blank_Selection: COMP blanking source.
+  *         This parameter can be one of the following values:
+  *            @arg COMP_Blanking_None: No blanking source
+  *            @arg COMP_Blanking_TMR1OC4: TMR1OC4 as the blanking source  
+  *            @arg COMP_Blanking_TMR3OC3: TMR3OC3 as the blanking source 
+  *            @arg COMP_Blanking_TMR15OC2: TMR15OC2 as the blanking source   
+  *            @arg COMP_Blanking_TMR15OC1: TMR15OC1 as the blanking source 
+  * @retval None
+  */
+void COMP_BlankingConfig(uint32_t Blank_Selection)
+{
+  uint32_t tmpreg = 0;
+  
+  /* Check the parameters */
+  assert_param(IS_COMP_BLANKING(Blank_Selection));
+
+  /*!< Get the COMP_CTRLSTS register value */
+  tmpreg = COMP->CTRLSTS1;
+
+  /*!< Clear the COMPBLANKING bits */ 
+  tmpreg &= (uint32_t) ~COMP_CTRLSTS_COMP1BLANKING;
+
+  /*!< Set COMPBLANKING bits according to Blank_Selection value */
+  tmpreg |= (uint32_t)(Blank_Selection);
+
+  /*!< Write to COMP_CTRLSTS1 register */
+  COMP->CTRLSTS1 = tmpreg; 
+}
+
+/**
+  * @brief  Configure COMP internal equipartition voltage bridge.
+  * @param  SCAL_BRG: COMP SCAL&BRG configure.
+  *         This parameter can be one of the following values:
+  *            @arg COMP_SCAL_BRG_00: VREFINT = 3/4 VREFINT = 1/2 VREFINT = 1/4 VREFINT = 0V
+  *            @arg COMP_SCAL_BRG_10: VREFINT = 3/4 VREFINT = 1/2 VREFINT = 1/4 VREFINT = 1.2V  
+  *            @arg COMP_SCAL_BRG_11: VREFINT = 1.2V, 3/4 VREFINT = 0.9V, 1/2 VREFINT = 0.6V, 1/4 VREFINT = 0.3V 
+  * @retval None
+  */
+void COMP_SCAL_BRGConfig(uint32_t SCAL_BRG)
+{
+  uint32_t tmpreg = 0;
+  
+  /* Check the parameters */
+  assert_param(IS_COMP_SCAL_BRG(SCAL_BRG));
+
+  /*!< Get the COMP_CTRLSTS register value */
+  tmpreg = COMP->CTRLSTS1;
+
+  /*!< Clear the COMPBLANKING bits */ 
+  tmpreg &= (uint32_t) ~(COMP_CTRLSTS_COMP1SCALEN | COMP_CTRLSTS_COMP1BRGEN);
+
+  /*!< Set COMPBLANKING bits according to Blank_Selection value */
+  tmpreg |= (uint32_t)(SCAL_BRG);
+
+  /*!< Write to COMP_CTRLSTS1 register */
+  COMP->CTRLSTS1 = tmpreg; 
+}
+#endif
+
+/**
   * @}
   */
 
-#endif /* AT32F415xx */
+#endif /* AT32F415xx || AT32F421xx */
 
 /**
   * @}
@@ -363,4 +442,3 @@ void COMP_FilterConfig(uint16_t COMP_HighPulseCnt, uint16_t COMP_LowPulseCnt, Fu
   * @}
   */
 
-/************************ (C) COPYRIGHT Artery *****END OF FILE****/

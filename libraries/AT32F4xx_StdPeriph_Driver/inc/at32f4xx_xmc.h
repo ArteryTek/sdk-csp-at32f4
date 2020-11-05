@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_xmc.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx XMC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_XMC_H
-#define __AT32F4xx_XMC_H
+#ifndef __AT32F4XX_XMC_H
+#define __AT32F4XX_XMC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -723,7 +723,7 @@ void XMC_ClearINTPendingBit(uint32_t XMC_Bank, uint32_t XMC_INT);
 }
 #endif
 
-#endif /*__AT32F4xx_XMC_H */
+#endif /*__AT32F4XX_XMC_H */
 /**
   * @}
   */

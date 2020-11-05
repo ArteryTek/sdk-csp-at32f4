@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_conf.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx configuration file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_CONF_H
-#define __AT32F4xx_CONF_H
+#ifndef __AT32F4XX_CONF_H
+#define __AT32F4XX_CONF_H
 
 /* Includes ------------------------------------------------------------------*/
 /* Uncomment/Comment the line below to enable/disable peripheral header file inclusion */
@@ -26,7 +26,11 @@
 #include "at32f4xx_ertc.h"
 #include "at32f4xx_exti.h"
 #include "at32f4xx_flash.h"
+#if !defined (AT32F421xx)
 #include "at32f4xx_gpio.h"
+#else
+#include "at32f4xx_gpio_ex.h"
+#endif
 #include "at32f4xx_i2c.h"
 #include "at32f4xx_iwdg.h"
 #include "at32f4xx_pwr.h"
@@ -38,7 +42,9 @@
 #include "at32f4xx_usart.h"
 #include "at32f4xx_wwdg.h"
 #include "at32f4xx_xmc.h"
-#include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
+#include "at32f4xx_syscfg.h"
+#include "misc.h"
+/* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -63,6 +69,6 @@ void assert_failed(uint8_t* file, uint32_t line);
 #define assert_param(expr) ((void)0)
 #endif /* USE_FULL_ASSERT */
 
-#endif /* __AT32F4xx_CONF_H */
+#endif /* __AT32F4XX_CONF_H */
 
 

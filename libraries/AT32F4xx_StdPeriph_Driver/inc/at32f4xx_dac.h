@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_dac.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx DAC header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_DAC_H
-#define __AT32F4xx_DAC_H
+#ifndef __AT32F4XX_DAC_H
+#define __AT32F4XX_DAC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -253,7 +253,7 @@ uint16_t DAC_GetDataOutputValue(uint32_t DAC_Channel);
 }
 #endif
 
-#endif /*__AT32F4xx_DAC_H */
+#endif /*__AT32F4XX_DAC_H */
 /**
   * @}
   */

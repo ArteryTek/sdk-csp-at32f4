@@ -1,8 +1,8 @@
 /**
   **************************************************************************
   * File   : at32f4xx_eth.c
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx ETH source file
   **************************************************************************
   */
@@ -130,7 +130,7 @@ void ETH_DeInit(void)
 uint32_t ETH_Init(ETH_InitType* ETH_InitStruct, uint16_t PHYAddress)
 {
   uint32_t RegValue = 0, tmpreg = 0;
-  __IO uint32_t __attribute__((unused)) i = 0, addr = 0;
+  __IO uint32_t i = 0, addr = 0;
   RCC_ClockType  rcc_clocks;
   uint32_t hclk = 60000000;
   __IO uint32_t timeout = 0;
@@ -261,7 +261,7 @@ uint32_t ETH_Init(ETH_InitType* ETH_InitStruct, uint16_t PHYAddress)
     /* Return ERROR in case of timeout */
     if(timeout == PHY_READ_TO)
     {
-//      return ETH_ERROR;
+      return ETH_ERROR;
     }
     /* Reset Timeout counter */
     timeout = 0;
@@ -288,6 +288,7 @@ uint32_t ETH_Init(ETH_InitType* ETH_InitStruct, uint16_t PHYAddress)
     /*Get Auto-Negotiation Result*/
     RegValue = ETH_ReadPHYRegister(PHYAddress, PHY_SR);
     
+		#ifdef DM9162
     if((RegValue & PHY_FullDuplex_Speed_100_Status) != (uint32_t)RESET)
     {
        ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
@@ -308,6 +309,31 @@ uint32_t ETH_Init(ETH_InitType* ETH_InitStruct, uint16_t PHYAddress)
       ETH_InitStruct->ETH_Mode = ETH_Mode_HalfDuplex;
       ETH_InitStruct->ETH_Speed = ETH_Speed_10M;
     } 
+		#endif
+		#ifdef DP83848
+		if((RegValue & PHY_Duplex_Status) != (uint32_t)RESET)
+    {
+      /* Set Ethernet duplex mode to FullDuplex following the autonegotiation */
+      ETH_InitStruct->ETH_Mode = ETH_Mode_FullDuplex;
+            
+    }
+    else
+    {
+      /* Set Ethernet duplex mode to HalfDuplex following the autonegotiation */
+      ETH_InitStruct->ETH_Mode = ETH_Mode_HalfDuplex;           
+    }
+    /* Configure the MAC with the speed fixed by the autonegotiation process */
+    if(RegValue & PHY_Speed_Status)
+    {  
+      /* Set Ethernet speed to 10M following the autonegotiation */    
+      ETH_InitStruct->ETH_Speed = ETH_Speed_10M; 
+    }
+    else
+    {   
+      /* Set Ethernet speed to 100M following the autonegotiation */ 
+      ETH_InitStruct->ETH_Speed = ETH_Speed_100M;      
+    }
+		#endif
   }
   else
   {
@@ -3084,4 +3110,3 @@ static void ETH_Delay(__IO uint32_t nCount)
   * @}
   */
 
-/******************* (C) COPYRIGHT 2009 Artery Technology *****END OF FILE****/

@@ -1,16 +1,16 @@
 /**
   **************************************************************************
   * File   : at32f4xx_usart.h
-  * Version: V1.1.9
-  * Date   : 2020-05-29
+  * Version: V1.2.6
+  * Date   : 2020-11-02
   * Brief  : at32f4xx USART header file
   **************************************************************************
   */
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AT32F4xx_USART_H
-#define __AT32F4xx_USART_H
+#ifndef __AT32F4XX_USART_H
+#define __AT32F4XX_USART_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -97,9 +97,7 @@ typedef struct
                                                ((PERIPH) == USART3) || \
                                                ((PERIPH) == UART4)  || \
                                                ((PERIPH) == UART5))
-#endif
-
-#if defined (AT32F403Axx)|| defined (AT32F407xx)
+#elif defined (AT32F403Axx)|| defined (AT32F407xx)
   #define IS_USART_ALL_PERIPH(PERIPH)         (((PERIPH) == USART1) || \
                                                ((PERIPH) == USART2) || \
                                                ((PERIPH) == USART3) || \
@@ -108,17 +106,29 @@ typedef struct
                                                ((PERIPH) == USART6) || \
                                                ((PERIPH) == UART7)  || \
                                                ((PERIPH) == UART8))
+#elif defined (AT32F421xx)
+  #define IS_USART_ALL_PERIPH(PERIPH)         (((PERIPH) == USART1) || \
+                                               ((PERIPH) == USART2))
 #endif
 
-
+#if !defined (AT32F421xx)
 #define IS_USART_123_PERIPH(PERIPH)         (((PERIPH) == USART1) || \
                                              ((PERIPH) == USART2) || \
                                              ((PERIPH) == USART3))
-                                            
+#else
+#define IS_USART_123_PERIPH(PERIPH)         (((PERIPH) == USART1) || \
+                                             ((PERIPH) == USART2))
+#endif
+
+#if !defined (AT32F421xx)
 #define IS_USART_1234_PERIPH(PERIPH)        (((PERIPH) == USART1) || \
                                              ((PERIPH) == USART2) || \
                                              ((PERIPH) == USART3) || \
                                              ((PERIPH) == UART4))
+#else
+#define IS_USART_1234_PERIPH(PERIPH)        (((PERIPH) == USART1) || \
+                                             ((PERIPH) == USART2))
+#endif
 /** @defgroup USART_Word_Length
   * @{
   */
@@ -394,12 +404,14 @@ FlagStatus USART_GetFlagStatus(USART_Type* USARTx, uint16_t USART_FLAG);
 void USART_ClearFlag(USART_Type* USARTx, uint16_t USART_FLAG);
 ITStatus USART_GetITStatus(USART_Type* USARTx, uint16_t USART_INT);
 void USART_ClearITPendingBit(USART_Type* USARTx, uint16_t USART_INT);
-
+#if defined (AT32F421xx)
+void USART_SWAP(USART_Type* USARTx, FunctionalState NewState);
+#endif
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __AT32F4xx_USART_H */
+#endif /* __AT32F4XX_USART_H */
 /**
   * @}
   */
