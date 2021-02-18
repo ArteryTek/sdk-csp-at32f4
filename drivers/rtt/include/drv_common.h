@@ -35,6 +35,8 @@ void _Error_Handler(char *s, int num);
 #define AT32_FLASH_START_ADRESS       ROM_START
 #define AT32_FLASH_SIZE               ROM_SIZE
 #define AT32_FLASH_END_ADDRESS        ROM_END
+/* Just only support for AT32F40xxG */
+#define FLASH_PAGE_SIZE               (2 * 1024)
 
 #define AT32_SRAM1_SIZE               RAM_SIZE
 #define AT32_SRAM1_START              RAM_START
