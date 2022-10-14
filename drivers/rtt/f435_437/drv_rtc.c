@@ -11,6 +11,7 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include <sys/time.h>
+#include "drv_common.h"
 #include "board.h"
 
 #ifdef BSP_USING_RTC

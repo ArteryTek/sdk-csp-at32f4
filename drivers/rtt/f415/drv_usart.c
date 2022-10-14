@@ -441,7 +441,6 @@ static void usart_isr(struct rt_serial_device *serial) {
 
     if (usart_flag_get(uart_instance->uart_x, USART_RDBF_FLAG) != RESET) {
         rt_hw_serial_isr(serial, RT_SERIAL_EVENT_RX_IND);
-        usart_flag_clear(uart_instance->uart_x, USART_RDBF_FLAG);
     }
     else
     {
