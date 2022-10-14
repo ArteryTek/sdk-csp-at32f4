@@ -26,8 +26,8 @@
 #define CRYSTAL_ON_PHY                  0
 
 /* emac memory buffer configuration */
-#define EMAC_NUM_RX_BUF                 4    /* 0x1800 for rx (4 * 1536 = 6k)      */
-#define EMAC_NUM_TX_BUF                 2    /* 0x0600 for tx (2 * 1536 = 3k)      */
+#define EMAC_NUM_RX_BUF                 5    /* rx (5 * 1500) */
+#define EMAC_NUM_TX_BUF                 5    /* tx (5 * 1500) */
 
 #define MAX_ADDR_LEN                    6
 
@@ -53,8 +53,6 @@ extern emac_dma_desc_type *dma_rx_desc_to_get, *dma_tx_desc_to_set;
 static rt_uint8_t *rx_buff, *tx_buff;
 static struct rt_at32_emac at32_emac_device;
 static uint8_t phy_addr = 0xFF;
-static struct rt_semaphore tx_wait;
-static rt_bool_t tx_is_waiting = RT_FALSE;
 
 #if defined(EMAC_RX_DUMP) || defined(EMAC_TX_DUMP)
 #define __is_print(ch) ((unsigned int)((ch) - ' ') < 127u - ' ')
@@ -326,10 +324,11 @@ static rt_err_t rt_at32_emac_init(rt_device_t dev)
 
     emac_control_para_init(&mac_control_para);
     mac_control_para.auto_nego = EMAC_AUTO_NEGOTIATION_ON;
+
     if(emac_phy_init(&mac_control_para) == ERROR)
     {
         LOG_E("emac hardware init failed");
-        return ERROR;
+        return -RT_ERROR;
     }
     else
     {
@@ -347,8 +346,19 @@ static rt_err_t rt_at32_emac_init(rt_device_t dev)
     /* set emac dma tx link list */
     emac_dma_descriptor_list_address_set(EMAC_DMA_TRANSMIT, dma_tx_dscr_tab, tx_buff, EMAC_NUM_TX_BUF);
 
-    /* emac interrupt init */
+    emac_dma_para_init(&dma_control_para);
+    dma_control_para.rsf_enable = TRUE;
+    dma_control_para.tsf_enable = TRUE;
+    dma_control_para.osf_enable = TRUE;
+    dma_control_para.aab_enable = TRUE;
+    dma_control_para.usp_enable = TRUE;
+    dma_control_para.fb_enable = TRUE;
+    dma_control_para.flush_rx_disable = TRUE;
+    dma_control_para.rx_dma_pal = EMAC_DMA_PBL_32;
+    dma_control_para.tx_dma_pal = EMAC_DMA_PBL_32;
+    dma_control_para.priority_ratio = EMAC_DMA_2_RX_1_TX;
     emac_dma_config(&dma_control_para);
+    /* emac interrupt init */
     emac_dma_interrupt_enable(EMAC_DMA_INTERRUPT_NORMAL_SUMMARY, TRUE);
     emac_dma_interrupt_enable(EMAC_DMA_INTERRUPT_RX, TRUE);
     nvic_irq_enable(EMAC_IRQn, 0x07, 0);
@@ -413,22 +423,15 @@ static rt_err_t rt_at32_emac_control(rt_device_t dev, int cmd, void *args)
   */
 rt_err_t rt_at32_emac_tx(rt_device_t dev, struct pbuf *p)
 {
+    rt_err_t ret = RT_ERROR;
     struct pbuf *q;
     rt_uint32_t offset;
 
-    while ((dma_tx_desc_to_set->status & EMAC_DMATXDESC_OWN) != RESET)
+    if ((dma_tx_desc_to_set->status & EMAC_DMATXDESC_OWN) != RESET)
     {
-        rt_err_t result;
-        rt_uint32_t level;
-
-        level = rt_hw_interrupt_disable();
-        tx_is_waiting = RT_TRUE;
-        rt_hw_interrupt_enable(level);
-
-        /* it's own bit set, wait it */
-        result = rt_sem_take(&tx_wait, RT_WAITING_FOREVER);
-        if (result == RT_EOK) break;
-        if (result == -RT_ERROR) return -RT_ERROR;
+        LOG_D("buffer not valid");
+        ret = ERR_USE;
+        goto __error;
     }
 
     offset = 0;
@@ -468,6 +471,18 @@ rt_err_t rt_at32_emac_tx(rt_device_t dev, struct pbuf *p)
     dma_tx_desc_to_set = (emac_dma_desc_type*) (dma_tx_desc_to_set->buf2nextdescaddr);
 
     return ERR_OK;
+
+__error:
+    if (emac_dma_flag_get(EMAC_DMA_UNF_FLAG) != (uint32_t)RESET)
+    {
+        /* clear underflow ethernet dma flag */
+        emac_dma_flag_clear(EMAC_DMA_UNF_FLAG);
+
+        /* resume dma transmission*/
+        EMAC_DMA->tpd = 0;
+    }
+
+    return ret;
 }
 
 /**
@@ -550,24 +565,6 @@ void EMAC_IRQHandler(void)
     /* enter interrupt */
     rt_interrupt_enter();
 
-    /* clear received it */
-    if(emac_dma_flag_get(EMAC_DMA_NIS_FLAG) != RESET)
-    {
-        emac_dma_flag_clear(EMAC_DMA_NIS_FLAG);
-    }
-    if(emac_dma_flag_get(EMAC_DMA_AIS_FLAG) != RESET)
-    {
-        emac_dma_flag_clear(EMAC_DMA_AIS_FLAG);
-    }
-    if(emac_dma_flag_get(EMAC_DMA_OVF_FLAG) != RESET)
-    {
-        emac_dma_flag_clear(EMAC_DMA_OVF_FLAG);
-    }
-    if(emac_dma_flag_get(EMAC_DMA_RBU_FLAG) != RESET)
-    {
-        emac_dma_flag_clear(EMAC_DMA_RBU_FLAG);
-    }
-
     /* packet receiption */
     if (emac_dma_flag_get(EMAC_DMA_RI_FLAG) == SET)
     {
@@ -579,13 +576,25 @@ void EMAC_IRQHandler(void)
     /* packet transmission */
     if (emac_dma_flag_get(EMAC_DMA_TI_FLAG) == SET)
     {
-        if (tx_is_waiting == RT_TRUE)
+        emac_dma_flag_clear(EMAC_DMA_TI_FLAG);
+    }
+
+    /* clear normal interrupt */
+    emac_dma_flag_clear(EMAC_DMA_NIS_FLAG);
+
+    /* clear dma error */
+    if(emac_dma_flag_get(EMAC_DMA_AIS_FLAG) != RESET)
+    {
+        if(emac_dma_flag_get(EMAC_DMA_RBU_FLAG) != RESET)
         {
-            tx_is_waiting = RT_FALSE;
-            rt_sem_release(&tx_wait);
+            emac_dma_flag_clear(EMAC_DMA_RBU_FLAG);
+        }
+        if(emac_dma_flag_get(EMAC_DMA_OVF_FLAG) != RESET)
+        {
+            emac_dma_flag_clear(EMAC_DMA_OVF_FLAG);
         }
 
-        emac_dma_flag_clear(EMAC_DMA_TI_FLAG);
+        emac_dma_flag_clear(EMAC_DMA_AIS_FLAG);
     }
 
     /* leave interrupt */
@@ -792,8 +801,8 @@ static int rt_hw_at32_emac_init(void)
     at32_emac_device.emac_mode  = EMAC_FULL_DUPLEX;
 
     at32_emac_device.dev_addr[0] = 0x00;
-    at32_emac_device.dev_addr[1] = 0x80;
-    at32_emac_device.dev_addr[2] = 0xE1;
+    at32_emac_device.dev_addr[1] = 0x66;
+    at32_emac_device.dev_addr[2] = 0x88;
     /* generate mac addr from unique id (only for test). */
     at32_emac_device.dev_addr[3] = *(rt_uint8_t *)(0x1FFFF7E8 + 4);
     at32_emac_device.dev_addr[4] = *(rt_uint8_t *)(0x1FFFF7E8 + 2);
