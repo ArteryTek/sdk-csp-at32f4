@@ -2,7 +2,7 @@
 vendor: ArteryTek
 dvendor: ArteryTek
 name: AT32F4
-version: 0.0.9
+version: 0.1.0
 yaml_version: 1
 type: Chip_Support_Packages
 family_name: AT32
@@ -57,7 +57,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -89,7 +89,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -121,7 +121,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -153,7 +153,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -185,7 +185,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -217,7 +217,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -249,7 +249,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -281,7 +281,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -313,7 +313,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -345,7 +345,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -377,7 +377,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -409,7 +409,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -516,7 +516,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -548,7 +548,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -580,7 +580,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -612,7 +612,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -644,7 +644,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -676,7 +676,7 @@ series:
           files:
           - libraries\f403a_407\cmsis\cm4\device_support\startup\gcc\startup_at32f403a_407.s
           - libraries\f403a_407\cmsis\cm4\device_support\at32f403a_407.h
-          - libraries\f403a_407\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -749,6 +749,369 @@ series:
         - drivers\rtt\f403a_407
 
 
+  - sub_series_name: AT32F413
+    cpu_info:
+      fpu: '1'
+      mpu: '1'
+      max_clock: '200000000'
+    source_files:
+      file:
+      - libraries\f413\drivers\src
+      - libraries\f413\drivers\inc
+      - libraries\f413\cmsis\cm4\core_support
+      - libraries\f413\cmsis\cm4\device_support\at32f413_conf.h
+      - libraries\f413\cmsis\cm4\device_support\system_at32f413.h
+      - libraries\f413\cmsis\cm4\device_support\system_at32f413.c
+      - libraries\f413\cmsis\cm4\device_support\system_at32f413.h
+    chips:
+    - chip_name: AT32F413RBT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00020000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413RB\link.lds
+          marco:
+          - AT32F413RBT7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413RCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413RC\link.lds
+          marco:
+          - AT32F413RCT7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413C8T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413C8\link.lds
+          marco:
+          - AT32F413C8T7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413CBT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00020000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413CB\link.lds
+          marco:
+          - AT32F413CBT7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413CCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413CC\link.lds
+          marco:
+          - AT32F413CCT7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413CBU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00020000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413CB\link.lds
+          marco:
+          - AT32F413CBU7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413CCU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413CC\link.lds
+          marco:
+          - AT32F413CCU7
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413KBU7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00020000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413KB\link.lds
+          marco:
+          - AT32F413KBU7_4
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F413KCU7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00008000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F413KC\link.lds
+          marco:
+          - AT32F413KCU7_4
+          files:
+          - libraries\f413\cmsis\cm4\device_support\startup\gcc\startup_at32f413.s
+          - libraries\f413\cmsis\cm4\device_support\at32f413.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F413_CH_V2.01.pdf
+      title: AT32F413 Reference Manual
+    svd:
+      file: debug\svd\AT32F413xx_v2.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F413
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal\f413
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F413
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano\f413
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F413
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\rtt\f413
   - sub_series_name: AT32F415
     cpu_info:
       fpu: '0'
@@ -785,7 +1148,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -817,7 +1180,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -849,7 +1212,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -881,7 +1244,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -913,7 +1276,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -924,7 +1287,7 @@ series:
           link_script: none
           marco: []
           files: []
-    - chip_name: AT32F415RCT7
+    - chip_name: AT32F415RCT7-7
       peripheral: {}
       memory:
       - id: IROM1
@@ -945,7 +1308,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -977,7 +1340,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1009,7 +1372,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1041,7 +1404,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1073,7 +1436,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1105,7 +1468,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1137,7 +1500,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1169,7 +1532,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1201,7 +1564,7 @@ series:
           files:
           - libraries\f415\cmsis\cm4\device_support\startup\gcc\startup_at32f415.s
           - libraries\f415\cmsis\cm4\device_support\at32f415.h
-          - libraries\f415\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1308,7 +1671,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1340,7 +1703,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1372,7 +1735,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1404,7 +1767,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1436,7 +1799,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1468,7 +1831,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1500,7 +1863,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1532,7 +1895,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1564,7 +1927,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1596,7 +1959,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1628,7 +1991,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1660,7 +2023,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1692,7 +2055,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1724,7 +2087,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1756,7 +2119,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1865,7 +2228,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1897,7 +2260,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1929,7 +2292,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1961,7 +2324,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -1993,7 +2356,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -2025,7 +2388,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -2057,7 +2420,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -2089,7 +2452,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
@@ -2121,7 +2484,7 @@ series:
           files:
           - libraries\f435_437\cmsis\cm4\device_support\startup\gcc\startup_at32f435_437.s
           - libraries\f435_437\cmsis\cm4\device_support\at32f435_437.h
-          - libraries\f435_437\cmsis\lib\gcc
+          - libraries\cmsis\lib\gcc
         armcc:
           entry_point: none
           link_script: none
