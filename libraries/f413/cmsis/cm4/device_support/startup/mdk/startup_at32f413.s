@@ -3,7 +3,7 @@
 ;* @version  v2.0.7
 ;* @date     2022-08-16
 ;* @brief    at32f403a_407 startup file for keil
-;* <<< Use Configuration Wizard in Context Menu >>>  
+;* <<< Use Configuration Wizard in Context Menu >>>
 ;**************************************************************************
 ;
 

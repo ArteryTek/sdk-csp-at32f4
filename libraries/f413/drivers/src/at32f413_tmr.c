@@ -319,7 +319,7 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
 
   chx_offset = (8 + tmr_channel);
   chcx_offset = (9 + tmr_channel);
-  
+
   /* get channel idle state bit position in ctrl2 register */
   channel_index = (uint16_t)(tmr_output_struct->oc_idle_state << chx_offset);
 
