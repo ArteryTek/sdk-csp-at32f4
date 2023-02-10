@@ -41,56 +41,56 @@ struct at32_uart uart_config[] =
 #ifdef BSP_USING_UART1
         { "uart1",
         USART1,
-        USART1_IRQn, 
+        USART1_IRQn,
         BSP_UART1_TX_PIN,
         BSP_UART1_RX_PIN },
 #endif
 #ifdef BSP_USING_UART2
         { "uart2",
         USART2,
-        USART2_IRQn, 
+        USART2_IRQn,
         BSP_UART2_TX_PIN,
         BSP_UART2_RX_PIN },
 #endif
 #ifdef BSP_USING_UART3
         { "uart3",
         USART3,
-        USART3_IRQn, 
+        USART3_IRQn,
         BSP_UART3_TX_PIN,
         BSP_UART3_RX_PIN },
 #endif
 #ifdef BSP_USING_UART4
         { "uart4",
         UART4,
-        UART4_IRQn, 
+        UART4_IRQn,
         BSP_UART4_TX_PIN,
         BSP_UART4_RX_PIN },
 #endif
 #ifdef BSP_USING_UART5
         { "uart5",
         UART5,
-        UART5_IRQn, 
+        UART5_IRQn,
         BSP_UART5_TX_PIN,
         BSP_UART5_RX_PIN },
 #endif
 #ifdef BSP_USING_UART6
         { "uart6",
         USART6,
-        USART6_IRQn, 
+        USART6_IRQn,
         BSP_UART6_TX_PIN,
         BSP_UART6_RX_PIN },
 #endif
 #ifdef BSP_USING_UART7
         { "uart7",
         UART7,
-        UART7_IRQn, 
+        UART7_IRQn,
         BSP_UART7_TX_PIN,
         BSP_UART7_RX_PIN },
 #endif
 #ifdef BSP_USING_UART8
         { "uart8",
         UART8,
-        UART8_IRQn, 
+        UART8_IRQn,
         BSP_UART8_TX_PIN,
         BSP_UART8_RX_PIN },
 #endif

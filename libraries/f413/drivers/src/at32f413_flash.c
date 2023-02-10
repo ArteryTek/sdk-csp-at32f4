@@ -508,7 +508,7 @@ flash_status_type flash_user_system_data_program(uint32_t address, uint8_t data)
     if(data != 0xA5)
       return FLASH_OPERATE_DONE;
   }
-  
+
   /* unlock the user system data */
   FLASH->usd_unlock = FLASH_UNLOCK_KEY1;
   FLASH->usd_unlock = FLASH_UNLOCK_KEY2;
