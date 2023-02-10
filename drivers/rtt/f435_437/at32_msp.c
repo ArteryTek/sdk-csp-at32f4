@@ -9,8 +9,9 @@
  */
 
 #include <rtthread.h>
-#include "board.h"
+#include <stdlib.h>
 #include "drv_common.h"
+#include "drv_usart.h"
 #include "at32_msp.h"
 
 void at32_msp_spi_init(void *instance)
@@ -459,4 +460,186 @@ void at32_msp_sdram_init(void *instance)
     gpio_pin_mux_config(GPIOG, GPIO_PINS_SOURCE8, GPIO_MUX_12);
     gpio_pin_mux_config(GPIOG, GPIO_PINS_SOURCE15, GPIO_MUX_12);
 #endif
+}
+
+
+static rt_err_t at32_uart_clk_enable(usart_type *uart_x)
+{
+    /* uart clock enable */
+    switch ((uint32_t)uart_x)
+    {
+#ifdef BSP_USING_UART1
+    case (uint32_t)USART1:
+        crm_periph_clock_enable(CRM_USART1_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART1 */
+#ifdef BSP_USING_UART2
+    case (uint32_t)USART2:
+        crm_periph_clock_enable(CRM_USART2_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART2 */
+#ifdef BSP_USING_UART3
+    case (uint32_t)USART3:
+        crm_periph_clock_enable(CRM_USART3_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART3 */
+#ifdef BSP_USING_UART4
+    case (uint32_t)UART4:
+        crm_periph_clock_enable(CRM_UART4_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART4 */
+#ifdef BSP_USING_UART5
+    case (uint32_t)UART5:
+        crm_periph_clock_enable(CRM_UART5_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART5 */
+#ifdef BSP_USING_UART6
+    case (uint32_t)USART6:
+        crm_periph_clock_enable(CRM_USART6_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART6 */
+#ifdef BSP_USING_UART7
+    case (uint32_t)UART7:
+        crm_periph_clock_enable(CRM_UART7_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART7 */
+#ifdef BSP_USING_UART8
+    case (uint32_t)UART8:
+        crm_periph_clock_enable(CRM_UART8_PERIPH_CLOCK, TRUE);
+        break;
+#endif /* BSP_USING_UART8 */
+    default:
+        ;
+    }
+
+    return RT_EOK;
+}
+
+static rt_err_t at32_gpio_clk_enable(gpio_type *gpio_x)
+{
+    /* gpio ports clock enable */
+    switch ((uint32_t)gpio_x)
+    {
+#if defined(GPIOA)
+    case (uint32_t)GPIOA:
+        crm_periph_clock_enable(CRM_GPIOA_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOB)
+    case (uint32_t)GPIOB:
+        crm_periph_clock_enable(CRM_GPIOB_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOC)
+    case (uint32_t)GPIOC:
+        crm_periph_clock_enable(CRM_GPIOC_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOD)
+    case (uint32_t)GPIOD:
+        crm_periph_clock_enable(CRM_GPIOD_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOE)
+    case (uint32_t)GPIOE:
+        crm_periph_clock_enable(CRM_GPIOE_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOF)
+    case (uint32_t)GPIOF:
+        crm_periph_clock_enable(CRM_GPIOF_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOG)
+    case (uint32_t)GPIOG:
+        crm_periph_clock_enable(CRM_GPIOG_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+#if defined(GPIOH)
+    case (uint32_t)GPIOH:
+        crm_periph_clock_enable(CRM_GPIOH_PERIPH_CLOCK, TRUE);
+        break;
+#endif
+    default:
+        ;
+    }
+
+    return RT_EOK;
+}
+
+static int up_char(char * c)
+{
+    if ((*c >= 'a') && (*c <= 'z'))
+    {
+        *c = *c - 32;
+    }
+    return 0;
+}
+
+static void get_pin_by_name(const char* pin_name, gpio_type **port, uint16_t *pin, gpio_pins_source_type *pin_source)
+{
+    int pin_num = atoi((char*) &pin_name[2]);
+    char port_name = pin_name[1];
+    up_char(&port_name);
+    up_char(&port_name);
+    *port = ((gpio_type *) ((uint32_t) GPIOA
+            + (uint32_t) (port_name - 'A') * ((uint32_t) GPIOB - (uint32_t) GPIOA)));
+    *pin = (GPIO_PINS_0 << pin_num);
+    *pin_source = (gpio_pins_source_type)pin_num;
+}
+
+static rt_err_t at32_gpio_configure(struct at32_uart *config)
+{
+    gpio_init_type gpio_init_struct;
+    int uart_num = 0;
+    gpio_type *tx_port;
+    gpio_type *rx_port;
+    gpio_pins_source_type tx_pin_source;
+    gpio_pins_source_type rx_pin_source;
+    uint16_t tx_pin;
+    uint16_t rx_pin;
+
+    get_pin_by_name(config->tx_pin_name, &tx_port, &tx_pin, &tx_pin_source);
+    get_pin_by_name(config->rx_pin_name, &rx_port, &rx_pin, &rx_pin_source);
+
+    uart_num = config->name[4] - '0';
+
+    /* gpio ports clock enable */
+    at32_gpio_clk_enable(tx_port);
+    if (tx_port != rx_port)
+    {
+        at32_gpio_clk_enable(rx_port);
+    }
+
+    /* tx pin initialize */
+    gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
+    gpio_init_struct.gpio_out_type  = GPIO_OUTPUT_PUSH_PULL;
+    gpio_init_struct.gpio_mode = GPIO_MODE_MUX;
+    gpio_init_struct.gpio_pins = tx_pin;
+    gpio_init_struct.gpio_pull = GPIO_PULL_NONE;
+    gpio_init(tx_port, &gpio_init_struct);
+
+    /* rx pin initialize */
+    gpio_init_struct.gpio_pins = rx_pin;
+    gpio_init(rx_port, &gpio_init_struct);
+
+    /* config gpio mux number */
+    if(uart_num < 4)
+    {
+        gpio_pin_mux_config(tx_port, tx_pin_source, GPIO_MUX_7);
+        gpio_pin_mux_config(rx_port, rx_pin_source, GPIO_MUX_7);
+    }
+    else
+    {
+        gpio_pin_mux_config(tx_port, tx_pin_source, GPIO_MUX_8);
+        gpio_pin_mux_config(rx_port, rx_pin_source, GPIO_MUX_8);
+    }
+
+    return RT_EOK;
+}
+
+void at32_msp_usart_init(void *instance)
+{
+    at32_uart_clk_enable(((struct at32_uart *)instance)->uart_x);
+    at32_gpio_configure(instance);
 }

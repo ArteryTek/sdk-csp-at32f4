@@ -2,7 +2,7 @@
 vendor: ArteryTek
 dvendor: ArteryTek
 name: AT32F4
-version: 0.1.0
+version: 0.1.1
 yaml_version: 1
 type: Chip_Support_Packages
 family_name: AT32
@@ -480,6 +480,7 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f403a_407
+        - drivers\rtt\common
   - sub_series_name: AT32F407
     cpu_info:
       fpu: '1'
@@ -747,8 +748,7 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f403a_407
-
-
+        - drivers\rtt\common
   - sub_series_name: AT32F413
     cpu_info:
       fpu: '1'
@@ -1112,6 +1112,7 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f413
+        - drivers\rtt\common
   - sub_series_name: AT32F415
     cpu_info:
       fpu: '0'
@@ -1635,6 +1636,1184 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f415
+        - drivers\rtt\common
+
+  - sub_series_name: AT32F421
+    cpu_info:
+      fpu: '0'
+      mpu: '1'
+      max_clock: '120000000'
+    source_files:
+      file:
+      - libraries\f421\drivers\src
+      - libraries\f421\drivers\inc
+      - libraries\f421\cmsis\cm4\core_support
+      - libraries\f421\cmsis\cm4\device_support\at32f421_conf.h
+      - libraries\f421\cmsis\cm4\device_support\system_at32f421.h
+      - libraries\f421\cmsis\cm4\device_support\system_at32f421.c
+      - libraries\f421\cmsis\cm4\device_support\system_at32f421.h
+    chips:
+    - chip_name: AT32F421C4T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00004000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00002000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421C4\link.lds
+          marco:
+          - AT32F421C4T7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421C6T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421C6\link.lds
+          marco:
+          - AT32F421C6T7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421C8T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421C8\link.lds
+          marco:
+          - AT32F421C8T7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K4T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00004000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00002000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K4\link.lds
+          marco:
+          - AT32F421K4T7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K6T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K6\link.lds
+          marco:
+          - AT32F421K6T7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K8T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K8\link.lds
+          marco:
+          - AT32F421K8T7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K4U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00004000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00002000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K4\link.lds
+          marco:
+          - AT32F421K4U7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K6U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K6\link.lds
+          marco:
+          - AT32F421K6U7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K8U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K8\link.lds
+          marco:
+          - AT32F421K8U7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K4U7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00004000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00002000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K4\link.lds
+          marco:
+          - AT32F421K4U7_4
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K6U7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K6\link.lds
+          marco:
+          - AT32F421K6U7_4
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421K8U7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421K8\link.lds
+          marco:
+          - AT32F421K8U7_4
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421G4U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00004000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00002000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421G4\link.lds
+          marco:
+          - AT32F421G4U7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421G6U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421G6\link.lds
+          marco:
+          - AT32F421G6U7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421G8U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421G8\link.lds
+          marco:
+          - AT32F421G8U7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421F4P7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00004000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00002000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421F4\link.lds
+          marco:
+          - AT32F421F4P7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421F6P7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421F6\link.lds
+          marco:
+          - AT32F421F6P7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F421F8P7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00004000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F421F8\link.lds
+          marco:
+          - AT32F421F8P7
+          files:
+          - libraries\f421\cmsis\cm4\device_support\startup\gcc\startup_at32f421.s
+          - libraries\f421\cmsis\cm4\device_support\at32f421.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F421_CH_V2.02.pdf
+      title: AT32F421 Reference Manual
+    svd:
+      file: debug\svd\AT32F421xx_v2.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F421
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal\f421
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F421
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano\f421
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F421
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\rtt\f421
+        - drivers\rtt\common
+  - sub_series_name: AT32F425
+    cpu_info:
+      fpu: '0'
+      mpu: '1'
+      max_clock: '96000000'
+    source_files:
+      file:
+      - libraries\f425\drivers\src
+      - libraries\f425\drivers\inc
+      - libraries\f425\cmsis\cm4\core_support
+      - libraries\f425\cmsis\cm4\device_support\at32f425_conf.h
+      - libraries\f425\cmsis\cm4\device_support\system_at32f425.h
+      - libraries\f425\cmsis\cm4\device_support\system_at32f425.c
+      - libraries\f425\cmsis\cm4\device_support\system_at32f425.h
+    chips:
+    - chip_name: AT32F425R6T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425R6\link.lds
+          marco:
+          - AT32F425R6T7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425R8T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425R8\link.lds
+          marco:
+          - AT32F425R8T7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425R6T7-7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425R6\link.lds
+          marco:
+          - AT32F425R6T7_7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425R8T7-7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425R8\link.lds
+          marco:
+          - AT32F425R8T7_7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425C6T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425C6\link.lds
+          marco:
+          - AT32F425C6T7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425C8T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425C8\link.lds
+          marco:
+          - AT32F425C8T7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425C6U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425C6\link.lds
+          marco:
+          - AT32F425C6U7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425C8U7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425C8\link.lds
+          marco:
+          - AT32F425C8U7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425K6T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425K6\link.lds
+          marco:
+          - AT32F425K6T7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425K8T7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425K8\link.lds
+          marco:
+          - AT32F425K8T7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425K6U7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425K6\link.lds
+          marco:
+          - AT32F425K6U7_4
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425K8U7-4
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425K8\link.lds
+          marco:
+          - AT32F425K8U7_4
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425F6P7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00008000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425F6\link.lds
+          marco:
+          - AT32F425F6P7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F425F8P7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00010000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00005000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F425F8\link.lds
+          marco:
+          - AT32F425F8P7
+          files:
+          - libraries\f425\cmsis\cm4\device_support\startup\gcc\startup_at32f425.s
+          - libraries\f425\cmsis\cm4\device_support\at32f425.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F425_CH_V2.03.pdf
+      title: AT32F425 Reference Manual
+    svd:
+      file: debug\svd\AT32F425xx_v2.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F425
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal\f425
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F425
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano\f425
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F425
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\rtt\f425
+        - drivers\rtt\common
   - sub_series_name: AT32F435
     cpu_info:
       fpu: '1'
@@ -2192,6 +3371,7 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f435_437
+        - drivers\rtt\common
   - sub_series_name: AT32F437
     cpu_info:
       fpu: '1'
@@ -2555,3 +3735,4 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f435_437
+        - drivers\rtt\common

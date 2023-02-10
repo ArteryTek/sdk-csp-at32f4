@@ -21,9 +21,9 @@ void system_clock_config(int target_freq_Mhz)
 {
     /* reset crm */
     crm_reset();
-    
+
     crm_clock_source_enable(CRM_CLOCK_SOURCE_HEXT, TRUE);
-    
+
      /* wait till hext is ready */
     while(crm_hext_stable_wait() == ERROR)
     {
@@ -37,7 +37,7 @@ void system_clock_config(int target_freq_Mhz)
 
     /* enable pll */
     crm_clock_source_enable(CRM_CLOCK_SOURCE_PLL, TRUE);
-    
+
     /* wait till pll is ready */
     while(crm_flag_get(CRM_PLL_STABLE_FLAG) != SET)
     {
