@@ -455,3 +455,45 @@ void at32_msp_usart_init(void *instance)
     at32_uart_clk_enable(((struct at32_uart *)instance)->uart_x);
     at32_gpio_configure(instance);
 }
+
+void at32_msp_usb_init(void *instance)
+{
+#if defined (BSP_USING_USBFS1)
+    /* enable usb clock */
+    crm_periph_clock_enable(CRM_OTGFS1_PERIPH_CLOCK, TRUE);
+
+    switch(system_core_clock)
+    {
+        /* 48MHz */
+        case 48000000:
+            crm_usb_clock_div_set(CRM_USB_DIV_1);
+            break;
+
+        /* 72MHz */
+        case 72000000:
+            crm_usb_clock_div_set(CRM_USB_DIV_1_5);
+            break;
+
+        /* 96MHz */
+        case 96000000:
+            crm_usb_clock_div_set(CRM_USB_DIV_2);
+            break;
+
+        /* 120MHz */
+        case 120000000:
+            crm_usb_clock_div_set(CRM_USB_DIV_2_5);
+            break;
+
+        /* 144MHz */
+        case 144000000:
+            crm_usb_clock_div_set(CRM_USB_DIV_3);
+            break;
+
+        default:
+            break;
+    }
+#endif /* BSP_USING_USBFS1 */
+}
+
+
+

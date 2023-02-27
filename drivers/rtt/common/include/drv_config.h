@@ -14,6 +14,7 @@
 
 #include <board.h>
 #include <rtthread.h>
+#include "drv_common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,6 +23,7 @@ extern "C" {
 #include "dma_config.h"
 #include "uart_config.h"
 #include "spi_config.h"
+#include "usb_config.h"
 
 #ifdef __cplusplus
 }
