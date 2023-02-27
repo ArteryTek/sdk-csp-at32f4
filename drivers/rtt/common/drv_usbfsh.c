@@ -10,10 +10,10 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
+#include "drv_common.h"
 
 #if defined(BSP_USING_HOST_USBFS1) || defined(BSP_USING_HOST_USBFS2)
 #include "usbh_int.h"
-#include "drv_common.h"
 #include "drv_usbfs.h"
 #include "drv_config.h"
 
