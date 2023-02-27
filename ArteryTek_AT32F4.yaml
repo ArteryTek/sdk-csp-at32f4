@@ -2,7 +2,7 @@
 vendor: ArteryTek
 dvendor: ArteryTek
 name: AT32F4
-version: 0.1.1
+version: 0.1.3
 yaml_version: 1
 type: Chip_Support_Packages
 family_name: AT32
@@ -481,6 +481,7 @@ series:
         source_files:
         - drivers\rtt\f403a_407
         - drivers\rtt\common
+        - drivers\rtt\usbd_library
   - sub_series_name: AT32F407
     cpu_info:
       fpu: '1'
@@ -749,6 +750,7 @@ series:
         source_files:
         - drivers\rtt\f403a_407
         - drivers\rtt\common
+        - drivers\rtt\usbd_library
   - sub_series_name: AT32F413
     cpu_info:
       fpu: '1'
@@ -1113,6 +1115,7 @@ series:
         source_files:
         - drivers\rtt\f413
         - drivers\rtt\common
+        - drivers\rtt\usbd_library
   - sub_series_name: AT32F415
     cpu_info:
       fpu: '0'
@@ -1637,7 +1640,7 @@ series:
         source_files:
         - drivers\rtt\f415
         - drivers\rtt\common
-
+        - drivers\rtt\usbfs_library
   - sub_series_name: AT32F421
     cpu_info:
       fpu: '0'
@@ -2814,6 +2817,7 @@ series:
         source_files:
         - drivers\rtt\f425
         - drivers\rtt\common
+        - drivers\rtt\usbfs_library
   - sub_series_name: AT32F435
     cpu_info:
       fpu: '1'
@@ -3372,6 +3376,7 @@ series:
         source_files:
         - drivers\rtt\f435_437
         - drivers\rtt\common
+        - drivers\rtt\usbfs_library
   - sub_series_name: AT32F437
     cpu_info:
       fpu: '1'
@@ -3736,3 +3741,4 @@ series:
         source_files:
         - drivers\rtt\f435_437
         - drivers\rtt\common
+        - drivers\rtt\usbfs_library
