@@ -18,6 +18,9 @@
 extern "C" {
 #endif
 
+#define UART1_IRQHandler      USART1_IRQHandler
+#define UART2_IRQHandler      USART2_IRQHandler
+
 #if defined(BSP_USING_UART1)
 #define UART1_CONFIG                                                \
     {                                                               \
