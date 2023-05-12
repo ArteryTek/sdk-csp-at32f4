@@ -8,13 +8,15 @@
  * 2022-05-16     shelton      first version
  * 2022-11-10     shelton      support uart dma
  * 2023-01-31     shelton      add support f421/f425
+ * 2023-04-08     shelton      add support f423
  */
 
 #include "drv_common.h"
+
+#ifdef RT_USING_SERIAL
 #include "drv_usart.h"
 #include "drv_config.h"
 
-#ifdef RT_USING_SERIAL
 #if !defined(BSP_USING_UART1) && !defined(BSP_USING_UART2) && \
     !defined(BSP_USING_UART3) && !defined(BSP_USING_UART4) && \
     !defined(BSP_USING_UART5) && !defined(BSP_USING_UART6) && \
@@ -82,22 +84,21 @@ static void at32_dma_config(struct rt_serial_device *serial, rt_ubase_t flag);
 
 static rt_err_t at32_configure(struct rt_serial_device *serial,
     struct serial_configure *cfg) {
-    struct at32_uart *instance = (struct at32_uart *) serial->parent.user_data;
     usart_data_bit_num_type data_bit;
     usart_stop_bit_num_type stop_bit;
     usart_parity_selection_type parity_mode;
+    usart_hardware_flow_control_type flow_control;
 
     RT_ASSERT(serial != RT_NULL);
     RT_ASSERT(cfg != RT_NULL);
 
+    struct at32_uart *instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     at32_msp_usart_init((void *)instance);
 
     usart_receiver_enable(instance->uart_x, TRUE);
     usart_transmitter_enable(instance->uart_x, TRUE);
-
-    usart_hardware_flow_control_set(instance->uart_x, USART_HARDWARE_FLOW_NONE);
 
     switch (cfg->data_bits) {
     case DATA_BITS_8:
@@ -138,12 +139,25 @@ static rt_err_t at32_configure(struct rt_serial_device *serial,
         break;
     }
 
+    switch (cfg->flowcontrol) {
+    case RT_SERIAL_FLOWCONTROL_NONE:
+        flow_control = USART_HARDWARE_FLOW_NONE;
+        break;
+    case RT_SERIAL_FLOWCONTROL_CTSRTS:
+        flow_control = USART_HARDWARE_FLOW_RTS_CTS;
+        break;
+    default:
+        flow_control = USART_HARDWARE_FLOW_NONE;
+        break;
+    }
+
 #ifdef RT_SERIAL_USING_DMA
     if (!(serial->parent.open_flag & RT_DEVICE_OFLAG_OPEN)) {
         instance->last_index = 0;
     }
 #endif
 
+    usart_hardware_flow_control_set(instance->uart_x, flow_control);
     usart_parity_selection_config(instance->uart_x, parity_mode);
     usart_init(instance->uart_x, cfg->baud_rate, data_bit, stop_bit);
     usart_enable(instance->uart_x, TRUE);
@@ -157,9 +171,9 @@ static rt_err_t at32_control(struct rt_serial_device *serial, int cmd, void *arg
 #ifdef RT_SERIAL_USING_DMA
     rt_ubase_t ctrl_arg = (rt_ubase_t)arg;
 #endif
-
     RT_ASSERT(serial != RT_NULL);
-    instance = (struct at32_uart *) serial->parent.user_data;
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     switch (cmd) {
@@ -199,7 +213,8 @@ static int at32_putc(struct rt_serial_device *serial, char ch) {
     struct at32_uart *instance;
 
     RT_ASSERT(serial != RT_NULL);
-    instance = (struct at32_uart *) serial->parent.user_data;
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     usart_data_transmit(instance->uart_x, (uint8_t)ch);
@@ -213,7 +228,8 @@ static int at32_getc(struct rt_serial_device *serial) {
     struct at32_uart *instance;
 
     RT_ASSERT(serial != RT_NULL);
-    instance = (struct at32_uart *) serial->parent.user_data;
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     ch = -1;
@@ -269,13 +285,14 @@ static void _uart_dma_transmit(struct at32_uart *instance, rt_uint8_t *buffer, r
 static void at32_dma_config(struct rt_serial_device *serial, rt_ubase_t flag)
 {
     dma_init_type dma_init_struct;
-    dma_channel_type *dma_channel = NULL;
+    dma_channel_type *dma_channel = RT_NULL;
     struct rt_serial_rx_fifo *rx_fifo;
     struct at32_uart *instance;
     struct dma_config *dma_config;
 
     RT_ASSERT(serial != RT_NULL);
-    instance = (struct at32_uart *) serial->parent.user_data;
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     RT_ASSERT(flag == RT_DEVICE_FLAG_DMA_TX || flag == RT_DEVICE_FLAG_DMA_RX);
@@ -316,7 +333,8 @@ static void at32_dma_config(struct rt_serial_device *serial, rt_ubase_t flag)
     dma_flexible_config(dma_config->dma_x, dma_config->flex_channel, \
                        (dma_flexible_request_type)dma_config->request_id);
 #endif
-#if defined (SOC_SERIES_AT32F435) || defined (SOC_SERIES_AT32F437)
+#if defined (SOC_SERIES_AT32F435) || defined (SOC_SERIES_AT32F437) || \
+    defined (SOC_SERIES_AT32F423)
     dmamux_enable(dma_config->dma_x, TRUE);
     dmamux_init(dma_config->dmamux_channel, (dmamux_requst_id_sel_type)dma_config->request_id);
 #endif
@@ -336,9 +354,10 @@ static void at32_dma_config(struct rt_serial_device *serial, rt_ubase_t flag)
 static rt_size_t at32_dma_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, int direction)
 {
     struct at32_uart *instance;
-    instance = (struct at32_uart *) serial->parent.user_data;
-    RT_ASSERT(instance != RT_NULL);
     RT_ASSERT(serial != RT_NULL);
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
+    RT_ASSERT(instance != RT_NULL);
     RT_ASSERT(buf != RT_NULL);
 
     if (size == 0)
@@ -372,7 +391,9 @@ void dma_rx_isr(struct rt_serial_device *serial)
     rt_size_t recv_total_index, recv_len;
     rt_base_t level;
     struct at32_uart *instance;
-    instance = (struct at32_uart *) serial->parent.user_data;
+    RT_ASSERT(serial != RT_NULL);
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     reg_sts = instance->dma_rx->dma_x->sts;
@@ -409,9 +430,10 @@ void dma_tx_isr(struct rt_serial_device *serial)
     volatile rt_uint32_t reg_sts = 0, index = 0;
     rt_size_t trans_total_index;
     rt_base_t level;
-    RT_ASSERT(serial != RT_NULL);
     struct at32_uart *instance;
-    instance = (struct at32_uart *) serial->parent.user_data;
+    RT_ASSERT(serial != RT_NULL);
+
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     reg_sts = instance->dma_tx->dma_x->sts;
@@ -446,7 +468,7 @@ static void usart_isr(struct rt_serial_device *serial) {
 #endif
     RT_ASSERT(serial != RT_NULL);
 
-    instance = (struct at32_uart *) serial->parent.user_data;
+    instance = rt_container_of(serial, struct at32_uart, serial);
     RT_ASSERT(instance != RT_NULL);
 
     if (usart_flag_get(instance->uart_x, USART_RDBF_FLAG) != RESET) {
@@ -487,7 +509,7 @@ static void usart_isr(struct rt_serial_device *serial) {
 }
 
 #ifdef BSP_USING_UART1
-void USART1_IRQHandler(void) {
+void UART1_IRQHandler(void) {
     rt_interrupt_enter();
 
     usart_isr(&uart_config[UART1_INDEX].serial);
@@ -520,7 +542,7 @@ void UART1_TX_DMA_IRQHandler(void)
 #endif /* defined(RT_SERIAL_USING_DMA) && defined(BSP_UART1_TX_USING_DMA) */
 #endif
 #ifdef BSP_USING_UART2
-void USART2_IRQHandler(void) {
+void UART2_IRQHandler(void) {
     rt_interrupt_enter();
 
     usart_isr(&uart_config[UART2_INDEX].serial);
@@ -553,7 +575,7 @@ void UART2_TX_DMA_IRQHandler(void)
 #endif /* defined(RT_SERIAL_USING_DMA) && defined(BSP_UART2_TX_USING_DMA) */
 #endif
 #ifdef BSP_USING_UART3
-void USART3_IRQHandler(void) {
+void UART3_IRQHandler(void) {
     rt_interrupt_enter();
 
     usart_isr(&uart_config[UART3_INDEX].serial);
@@ -652,7 +674,7 @@ void UART5_TX_DMA_IRQHandler(void)
 #endif /* defined(RT_SERIAL_USING_DMA) && defined(BSP_UART5_TX_USING_DMA) */
 #endif
 #ifdef BSP_USING_UART6
-void USART6_IRQHandler(void) {
+void UART6_IRQHandler(void) {
     rt_interrupt_enter();
 
     usart_isr(&uart_config[UART6_INDEX].serial);
@@ -780,7 +802,7 @@ void UART2_TX_RX_DMA_IRQHandler(void)
 void USART4_3_IRQHandler(void)
 {
 #if defined(BSP_USING_UART3)
-  USART3_IRQHandler();
+  UART3_IRQHandler();
 #endif
 #if defined(BSP_USING_UART4)
   UART4_IRQHandler();

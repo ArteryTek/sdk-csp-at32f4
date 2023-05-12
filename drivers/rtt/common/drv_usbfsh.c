@@ -250,7 +250,7 @@ static int drv_pipe_xfer(upipe_t pipe, rt_uint8_t token, void *buffer, int nbyte
             }
             return -1;
         }
-        else if (usbh_get_status(&p_usbfs_instance->p_otg_core->host, pipe->pipe_index) == URB_ERROR)
+        else if (usbh_get_status(&p_usbfs_instance->p_otg_core->host, pipe->pipe_index) == HCH_XACTERR)
         {
             RT_DEBUG_LOG(RT_DEBUG_USB, ("error\n"));
             pipe->status = UPIPE_STATUS_ERROR;
