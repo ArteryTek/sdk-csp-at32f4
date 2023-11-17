@@ -8,6 +8,7 @@
  * 2022-05-16     shelton      first version
  * 2023-01-31     shelton      add support f421/f425
  * 2023-04-08     shelton      add support f423
+ * 2023-10-18     shelton      add support f402/f405
  */
 
 #include "drv_common.h"
@@ -81,7 +82,8 @@ static rt_err_t at32_adc_enabled(struct rt_adc_device *device, rt_uint32_t chann
     adc_common_config(&adc_common_struct);
 #else
 #if !defined (SOC_SERIES_AT32F415) && !defined (SOC_SERIES_AT32F421) && \
-    !defined (SOC_SERIES_AT32F425)
+    !defined (SOC_SERIES_AT32F425) && !defined (SOC_SERIES_AT32F402) && \
+    !defined (SOC_SERIES_AT32F405)
     adc_combine_mode_select(ADC_INDEPENDENT_MODE);
 #endif
     adc_ordinary_conversion_trigger_set(adc_x, ADC12_ORDINARY_TRIG_SOFTWARE, TRUE);

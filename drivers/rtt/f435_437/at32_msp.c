@@ -646,16 +646,16 @@ void at32_msp_usart_init(void *instance)
 
 void at32_msp_usb_init(void *instance)
 {
-#if defined (BSP_USING_HOST_USBFS1) || defined (BSP_USING_DEVICE_USBFS1) || \
-    defined (BSP_USING_HOST_USBFS2) || defined (BSP_USING_DEVICE_USBFS2)
+#if defined (BSP_USING_HOST_USBOTG1) || defined (BSP_USING_DEVICE_USBOTG1) || \
+    defined (BSP_USING_HOST_USBOTG2) || defined (BSP_USING_DEVICE_USBOTG2)
     /* defalut usb clock from hick */
     usb_clk48_s clk_s = USB_CLK_HICK;
 
-#if defined (BSP_USING_HOST_USBFS1) || defined (BSP_USING_DEVICE_USBFS1)
+#if defined (BSP_USING_HOST_USBOTG1) || defined (BSP_USING_DEVICE_USBOTG1)
     crm_periph_clock_enable(CRM_OTGFS1_PERIPH_CLOCK, TRUE);
 #endif
 
-#if defined (BSP_USING_HOST_USBFS2) || defined (BSP_USING_DEVICE_USBFS2)
+#if defined (BSP_USING_HOST_USBOTG2) || defined (BSP_USING_DEVICE_USBOTG2)
     crm_periph_clock_enable(CRM_OTGFS2_PERIPH_CLOCK, TRUE);
 #endif
 

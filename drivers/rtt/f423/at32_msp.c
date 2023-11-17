@@ -487,7 +487,7 @@ void at32_msp_usart_init(void *instance)
 
 void at32_msp_usb_init(void *instance)
 {
-#if defined (BSP_USING_HOST_USBFS1) || defined (BSP_USING_DEVICE_USBFS1)
+#if defined (BSP_USING_HOST_USBOTG1) || defined (BSP_USING_DEVICE_USBOTG1)
     /* defalut usb clock from hext */
     usb_clk48_s clk_s = USB_CLK_HEXT;
 
@@ -536,7 +536,7 @@ void at32_msp_usb_init(void *instance)
                 break;
         }
     }
-#endif /* BSP_USING_USBFS1 */
+#endif /* BSP_USING_USBOTG1 */
 }
 
 void at32_msp_dac_init(void *instance)
