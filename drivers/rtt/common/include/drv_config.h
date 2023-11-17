@@ -20,7 +20,12 @@
 extern "C" {
 #endif
 
-#if defined(SOC_SERIES_AT32F403A) || defined (SOC_SERIES_AT32F407)
+#if defined(SOC_SERIES_AT32F402) || defined (SOC_SERIES_AT32F405)
+#include "dma_config.h"
+#include "uart_config.h"
+#include "spi_config.h"
+#include "usb_config.h"
+#elif defined(SOC_SERIES_AT32F403A) || defined (SOC_SERIES_AT32F407)
 #include "dma_config.h"
 #include "uart_config.h"
 #include "spi_config.h"

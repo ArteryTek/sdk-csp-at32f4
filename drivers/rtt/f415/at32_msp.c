@@ -458,7 +458,7 @@ void at32_msp_usart_init(void *instance)
 
 void at32_msp_usb_init(void *instance)
 {
-#if defined (BSP_USING_USBFS1)
+#if defined (BSP_USING_USBOTG1)
     /* enable usb clock */
     crm_periph_clock_enable(CRM_OTGFS1_PERIPH_CLOCK, TRUE);
 
@@ -492,7 +492,7 @@ void at32_msp_usb_init(void *instance)
         default:
             break;
     }
-#endif /* BSP_USING_USBFS1 */
+#endif /* BSP_USING_USBOTG1 */
 }
 
 

@@ -26,7 +26,8 @@ static time_t get_rtc_timestamp(void)
 {
 #if defined (SOC_SERIES_AT32F435) || defined (SOC_SERIES_AT32F437) || \
     defined (SOC_SERIES_AT32F415) || defined (SOC_SERIES_AT32F421) || \
-    defined (SOC_SERIES_AT32F425) || defined (SOC_SERIES_AT32F423)
+    defined (SOC_SERIES_AT32F425) || defined (SOC_SERIES_AT32F423) || \
+    defined (SOC_SERIES_AT32F402) || defined (SOC_SERIES_AT32F405)
     struct tm tm_new;
     ertc_time_type ertc_time_struct;
 
@@ -51,7 +52,8 @@ static rt_err_t set_rtc_time_stamp(time_t time_stamp)
 {
 #if defined (SOC_SERIES_AT32F435) || defined (SOC_SERIES_AT32F437) || \
     defined (SOC_SERIES_AT32F415) || defined (SOC_SERIES_AT32F421) || \
-    defined (SOC_SERIES_AT32F425) || defined (SOC_SERIES_AT32F423)
+    defined (SOC_SERIES_AT32F425) || defined (SOC_SERIES_AT32F423) || \
+    defined (SOC_SERIES_AT32F402) || defined (SOC_SERIES_AT32F405)
     struct tm now;
 
     gmtime_r(&time_stamp, &now);
@@ -96,7 +98,8 @@ static rt_err_t rt_rtc_config(void)
 
 #if defined (SOC_SERIES_AT32F435) || defined (SOC_SERIES_AT32F437) || \
     defined (SOC_SERIES_AT32F415) || defined (SOC_SERIES_AT32F421) || \
-    defined (SOC_SERIES_AT32F425) || defined (SOC_SERIES_AT32F423)
+    defined (SOC_SERIES_AT32F425) || defined (SOC_SERIES_AT32F423) || \
+    defined (SOC_SERIES_AT32F402) || defined (SOC_SERIES_AT32F405)
 
     /* select rtc clock source */
 #ifdef BSP_RTC_USING_LICK
