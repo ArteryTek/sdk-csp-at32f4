@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f435_437_mcudbg.c
-  * @version  v2.0.7
-  * @date     2022-04-02
   * @brief    contains all the functions for the mcudbg firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer

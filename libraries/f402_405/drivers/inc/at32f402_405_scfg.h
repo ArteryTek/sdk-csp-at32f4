@@ -55,8 +55,6 @@ extern "C" {
 typedef enum
 {
   SCFG_IR_SOURCE_TMR10                   = 0x00, /* infrared signal source select tmr10 */
-  SCFG_IR_SOURCE_USART1                  = 0x01, /* infrared signal source select usart1 */
-  SCFG_IR_SOURCE_USART2                  = 0x02  /* infrared signal source select usart2 */
 } scfg_ir_source_type;
 
 /**
@@ -98,7 +96,7 @@ typedef enum
   SCFG_PINS_SOURCE12                     = 0x0C,
   SCFG_PINS_SOURCE13                     = 0x0D,
   SCFG_PINS_SOURCE14                     = 0x0E,
-  SCFG_PINS_SOURCE15                     = 0x0F 
+  SCFG_PINS_SOURCE15                     = 0x0F
 } scfg_pins_source_type;
 
 /**
@@ -113,7 +111,7 @@ typedef enum
   SCFG_PORT_SOURCE_GPIOE                 = 0x04,
   SCFG_PORT_SOURCE_GPIOF                 = 0x05,
   SCFG_PORT_SOURCE_GPIOG                 = 0x06,
-  SCFG_PORT_SOURCE_GPIOH                 = 0x07 
+  SCFG_PORT_SOURCE_GPIOH                 = 0x07
 } scfg_port_source_type;
 
 /**
@@ -277,7 +275,7 @@ void scfg_infrared_config(scfg_ir_source_type source, scfg_ir_polarity_type pola
 scfg_mem_map_type scfg_mem_map_get(void);
 void scfg_i2s_full_duplex_config(scfg_i2s_type i2s_full_duplex);
 void scfg_pvm_lock_enable(confirm_state new_state);
-error_status scfg_sram_operr_status_get(void);
+flag_status scfg_sram_operr_status_get(void);
 void scfg_sram_operr_lock_enable(confirm_state new_state);
 void scfg_lockup_enable(confirm_state new_state);
 void scfg_exint_line_config(scfg_port_source_type port_source, scfg_pins_source_type pin_source);
@@ -298,5 +296,5 @@ void scfg_pins_ultra_driven_enable(scfg_ultra_driven_pins_type value, confirm_st
 #ifdef __cplusplus
 }
 #endif
-  
+
 #endif

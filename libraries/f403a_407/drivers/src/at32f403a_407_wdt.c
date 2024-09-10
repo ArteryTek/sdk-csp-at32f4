@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f403a_407_wdt.c
-  * @version  v2.0.8
-  * @date     2022-04-02
   * @brief    contains all the functions for the wdt firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer

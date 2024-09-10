@@ -2,7 +2,7 @@
 vendor: ArteryTek
 dvendor: ArteryTek
 name: AT32F4
-version: 0.1.8
+version: 0.1.9
 yaml_version: 1
 type: Chip_Support_Packages
 family_name: AT32

@@ -76,8 +76,8 @@ __Vectors       DCD     __initial_sp                        ; Top of Stack
                 DCD     DMA1_Channel7_IRQHandler            ; DMA1 Channel 7
                 DCD     ADC1_IRQHandler                     ; ADC1
                 DCD     CAN1_TX_IRQHandler                  ; CAN1 TX
-                DCD     CAN1_RX0_IRQHandler                 ; CAN1 RX0 
-                DCD     CAN1_RX1_IRQHandler                 ; CAN1 RX1 
+                DCD     CAN1_RX0_IRQHandler                 ; CAN1 RX0
+                DCD     CAN1_RX1_IRQHandler                 ; CAN1 RX1
                 DCD     CAN1_SE_IRQHandler                  ; CAN1 SE
                 DCD     EXINT9_5_IRQHandler                 ; EXINT Line [9:5]
                 DCD     TMR1_BRK_TMR9_IRQHandler            ; TMR1 Brake and TMR9
@@ -121,7 +121,7 @@ __Vectors       DCD     __initial_sp                        ; Top of Stack
                 DCD     0                                   ; Reserved
                 DCD     0                                   ; Reserved
                 DCD     0                                   ; Reserved
-                DCD     0                                   ; Reserved 
+                DCD     0                                   ; Reserved
                 DCD     0                                   ; Reserved
                 DCD     OTGFS1_IRQHandler                   ; OTGFS1
                 DCD     DMA2_Channel6_IRQHandler            ; DMA2 Channel 6

@@ -242,7 +242,8 @@ void tmr_cnt_dir_set(tmr_type *tmr_x, tmr_count_mode_type tmr_cnt_dir)
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
   *         TMR1, TMR9, TMR10, TMR11, TMR12, TMR13, TMR14
-  * @param  tmr_rpr_value (0x0000~0xFFFF)
+  * @param  tmr_rpr_value for TMR1(0x0000~0xFFFF)
+  *         for TMR9, TMR10, TMR11, TMR12, TMR13, TMR14(0x00~0xFF)
   * @retval none
   */
 void tmr_repetition_counter_set(tmr_type *tmr_x, uint16_t tmr_rpr_value)
@@ -286,8 +287,7 @@ uint32_t tmr_counter_value_get(tmr_type *tmr_x)
   *         this parameter can be one of the following values:
   *         TMR1, TMR2, TMR3, TMR4, TMR6, TMR7,
   *         TMR9, TMR10, TMR11, TMR12, TMR13, TMR14
-  * @param  tmr_div_value (for 16 bit tmr 0x0000~0xFFFF,
-  *                        for 32 bit tmr 0x0000_0000~0xFFFF_FFFF)
+  * @param  tmr_div_value (0x0000~0xFFFF)
   * @retval none
   */
 void tmr_div_value_set(tmr_type *tmr_x, uint32_t tmr_div_value)
@@ -321,7 +321,6 @@ uint32_t tmr_div_value_get(tmr_type *tmr_x)
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  tmr_output_struct
   *         - to the structure of tmr_output_config_type
   * @retval none
@@ -333,7 +332,7 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
 
   chx_offset = (8 + tmr_channel);
   chcx_offset = (9 + tmr_channel);
-  
+
   /* get channel idle state bit position in ctrl2 register */
   channel_index = (uint16_t)(tmr_output_struct->oc_idle_state << chx_offset);
 
@@ -367,10 +366,6 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4octrl = tmr_output_struct->oc_mode;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5octrl = tmr_output_struct->oc_mode;
       break;
 
     default:
@@ -424,7 +419,6 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  oc_mode
   *         this parameter can be one of the following values:
   *         - TMR_OUTPUT_CONTROL_OFF
@@ -460,10 +454,6 @@ void tmr_output_channel_mode_select(tmr_type *tmr_x, tmr_channel_select_type tmr
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4octrl = oc_mode;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5octrl = oc_mode;
       break;
 
     default:
@@ -514,7 +504,6 @@ uint32_t tmr_period_value_get(tmr_type *tmr_x)
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  tmr_channel_value (for 16 bit tmr 0x0000~0xFFFF,
   *                       for 32 bit tmr 0x0000_0000~0xFFFF_FFFF)
   * @retval none
@@ -545,10 +534,6 @@ void tmr_channel_value_set(tmr_type *tmr_x, tmr_channel_select_type tmr_channel,
       tmr_x->c4dt = tmr_channel_value;
       break;
 
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->c5dt = tmr_channel_value;
-      break;
-
     default:
       break;
   }
@@ -566,7 +551,6 @@ void tmr_channel_value_set(tmr_type *tmr_x, tmr_channel_select_type tmr_channel,
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @retval tmr channel value
   */
 uint32_t tmr_channel_value_get(tmr_type *tmr_x, tmr_channel_select_type tmr_channel)
@@ -593,10 +577,6 @@ uint32_t tmr_channel_value_get(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
 
     case TMR_SELECT_CHANNEL_4:
       cc_value_get = tmr_x->c4dt;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      cc_value_get = tmr_x->c5dt;
       break;
 
     default:
@@ -632,7 +612,6 @@ void tmr_period_buffer_enable(tmr_type *tmr_x, confirm_state new_state)
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  new_state (TRUE or FALSE)
   * @retval none
   */
@@ -662,10 +641,6 @@ void tmr_output_channel_buffer_enable(tmr_type *tmr_x, tmr_channel_select_type t
       tmr_x->cm2_output_bit.c4oben = new_state;
       break;
 
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5oben = new_state;
-      break;
-
     default:
       break;
   }
@@ -683,7 +658,6 @@ void tmr_output_channel_buffer_enable(tmr_type *tmr_x, tmr_channel_select_type t
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  new_state (TRUE or FALSE)
   * @retval none
   */
@@ -713,10 +687,6 @@ void tmr_output_channel_immediately_set(tmr_type *tmr_x, tmr_channel_select_type
       tmr_x->cm2_output_bit.c4oien = new_state;
       break;
 
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5oien = new_state;
-      break;
-
     default:
       break;
   }
@@ -734,7 +704,6 @@ void tmr_output_channel_immediately_set(tmr_type *tmr_x, tmr_channel_select_type
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  new_state (TRUE or FALSE)
   * @retval none
   */
@@ -762,10 +731,6 @@ void tmr_output_channel_switch_set(tmr_type *tmr_x, tmr_channel_select_type tmr_
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4osen = new_state;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5osen = new_state;
       break;
 
     default:
@@ -798,7 +763,7 @@ void tmr_one_cycle_mode_enable(tmr_type *tmr_x, confirm_state new_state)
   */
 void tmr_32_bit_function_enable (tmr_type *tmr_x, confirm_state new_state)
 {
-  /* tmr 32 bit function(plus mode) enable,only for TMR2/TMR5 */
+  /* tmr 32 bit function(plus mode) enable,only for TMR2 */
   if(tmr_x == TMR2)
   {
     tmr_x->ctrl1_bit.pmen = new_state;
@@ -1384,6 +1349,40 @@ void tmr_interrupt_enable(tmr_type *tmr_x, uint32_t tmr_interrupt, confirm_state
 }
 
 /**
+  * @brief  get tmr interrupt flag
+  * @param  tmr_x: select the tmr peripheral.
+  *         this parameter can be one of the following values:
+  *         TMR1, TMR2, TMR3, TMR4, TMR6, TMR7,
+  *         TMR9, TMR10, TMR11, TMR12, TMR13, TMR14
+  * @param  tmr_flag
+  *         this parameter can be one of the following values:
+  *         - TMR_OVF_FLAG
+  *         - TMR_C1_FLAG
+  *         - TMR_C2_FLAG
+  *         - TMR_C3_FLAG
+  *         - TMR_C4_FLAG
+  *         - TMR_HALL_FLAG
+  *         - TMR_TRIGGER_FLAG
+  *         - TMR_BRK_FLAG
+  * @retval state of tmr interrupt flag
+  */
+flag_status tmr_interrupt_flag_get(tmr_type *tmr_x, uint32_t tmr_flag)
+{
+  flag_status status = RESET;
+
+  if((tmr_x->ists & tmr_flag) && (tmr_x->iden & tmr_flag))
+  {
+    status = SET;
+  }
+  else
+  {
+    status = RESET;
+  }
+
+  return status;
+}
+
+/**
   * @brief  get tmr flag
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
@@ -1642,7 +1641,7 @@ void tmr_external_clock_mode2_config(tmr_type *tmr_x, tmr_external_signal_divide
   * @brief  config tmr encoder mode
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
-  *         TMR1, TMR2, TMR3, TMR4
+  *         TMR1, TMR2, TMR3, TMR4, TMR9, TMR12
   * @param  encoder_mode
   *         this parameter can be one of the following values:
   *         - TMR_ENCODER_MODE_A
@@ -1690,7 +1689,6 @@ void tmr_encoder_mode_config(tmr_type *tmr_x, tmr_encoder_mode_type encoder_mode
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  force_output
   *         this parameter can be one of the following values:
   *         - TMR_FORCE_OUTPUT_HIGH
@@ -1720,10 +1718,6 @@ void tmr_force_output_set(tmr_type *tmr_x,  tmr_channel_select_type tmr_channel,
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4octrl = force_output;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5octrl = force_output;
       break;
 
     default:
@@ -1776,7 +1770,7 @@ void tmr_dma_control_config(tmr_type *tmr_x, tmr_dma_transfer_length_type dma_le
 }
 
 /**
-  * @brief  config tmr break mode and dead-time
+  * @brief  config tmr brake mode and dead-time
   * @param  tmr_x: select the tmr peripheral.
   *         this parameter can be one of the following values:
   *         TMR1, TMR9, TMR10, TMR11, TMR12, TMR13, TMR14
@@ -1793,6 +1787,19 @@ void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct)
   tmr_x->brk_bit.brkv = brkdt_struct->brk_polarity;
   tmr_x->brk_bit.aoen = brkdt_struct->auto_output_enable;
   tmr_x->brk_bit.wpc = brkdt_struct->wp_level;
+}
+
+/**
+  * @brief  set tmr break input filter value
+  * @param  tmr_x: select the tmr peripheral.
+  *         this parameter can be one of the following values:
+  *         TMR1, TMR9, TMR10, TMR11, TMR12, TMR13, TMR14
+  * @param  filter_value (0x0~0xf)
+  * @retval none
+  */
+void tmr_brk_filter_value_set(tmr_type *tmr_x, uint8_t filter_value)
+{
+  tmr_x->brk_bit.bkf = filter_value;
 }
 
 /**

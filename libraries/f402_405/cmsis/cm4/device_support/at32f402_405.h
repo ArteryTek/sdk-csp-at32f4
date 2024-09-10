@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -40,7 +40,7 @@ extern "C" {
 /** @addtogroup AT32F402_405
   * @{
   */
-  
+
 /** @addtogroup Library_configuration_section
   * @{
   */
@@ -92,7 +92,7 @@ extern "C" {
 
 #if defined (AT32F405RBT7_7) || defined (AT32F405RCT7_7) || defined (AT32F405RBT7) || \
     defined (AT32F405RCT7)
-   
+
     #define AT32F405Rx
 #endif
 
@@ -108,7 +108,7 @@ extern "C" {
 
 #if defined (AT32F402RBT7_7) || defined (AT32F402RCT7_7) || defined (AT32F402RBT7) || \
     defined (AT32F402RCT7)
-   
+
     #define AT32F402Rx
 #endif
 
@@ -143,8 +143,8 @@ extern "C" {
 #ifndef USE_STDPERIPH_DRIVER
 /**
   * @brief comment the line below if you will not use the peripherals drivers.
-  * in this case, these drivers will not be included and the application code will 
-  * be based on direct access to peripherals registers 
+  * in this case, these drivers will not be included and the application code will
+  * be based on direct access to peripherals registers
   */
   #ifdef _RTE_
     #include "RTE_Components.h"
@@ -158,8 +158,8 @@ extern "C" {
   * @brief at32f402_405 standard peripheral library version number
   */
 #define __AT32F402_405_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
-#define __AT32F402_405_LIBRARY_VERSION_MIDDLE   (0x00) /*!< [23:16] middle version */
-#define __AT32F402_405_LIBRARY_VERSION_MINOR    (0x02) /*!< [15:8]  minor version */
+#define __AT32F402_405_LIBRARY_VERSION_MIDDLE   (0x01) /*!< [23:16] middle version */
+#define __AT32F402_405_LIBRARY_VERSION_MINOR    (0x00) /*!< [15:8]  minor version */
 #define __AT32F402_405_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F402_405_LIBRARY_VERSION          ((__AT32F402_405_LIBRARY_VERSION_MAJOR << 24)  | \
                                                  (__AT32F402_405_LIBRARY_VERSION_MIDDLE << 16) | \
@@ -274,7 +274,7 @@ typedef enum IRQn
     I2SF5_IRQn                  = 85,     /*!< i2sf5 global interrupt                               */
     QSPI1_IRQn                  = 92,     /*!< qspi1 global interrupt                               */
     DMAMUX_IRQn                 = 94,     /*!< dmamux global interrupt                              */
-    ACC_IRQn                    = 103,    /*!< acc interrupt                                        */
+    ACC_IRQn                    = 103     /*!< acc interrupt                                        */
 
 } IRQn_Type;
 
@@ -288,7 +288,7 @@ typedef enum IRQn
 
 /** @addtogroup Exported_types
   * @{
-  */  
+  */
 
 typedef int32_t  INT32;
 typedef int16_t  INT16;
@@ -330,7 +330,7 @@ typedef __I uint16_t vuc16;   /*!< read only */
 typedef __I uint8_t  vuc8;    /*!< read only */
 
 typedef enum {RESET = 0, SET = !RESET} flag_status;
-typedef enum {FALSE = 0, TRUE = !FALSE} confirm_state; 
+typedef enum {FALSE = 0, TRUE = !FALSE} confirm_state;
 typedef enum {ERROR = 0, SUCCESS = !ERROR} error_status;
 
 /**
@@ -415,7 +415,7 @@ typedef enum {ERROR = 0, SUCCESS = !ERROR} error_status;
 #define USART6_BASE                      (APB2PERIPH_BASE + 0x1400)
 #define USART1_BASE                      (APB2PERIPH_BASE + 0x1000)
 #define TMR1_BASE                        (APB2PERIPH_BASE + 0x0000)
-/* ahb bus base address */   
+/* ahb bus base address */
 #define GPIOF_BASE                       (AHBPERIPH1_BASE + 0x1400)
 #define GPIOD_BASE                       (AHBPERIPH1_BASE + 0x0C00)
 #define GPIOC_BASE                       (AHBPERIPH1_BASE + 0x0800)
@@ -477,7 +477,7 @@ typedef enum {ERROR = 0, SUCCESS = !ERROR} error_status;
 /**
   * @}
   */
-  
+
 /**
   * @}
   */

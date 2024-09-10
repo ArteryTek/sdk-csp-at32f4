@@ -10,6 +10,9 @@
 
 #include "drv_common.h"
 
+#if !defined(BSP_USING_HARD_I2C1) && !defined(BSP_USING_HARD_I2C2) && \
+    !defined(BSP_USING_HARD_I2C3)
+
 #ifdef RT_USING_I2C
 #include "drv_soft_i2c.h"
 #define LOG_TAG              "drv.i2c"
@@ -206,7 +209,7 @@ int rt_hw_i2c_init(void)
     rt_size_t obj_num = sizeof(i2c_obj) / sizeof(struct at32_i2c);
     rt_err_t result;
 
-    for (int i = 0; i < obj_num; i++)
+    for (rt_size_t i = 0; i < obj_num; i++)
     {
         i2c_obj[i].ops = at32_bit_ops_default;
         i2c_obj[i].ops.data = (void*)&soft_i2c_config[i];
@@ -228,3 +231,4 @@ int rt_hw_i2c_init(void)
 INIT_BOARD_EXPORT(rt_hw_i2c_init);
 
 #endif /* RT_USING_I2C */
+#endif

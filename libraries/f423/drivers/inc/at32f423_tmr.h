@@ -218,8 +218,7 @@ typedef enum
   TMR_SELECT_CHANNEL_2C                  = 0x03, /*!< tmr channel select channel 2 complementary */
   TMR_SELECT_CHANNEL_3                   = 0x04, /*!< tmr channel select channel 3 */
   TMR_SELECT_CHANNEL_3C                  = 0x05, /*!< tmr channel select channel 3 complementary */
-  TMR_SELECT_CHANNEL_4                   = 0x06, /*!< tmr channel select channel 4 */
-  TMR_SELECT_CHANNEL_5                   = 0x07  /*!< tmr channel select channel 5 */
+  TMR_SELECT_CHANNEL_4                   = 0x06  /*!< tmr channel select channel 4 */
 } tmr_channel_select_type;
 
 /**
@@ -804,7 +803,8 @@ typedef struct
       __IO uint32_t brkv                 : 1; /* [13] */
       __IO uint32_t aoen                 : 1; /* [14] */
       __IO uint32_t oen                  : 1; /* [15] */
-      __IO uint32_t reserved1            : 16; /* [31:16] */
+      __IO uint32_t bkf                  : 4; /* [19:16] */
+      __IO uint32_t reserved1            : 12;/* [31:20] */
     } brk_bit;
   };
   /**
@@ -843,43 +843,9 @@ typedef struct
     __IO uint32_t rmp;
     struct
     {
-      __IO uint32_t tmr14_ch1_irmp        : 2; /* [1:0] */      
+      __IO uint32_t tmr14_ch1_irmp        : 2; /* [1:0] */
       __IO uint32_t reserved1             : 30;/* [31:2] */
     } rmp_bit;
-  };
-
-  /**
-    * @brief tmr reserved0 register, offset:0x54-0x6C
-    */
-  __IO uint32_t reserved1[7];
-
-  /**
-    * @brief tmr cm3 register, offset:0x70
-    */
-  union
-  {
-    __IO uint32_t cm3;
-    struct
-    {
-      __IO uint32_t reserved1            : 2; /* [1:0] */
-      __IO uint32_t c5oien               : 1; /* [2] */
-      __IO uint32_t c5oben               : 1; /* [3] */
-      __IO uint32_t c5octrl              : 3; /* [6:4] */
-      __IO uint32_t c5osen               : 1; /* [7] */
-      __IO uint32_t reserved2            : 24;/* [31:8] */
-    } cm3_output_bit;
-  };
-
-  /**
-    * @brief tmr c5dt register, offset:0x74
-    */
-  union
-  {
-    __IO uint32_t c5dt;
-    struct
-    {
-      __IO uint32_t c5dt                 : 32;/* [31:0] */
-    } c5dt_bit;
   };
 } tmr_type;
 
@@ -957,6 +923,7 @@ void tmr_trigger_input_select(tmr_type *tmr_x, sub_tmr_input_sel_type trigger_se
 void tmr_sub_sync_mode_set(tmr_type *tmr_x, confirm_state new_state);
 void tmr_dma_request_enable(tmr_type *tmr_x, tmr_dma_request_type dma_request, confirm_state new_state);
 void tmr_interrupt_enable(tmr_type *tmr_x, uint32_t tmr_interrupt, confirm_state new_state);
+flag_status tmr_interrupt_flag_get(tmr_type *tmr_x, uint32_t tmr_flag);
 flag_status tmr_flag_get(tmr_type *tmr_x, uint32_t tmr_flag);
 void tmr_flag_clear(tmr_type *tmr_x, uint32_t tmr_flag);
 void tmr_event_sw_trigger(tmr_type *tmr_x, tmr_event_trigger_type tmr_event);
@@ -977,6 +944,7 @@ void tmr_force_output_set(tmr_type *tmr_x,  tmr_channel_select_type tmr_channel,
 void tmr_dma_control_config(tmr_type *tmr_x, tmr_dma_transfer_length_type dma_length, \
                             tmr_dma_address_type dma_base_address);
 void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct);
+void tmr_brk_filter_value_set(tmr_type *tmr_x, uint8_t filter_value);
 void tmr_iremap_config(tmr_type *tmr_x, tmr_input_remap_type input_remap);
 
 /**

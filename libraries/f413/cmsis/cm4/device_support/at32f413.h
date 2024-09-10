@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f413.h
-  * @version  v2.0.7
-  * @date     2022-08-16
   * @brief    at32f413 header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -68,6 +66,45 @@ extern "C" {
     #define AT32F413xx
 #endif
 
+/**
+  * define with package
+  */
+#if defined (AT32F413RBT7)   || defined (AT32F413RCT7)
+
+    #define AT32F413Rx
+#endif
+
+#if defined (AT32F413CBU7)   || defined (AT32F413CCU7)   || defined (AT32F413C8T7) || \
+    defined (AT32F413CBT7)   || defined (AT32F413CCT7)
+
+    #define AT32F413Cx
+#endif
+
+#if defined (AT32F413KBU7_4) || defined (AT32F413KCU7_4)
+
+    #define AT32F413Kx
+#endif
+
+/**
+  * define with memory density
+  */
+#if defined (AT32F413C8T7)   || defined (AT32FEBKC8T7)
+
+    #define AT32F413x8
+#endif
+
+#if defined (AT32F413KBU7_4) || defined (AT32F413CBU7)   || defined (AT32F413CBT7) || \
+    defined (AT32F413RBT7)   || defined (AT32F413TBU7)
+
+    #define AT32F413xB
+#endif
+
+#if defined (AT32F413KCU7_4) || defined (AT32F413CCU7)   || defined (AT32F413CCT7)  || \
+    defined (AT32F413RCT7)
+
+    #define AT32F413xC
+#endif
+
 #ifndef USE_STDPERIPH_DRIVER
 /**
   * @brief comment the line below if you will not use the peripherals drivers.
@@ -86,8 +123,8 @@ extern "C" {
   * @brief at32f413 standard peripheral library version number
   */
 #define __AT32F413_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
-#define __AT32F413_LIBRARY_VERSION_MIDDLE   (0x00) /*!< [23:16] middle version */
-#define __AT32F413_LIBRARY_VERSION_MINOR    (0x07) /*!< [15:8]  minor version */
+#define __AT32F413_LIBRARY_VERSION_MIDDLE   (0x01) /*!< [23:16] middle version */
+#define __AT32F413_LIBRARY_VERSION_MINOR    (0x04) /*!< [15:8]  minor version */
 #define __AT32F413_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F413_LIBRARY_VERSION          ((__AT32F413_LIBRARY_VERSION_MAJOR << 24)  | \
                                              (__AT32F413_LIBRARY_VERSION_MIDDLE << 16) | \
@@ -193,7 +230,7 @@ typedef enum IRQn
     ACC_IRQn                    = 72,     /*!< acc interrupt                                        */
     USBFS_MAPH_IRQn             = 73,     /*!< usb map hp interrupt                                 */
     USBFS_MAPL_IRQn             = 74,     /*!< usb map lp interrupt                                 */
-    DMA2_Channel6_7_IRQn        = 75,     /*!< dma2 channel 6 and channel 7 global interrupt        */
+    DMA2_Channel6_7_IRQn        = 75      /*!< dma2 channel 6 and channel 7 global interrupt        */
 
 } IRQn_Type;
 

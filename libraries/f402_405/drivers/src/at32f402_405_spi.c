@@ -190,7 +190,7 @@ void spi_crc_next_transmit(spi_type* spi_x)
   * @brief  set the crc polynomial value for the spi peripheral.
   * @param  spi_x: select the spi peripheral.
   *         this parameter can be one of the following values:
-  *         SPI1, SPI2, SPI3 
+  *         SPI1, SPI2, SPI3
   * @param  crc_poly: crc polynomial value.
   * @retval none
   */
@@ -551,7 +551,7 @@ void i2s_init(spi_type* spi_x, i2s_init_type* i2s_init_struct)
   * @brief  enable or disable i2s.
   * @param  spi_x: select the i2s peripheral.
   *         this parameter can be one of the following values:
-  *         SPI1, SPI2, SPI3, I2SF5 
+  *         SPI1, SPI2, SPI3, I2SF5
   * @param  new_state: new state of i2s.
   *         this parameter can be: TRUE or FALSE.
   * @retval none
@@ -605,7 +605,7 @@ void spi_i2s_dma_transmitter_enable(spi_type* spi_x, confirm_state new_state)
   * @brief  enable or disable the spi/i2s dma receiver mode.
   * @param  spi_x: select the spi/i2s peripheral.
   *         this parameter can be one of the following values:
-  *         SPI1, SPI2, SPI3, I2SF5 
+  *         SPI1, SPI2, SPI3, I2SF5
   * @param  new_state: new state of the dma request.
   *         this parameter can be: TRUE or FALSE.
   * @retval none
@@ -619,7 +619,7 @@ void spi_i2s_dma_receiver_enable(spi_type* spi_x, confirm_state new_state)
   * @brief  spi/i2s data transmit
   * @param  spi_x: select the spi/i2s peripheral.
   *         this parameter can be one of the following values:
-  *         SPI1, SPI2, SPI3, I2SF5 
+  *         SPI1, SPI2, SPI3, I2SF5
   * @param  tx_data: the data to be transmit.
   *         this parameter can be:
   *         - (0x0000~0xFFFF)
@@ -634,7 +634,7 @@ void spi_i2s_data_transmit(spi_type* spi_x, uint16_t tx_data)
   * @brief  spi/i2s data receive
   * @param  spi_x: select the spi/i2s peripheral.
   *         this parameter can be one of the following values:
-  *         SPI1, SPI2, SPI3, I2SF5 
+  *         SPI1, SPI2, SPI3, I2SF5
   * @retval the received data value
   */
 uint16_t spi_i2s_data_receive(spi_type* spi_x)
@@ -693,7 +693,7 @@ flag_status spi_i2s_flag_get(spi_type* spi_x, uint32_t spi_i2s_flag)
 flag_status spi_i2s_interrupt_flag_get(spi_type* spi_x, uint32_t spi_i2s_flag)
 {
   flag_status status = RESET;
-  
+
   switch(spi_i2s_flag)
   {
     case SPI_I2S_RDBF_FLAG:
@@ -748,7 +748,7 @@ flag_status spi_i2s_interrupt_flag_get(spi_type* spi_x, uint32_t spi_i2s_flag)
   * @brief  clear flag of the specified spi/i2s peripheral.
   * @param  spi_x: select the spi/i2s peripheral.
   *         this parameter can be one of the following values:
-  *         SPI1, SPI2, SPI3, I2SF5 
+  *         SPI1, SPI2, SPI3, I2SF5
   * @param  spi_i2s_flag: select the spi/i2s flag
   *         this parameter can be one of the following values:
   *         - SPI_CCERR_FLAG
@@ -789,7 +789,7 @@ void spi_i2s_flag_clear(spi_type* spi_x, uint32_t spi_i2s_flag)
   * @brief  enable or disable the i2s fullduplex mode for the spi peripheral.
   * @param  spi_x: select the spi peripheral.
   *         this parameter can be one of the following values:
-  *         I2SF5 
+  *         I2SF5
   * @param  new_state: new state of i2s fullduplex mode.
   *         this parameter can be: TRUE or FALSE.
   * @retval none
@@ -803,11 +803,11 @@ void i2sf_full_duplex_mode_enable(spi_type* spi_x, confirm_state new_state)
   * @brief  set the i2s pcm mode sample clock for the spi peripheral.
   * @param  spi_x: select the spi peripheral.
   *         this parameter can be one of the following values:
-  *         I2SF5 
+  *         I2SF5
   * @param  channel_num: i2s tdm mode channel number
   *         this parameter can be one of the following values:
-  *         - I2S_PCM_SAMPLE_CLOCK_FALLING                  
-  *         - I2S_PCM_SAMPLE_CLOCK_RISING    
+  *         - I2S_PCM_SAMPLE_CLOCK_FALLING
+  *         - I2S_PCM_SAMPLE_CLOCK_RISING
   * @retval none
   */
 void i2sf_pcm_sample_clock_set(spi_type* spi_x, i2s_pcm_sample_clock_type pcm_sample_clock)

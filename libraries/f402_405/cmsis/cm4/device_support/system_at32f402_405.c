@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -29,7 +29,7 @@
 /** @addtogroup AT32F402_405_system
   * @{
   */
-    
+
 #include "at32f402_405.h"
 
 /** @addtogroup AT32F402_405_system_private_defines
@@ -180,9 +180,53 @@ void system_core_clock_update(void)
 }
 
 /**
+  * @brief  reduce power consumption initialize
+  *         If OTGHS is not used, call this function to reduce power consumption.
+  *         PLL or HEXT should be enabled when calling this function.
+  *
+  *         If OTGHS is required, initialize OTGHS to reduce power consumption,
+  *          without the need to call this function.
+  * @param  none
+  * @retval none
+  */
+void reduce_power_consumption(void)
+{
+  volatile uint32_t delay = 0x34BC0;
+  if(CRM->ctrl_bit.hextstbl)
+  {
+    *(__IO uint32_t *)0x40023878 = 0x00;
+  }
+  else if(CRM->ctrl_bit.pllstbl == SET)
+  {
+    CRM->pllcfg_bit.plluen = TRUE;
+    while(CRM->ctrl_bit.pllstbl != SET || CRM->ctrl_bit.pllustbl != SET);
+    *(__IO uint32_t *)0x40023878 = 0x10;
+  }
+  else
+  {
+    /* the pll or hext need to be enable */
+    return;
+  }
+  CRM->ahben1 |= 1 << 29;
+  *(__IO uint32_t *)0x40040038 = 0x210000;
+  *(__IO uint32_t *)0x4004000C |= 0x40000000;
+  *(__IO uint32_t *)0x40040804 &= ~0x2;
+  while(delay --)
+  {
+    if(*(__IO uint32_t *)0x40040808 & 0x1)
+      break;
+  }
+  *(__IO uint32_t *)0x40040038 |= 0x400000;
+  *(__IO uint32_t *)0x40040E00 |= 0x1;
+  *(__IO uint32_t *)0x40040038 &= ~0x10000;
+  *(__IO uint32_t *)0x40023878 = 0x0;
+  return;
+}
+
+/**
   * @}
   */
-  
+
 /**
   * @}
   */

@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f435_437_misc.c
-  * @version  v2.0.7
-  * @date     2022-04-02
   * @brief    contains all the functions for the misc firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer

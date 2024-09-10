@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f415_ertc.h
-  * @version  v2.0.7
-  * @date     2022-08-16
   * @brief    at32f415 ertc header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -88,10 +86,6 @@ extern "C" {
 #define ERTC_ALARM_MASK_HOUR             ((uint32_t)0x00800000) /*!< ertc alarm don't match hour */
 #define ERTC_ALARM_MASK_DATE_WEEK        ((uint32_t)0x80000000) /*!< ertc alarm don't match date or week */
 #define ERTC_ALARM_MASK_ALL              ((uint32_t)0x80808080) /*!< ertc alarm don't match all */
-
-/**
-  * @}
-  */
 
 /**
   * @brief compatible with older versions
@@ -1182,6 +1176,7 @@ void ertc_tamper_enable(ertc_tamper_select_type tamper_x, confirm_state new_stat
 void ertc_interrupt_enable(uint32_t source, confirm_state new_state);
 flag_status ertc_interrupt_get(uint32_t source);
 flag_status ertc_flag_get(uint32_t flag);
+flag_status ertc_interrupt_flag_get(uint32_t flag);
 void ertc_flag_clear(uint32_t flag);
 void ertc_bpr_data_write(ertc_dt_type dt, uint32_t data);
 uint32_t ertc_bpr_data_read(ertc_dt_type dt);

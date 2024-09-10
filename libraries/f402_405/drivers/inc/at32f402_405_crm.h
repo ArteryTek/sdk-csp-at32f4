@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -41,15 +41,15 @@ extern "C" {
 /** @addtogroup CRM
   * @{
   */
-  
+
 #define CRM_REG(value)                   PERIPH_REG(CRM_BASE, value)
 #define CRM_REG_BIT(value)               PERIPH_REG_BIT(value)
-  
+
 /** @defgroup CRM_flags_definition
-  * @brief crm flag 
+  * @brief crm flag
   * @{
   */
-  
+
 #define CRM_HICK_STABLE_FLAG             MAKE_VALUE(0x00, 1)  /*!< high speed internal clock stable flag */
 #define CRM_HEXT_STABLE_FLAG             MAKE_VALUE(0x00, 17) /*!< high speed external crystal stable flag */
 #define CRM_PLL_STABLE_FLAG              MAKE_VALUE(0x00, 25) /*!< phase locking loop stable flag */
@@ -73,12 +73,12 @@ extern "C" {
 /**
   * @}
   */
-  
+
 /** @defgroup CRM_interrupts_definition
-  * @brief crm interrupt 
+  * @brief crm interrupt
   * @{
   */
-  
+
 #define CRM_LICK_STABLE_INT              ((uint32_t)0x00000100) /*!< low speed internal clock stable interrupt */
 #define CRM_LEXT_STABLE_INT              ((uint32_t)0x00000200) /*!< low speed external crystal stable interrupt */
 #define CRM_HICK_STABLE_INT              ((uint32_t)0x00000400) /*!< high speed internal clock stable interrupt */
@@ -166,11 +166,11 @@ typedef enum
   CRM_DMA1_PERIPH_RESET                  = MAKE_VALUE(0x10, 22), /*!< dma1 periph reset */
   CRM_DMA2_PERIPH_RESET                  = MAKE_VALUE(0x10, 24), /*!< dma2 periph reset */
   CRM_OTGHS_PERIPH_RESET                 = MAKE_VALUE(0x10, 29), /*!< otghs periph reset */
-  /* ahb periph2 */                                              
+  /* ahb periph2 */
   CRM_OTGFS1_PERIPH_RESET                = MAKE_VALUE(0x14, 7),  /*!< otgfs1 periph reset */
-  /* ahb periph3 */                                              
+  /* ahb periph3 */
   CRM_QSPI1_PERIPH_RESET                 = MAKE_VALUE(0x18, 1),  /*!< qspi1 periph reset */
-  /* apb1 periph */                                              
+  /* apb1 periph */
   CRM_TMR2_PERIPH_RESET                  = MAKE_VALUE(0x20, 0),  /*!< tmr2 periph reset */
   CRM_TMR3_PERIPH_RESET                  = MAKE_VALUE(0x20, 1),  /*!< tmr3 periph reset */
   CRM_TMR4_PERIPH_RESET                  = MAKE_VALUE(0x20, 2),  /*!< tmr4 periph reset */
@@ -192,7 +192,7 @@ typedef enum
   CRM_PWC_PERIPH_RESET                   = MAKE_VALUE(0x20, 28), /*!< pwc periph reset */
   CRM_UART7_PERIPH_RESET                 = MAKE_VALUE(0x20, 30), /*!< uart7 periph reset */
   CRM_UART8_PERIPH_RESET                 = MAKE_VALUE(0x20, 31), /*!< uart8 periph reset */
-  /* apb2 periph */                                              
+  /* apb2 periph */
   CRM_TMR1_PERIPH_RESET                  = MAKE_VALUE(0x24, 0),  /*!< tmr1 periph reset */
   CRM_USART1_PERIPH_RESET                = MAKE_VALUE(0x24, 4),  /*!< usart1 periph reset */
   CRM_USART6_PERIPH_RESET                = MAKE_VALUE(0x24, 5),  /*!< usart6 periph reset */
@@ -225,11 +225,11 @@ typedef enum
   CRM_DMA1_PERIPH_LOWPOWER               = MAKE_VALUE(0x50, 22), /*!< dma1 sleep mode periph clock */
   CRM_DMA2_PERIPH_LOWPOWER               = MAKE_VALUE(0x50, 24), /*!< dma2 sleep mode periph clock */
   CRM_OTGFHS_PERIPH_LOWPOWER             = MAKE_VALUE(0x50, 29), /*!< otghs sleep mode periph clock */
-  /* ahb periph2 */                                              
+  /* ahb periph2 */
   CRM_OTGFS1_PERIPH_LOWPOWER             = MAKE_VALUE(0x54, 7),  /*!< otgfs1 sleep mode periph clock */
-  /* ahb periph3 */                                              
+  /* ahb periph3 */
   CRM_QSPI1_PERIPH_LOWPOWER              = MAKE_VALUE(0x58, 1),  /*!< qspi1 sleep mode periph clock */
-  /* apb1 periph */                                              
+  /* apb1 periph */
   CRM_TMR2_PERIPH_LOWPOWER               = MAKE_VALUE(0x60, 0),  /*!< tmr2 sleep mode periph clock */
   CRM_TMR3_PERIPH_LOWPOWER               = MAKE_VALUE(0x60, 1),  /*!< tmr3 sleep mode periph clock */
   CRM_TMR4_PERIPH_LOWPOWER               = MAKE_VALUE(0x60, 2),  /*!< tmr4 sleep mode periph clock */
@@ -251,7 +251,7 @@ typedef enum
   CRM_PWC_PERIPH_LOWPOWER                = MAKE_VALUE(0x60, 28), /*!< pwc sleep mode periph clock */
   CRM_UART7_PERIPH_LOWPOWER              = MAKE_VALUE(0x60, 30), /*!< uart7 sleep mode periph clock */
   CRM_UART8_PERIPH_LOWPOWER              = MAKE_VALUE(0x60, 31), /*!< uart8 sleep mode periph clock */
-  /* apb2 periph */                                              
+  /* apb2 periph */
   CRM_TMR1_PERIPH_LOWPOWER               = MAKE_VALUE(0x64, 0),  /*!< tmr1 sleep mode periph clock */
   CRM_USART1_PERIPH_LOWPOWER             = MAKE_VALUE(0x64, 4),  /*!< usart1 sleep mode periph clock */
   CRM_USART6_PERIPH_LOWPOWER             = MAKE_VALUE(0x64, 5),  /*!< usart6 sleep mode periph clock */
@@ -376,7 +376,7 @@ typedef enum
   CRM_HEXT_SCLK_DIV_8                    = 0x03, /*!< hext div8 to sysclk */
   CRM_HEXT_SCLK_DIV_16                   = 0x04, /*!< hext div16 to sysclk */
   CRM_HEXT_SCLK_DIV_32                   = 0x05  /*!< hext div32 to sysclk */
-} crm_hext_sclk_div_type;                
+} crm_hext_sclk_div_type;
 
 /**
   * @brief crm hick to sysclk division
@@ -461,8 +461,7 @@ typedef enum
   CRM_CLKOUT_ADC                         = 0x11, /*!< output adcclk to clkout pin */
   CRM_CLKOUT_HICK                        = 0x12, /*!< output high speed internal clock to clkout pin */
   CRM_CLKOUT_LICK                        = 0x13, /*!< output low speed internal clock to clkout pin */
-  CRM_CLKOUT_LEXT                        = 0x14, /*!< output low speed external crystal to clkout pin */
-  CRM_CLKOUT_USBHS                       = 0x15  /*!< output usbhsclk to clkout pin */
+  CRM_CLKOUT_LEXT                        = 0x14  /*!< output low speed external crystal to clkout pin */
 } crm_clkout_select_type;
 
 /**
@@ -556,7 +555,7 @@ typedef struct
 typedef struct
 {
   /**
-    * @brief crm ctrl register, offset:0x00 
+    * @brief crm ctrl register, offset:0x00
     */
   union
   {
@@ -580,7 +579,7 @@ typedef struct
   };
 
   /**
-    * @brief crm pllcfg register, offset:0x04 
+    * @brief crm pllcfg register, offset:0x04
     */
   union
   {
@@ -601,7 +600,7 @@ typedef struct
   };
 
   /**
-    * @brief crm cfg register, offset:0x08 
+    * @brief crm cfg register, offset:0x08
     */
   union
   {

@@ -42,8 +42,8 @@ extern "C" {
   * @{
   */
 
-/** @defgroup ERTC_interrupts_definition 
-  * @brief ertc interrupt  
+/** @defgroup ERTC_interrupts_definition
+  * @brief ertc interrupt
   * @{
   */
 
@@ -57,11 +57,11 @@ extern "C" {
   * @}
   */
 
-/** @defgroup ERTC_flags_definition 
-  * @brief ertc flag  
+/** @defgroup ERTC_flags_definition
+  * @brief ertc flag
   * @{
   */
-  
+
 #define ERTC_ALAWF_FLAG                  ((uint32_t)0x00000001) /*!< ertc alarm a register allows write flag */
 #define ERTC_ALBWF_FLAG                  ((uint32_t)0x00000002) /*!< ertc alarm b register allows write flag */
 #define ERTC_WATWF_FLAG                  ((uint32_t)0x00000004) /*!< ertc wakeup timer register allows write flag */
@@ -91,11 +91,11 @@ extern "C" {
 /**
   * @}
   */
- 
+
 /** @defgroup ERTC_exported_types
   * @{
   */
-  
+
 /**
   * @brief ertc hour mode
   */
@@ -1110,12 +1110,12 @@ typedef struct
 
 
 } ertc_type;
- 
+
 /**
   * @}
   */
 
-#define ERTC                              ((ertc_type *) ERTC_BASE)  
+#define ERTC                              ((ertc_type *) ERTC_BASE)
 
 /** @defgroup ERTC_exported_functions
   * @{

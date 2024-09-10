@@ -236,7 +236,7 @@ typedef enum
 {
   TMR_CC_CHANNEL_MAPPED_DIRECT           = 0x01, /*!< channel is configured as input, mapped direct */
   TMR_CC_CHANNEL_MAPPED_INDIRECT         = 0x02, /*!< channel is configured as input, mapped indirect */
-  TMR_CC_CHANNEL_MAPPED_STI              = 0x03  /*!< channel is configured as input, mapped trc */
+  TMR_CC_CHANNEL_MAPPED_STI              = 0x03  /*!< channel is configured as input, mapped sti */
 } tmr_input_direction_mapped_type;
 
 /**
@@ -732,8 +732,8 @@ typedef struct
     __IO uint32_t rpr;
     struct
     {
-      __IO uint32_t rpr                  : 8; /* [7:0] */
-      __IO uint32_t reserved1            : 24;/* [31:8] */
+      __IO uint32_t rpr                  : 16;/* [15:0] */
+      __IO uint32_t reserved1            : 16;/* [31:16] */
     } rpr_bit;
   };
 
@@ -801,7 +801,8 @@ typedef struct
       __IO uint32_t brkv                 : 1; /* [13] */
       __IO uint32_t aoen                 : 1; /* [14] */
       __IO uint32_t oen                  : 1; /* [15] */
-      __IO uint32_t reserved1            : 16; /* [31:16] */
+      __IO uint32_t bkf                  : 4; /* [19:16] */
+      __IO uint32_t reserved1            : 12;/* [31:20] */
     } brk_bit;
   };
   /**
@@ -873,7 +874,7 @@ void tmr_brkdt_default_para_init(tmr_brkdt_config_type *tmr_brkdt_struct);
 void tmr_base_init(tmr_type* tmr_x, uint32_t tmr_pr, uint32_t tmr_div);
 void tmr_clock_source_div_set(tmr_type *tmr_x, tmr_clock_division_type tmr_clock_div);
 void tmr_cnt_dir_set(tmr_type *tmr_x, tmr_count_mode_type tmr_cnt_dir);
-void tmr_repetition_counter_set(tmr_type *tmr_x, uint8_t tmr_rpr_value);
+void tmr_repetition_counter_set(tmr_type *tmr_x, uint16_t tmr_rpr_value);
 void tmr_counter_value_set(tmr_type *tmr_x, uint32_t tmr_cnt_value);
 uint32_t tmr_counter_value_get(tmr_type *tmr_x);
 void tmr_div_value_set(tmr_type *tmr_x, uint32_t tmr_div_value);
@@ -917,6 +918,7 @@ void tmr_trigger_input_select(tmr_type *tmr_x, sub_tmr_input_sel_type trigger_se
 void tmr_sub_sync_mode_set(tmr_type *tmr_x, confirm_state new_state);
 void tmr_dma_request_enable(tmr_type *tmr_x, tmr_dma_request_type dma_request, confirm_state new_state);
 void tmr_interrupt_enable(tmr_type *tmr_x, uint32_t tmr_interrupt, confirm_state new_state);
+flag_status tmr_interrupt_flag_get(tmr_type *tmr_x, uint32_t tmr_flag);
 flag_status tmr_flag_get(tmr_type *tmr_x, uint32_t tmr_flag);
 void tmr_flag_clear(tmr_type *tmr_x, uint32_t tmr_flag);
 void tmr_event_sw_trigger(tmr_type *tmr_x, tmr_event_trigger_type tmr_event);
@@ -938,6 +940,7 @@ void tmr_force_output_set(tmr_type *tmr_x,  tmr_channel_select_type tmr_channel,
 void tmr_dma_control_config(tmr_type *tmr_x, tmr_dma_transfer_length_type dma_length, \
                             tmr_dma_address_type dma_base_address);
 void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct);
+void tmr_brk_filter_value_set(tmr_type *tmr_x, uint8_t filter_value);
 void tmr_iremap_config(tmr_type *tmr_x, tmr_input_remap_type input_remap);
 
 /**
