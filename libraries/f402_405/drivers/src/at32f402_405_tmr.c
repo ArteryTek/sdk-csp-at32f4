@@ -160,7 +160,6 @@ void tmr_input_default_para_init(tmr_input_config_type *tmr_input_struct)
   */
 void tmr_brkdt_default_para_init(tmr_brkdt_config_type *tmr_brkdt_struct)
 {
-  tmr_brkdt_struct->brk_filter_value = 0x0;
   tmr_brkdt_struct->deadtime = 0x0;
   tmr_brkdt_struct->brk_polarity = TMR_BRK_INPUT_ACTIVE_LOW;
   tmr_brkdt_struct->wp_level = TMR_WP_OFF;
@@ -322,7 +321,6 @@ uint32_t tmr_div_value_get(tmr_type *tmr_x)
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  tmr_output_struct
   *         - to the structure of tmr_output_config_type
   * @retval none
@@ -391,7 +389,6 @@ void tmr_output_channel_config(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  oc_mode
   *         this parameter can be one of the following values:
   *         - TMR_OUTPUT_CONTROL_OFF
@@ -427,10 +424,6 @@ void tmr_output_channel_mode_select(tmr_type *tmr_x, tmr_channel_select_type tmr
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4octrl = oc_mode;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5octrl = oc_mode;
       break;
 
     default:
@@ -481,7 +474,6 @@ uint32_t tmr_period_value_get(tmr_type *tmr_x)
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  tmr_channel_value (for 16 bit tmr 0x0000~0xFFFF,
   *                       for 32 bit tmr 0x0000_0000~0xFFFF_FFFF)
   * @retval none
@@ -512,10 +504,6 @@ void tmr_channel_value_set(tmr_type *tmr_x, tmr_channel_select_type tmr_channel,
       tmr_x->c4dt = tmr_channel_value;
       break;
 
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->c5dt = tmr_channel_value;
-      break;
-
     default:
       break;
   }
@@ -533,7 +521,6 @@ void tmr_channel_value_set(tmr_type *tmr_x, tmr_channel_select_type tmr_channel,
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @retval tmr channel value
   */
 uint32_t tmr_channel_value_get(tmr_type *tmr_x, tmr_channel_select_type tmr_channel)
@@ -560,10 +547,6 @@ uint32_t tmr_channel_value_get(tmr_type *tmr_x, tmr_channel_select_type tmr_chan
 
     case TMR_SELECT_CHANNEL_4:
       cc_value_get = tmr_x->c4dt;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      cc_value_get = tmr_x->c5dt;
       break;
 
     default:
@@ -599,7 +582,6 @@ void tmr_period_buffer_enable(tmr_type *tmr_x, confirm_state new_state)
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  new_state (TRUE or FALSE)
   * @retval none
   */
@@ -629,10 +611,6 @@ void tmr_output_channel_buffer_enable(tmr_type *tmr_x, tmr_channel_select_type t
       tmr_x->cm2_output_bit.c4oben = new_state;
       break;
 
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5oben = new_state;
-      break;
-
     default:
       break;
   }
@@ -650,7 +628,6 @@ void tmr_output_channel_buffer_enable(tmr_type *tmr_x, tmr_channel_select_type t
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  new_state (TRUE or FALSE)
   * @retval none
   */
@@ -680,10 +657,6 @@ void tmr_output_channel_immediately_set(tmr_type *tmr_x, tmr_channel_select_type
       tmr_x->cm2_output_bit.c4oien = new_state;
       break;
 
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5oien = new_state;
-      break;
-
     default:
       break;
   }
@@ -701,7 +674,6 @@ void tmr_output_channel_immediately_set(tmr_type *tmr_x, tmr_channel_select_type
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  new_state (TRUE or FALSE)
   * @retval none
   */
@@ -729,10 +701,6 @@ void tmr_output_channel_switch_set(tmr_type *tmr_x, tmr_channel_select_type tmr_
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4osen = new_state;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5osen = new_state;
       break;
 
     default:
@@ -1704,7 +1672,6 @@ void tmr_encoder_mode_config(tmr_type *tmr_x, tmr_encoder_mode_type encoder_mode
   *         - TMR_SELECT_CHANNEL_2
   *         - TMR_SELECT_CHANNEL_3
   *         - TMR_SELECT_CHANNEL_4
-  *         - TMR_SELECT_CHANNEL_5
   * @param  force_output
   *         this parameter can be one of the following values:
   *         - TMR_FORCE_OUTPUT_HIGH
@@ -1734,10 +1701,6 @@ void tmr_force_output_set(tmr_type *tmr_x,  tmr_channel_select_type tmr_channel,
 
     case TMR_SELECT_CHANNEL_4:
       tmr_x->cm2_output_bit.c4octrl = force_output;
-      break;
-
-    case TMR_SELECT_CHANNEL_5:
-      tmr_x->cm3_output_bit.c5octrl = force_output;
       break;
 
     default:
@@ -1800,7 +1763,6 @@ void tmr_dma_control_config(tmr_type *tmr_x, tmr_dma_transfer_length_type dma_le
   */
 void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct)
 {
-  tmr_x->brk_bit.bkf = brkdt_struct->brk_filter_value;
   tmr_x->brk_bit.brken = brkdt_struct->brk_enable;
   tmr_x->brk_bit.dtc = brkdt_struct->deadtime;
   tmr_x->brk_bit.fcsodis = brkdt_struct->fcsodis_state;
@@ -1808,6 +1770,19 @@ void tmr_brkdt_config(tmr_type *tmr_x, tmr_brkdt_config_type *brkdt_struct)
   tmr_x->brk_bit.brkv = brkdt_struct->brk_polarity;
   tmr_x->brk_bit.aoen = brkdt_struct->auto_output_enable;
   tmr_x->brk_bit.wpc = brkdt_struct->wp_level;
+}
+
+/**
+  * @brief  set tmr break input filter value
+  * @param  tmr_x: select the tmr peripheral.
+  *         this parameter can be one of the following values:
+  *         TMR1, TMR9, TMR10, TMR11, TMR13, TRM14
+  * @param  filter_value (0x0~0xf)
+  * @retval none
+  */
+void tmr_brk_filter_value_set(tmr_type *tmr_x, uint8_t filter_value)
+{
+  tmr_x->brk_bit.bkf = filter_value;
 }
 
 /**

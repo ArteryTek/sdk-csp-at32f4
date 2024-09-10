@@ -110,7 +110,7 @@ typedef struct
       __IO uint32_t sleep_debug          : 1;/* [0] */
       __IO uint32_t deepsleep_debug      : 1;/* [1] */
       __IO uint32_t standby_debug        : 1;/* [2] */
-      __IO uint32_t reserved1            : 29;/* [31:3] */   
+      __IO uint32_t reserved1            : 29;/* [31:3] */
     } ctrl_bit;
   };
 

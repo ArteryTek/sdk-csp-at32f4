@@ -209,24 +209,17 @@ void pwc_deep_sleep_mode_enter(pwc_deep_sleep_enter_type pwc_deep_sleep_enter)
   *         this parameter can be one of the following values:
   *         - PWC_REGULATOR_ON
   *         - PWC_REGULATOR_LOW_POWER
-  *         - PWC_REGULATOR_EXTRA_LOW_POWER
   * @retval none
   */
 void pwc_voltage_regulate_set(pwc_regulator_type pwc_regulator)
 {
   switch(pwc_regulator)
   {
-    case 0:
-      PWC->ctrl2_bit.vrexlpen = 0;
-      PWC->ctrl_bit.vrsel = 0;
+    case PWC_REGULATOR_ON:
+      PWC->ctrl_bit.vrsel = FALSE;
       break;
-    case 1:
-      PWC->ctrl2_bit.vrexlpen = 0;
-      PWC->ctrl_bit.vrsel = 1;
-      break;
-    case 2:
-      PWC->ctrl2_bit.vrexlpen = 1;
-      PWC->ctrl_bit.vrsel = 1;
+    case PWC_REGULATOR_LOW_POWER:
+      PWC->ctrl_bit.vrsel = TRUE;
       break;
     default:
       break;

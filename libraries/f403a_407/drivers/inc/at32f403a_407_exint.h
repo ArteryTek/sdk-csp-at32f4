@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f403a_407_exint.h
-  * @version  v2.0.8
-  * @date     2022-04-02
   * @brief    at32f403a_407 exint header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -84,6 +82,7 @@ extern "C" {
 typedef enum
 {
   EXINT_LINE_INTERRUPUT                  = 0x00, /*!< external interrupt line interrupt mode */
+  EXINT_LINE_INTERRUPT                   = 0x00, /*!< same as EXINT_LINE_INTERRUPUT, fixed spelling error */
   EXINT_LINE_EVENT                       = 0x01  /*!< external interrupt line event mode */
 } exint_line_mode_type;
 
@@ -208,6 +207,7 @@ void exint_default_para_init(exint_init_type *exint_struct);
 void exint_init(exint_init_type *exint_struct);
 void exint_flag_clear(uint32_t exint_line);
 flag_status exint_flag_get(uint32_t exint_line);
+flag_status exint_interrupt_flag_get(uint32_t exint_line);
 void exint_software_interrupt_event_generate(uint32_t exint_line);
 void exint_interrupt_enable(uint32_t exint_line, confirm_state new_state);
 void exint_event_enable(uint32_t exint_line, confirm_state new_state);

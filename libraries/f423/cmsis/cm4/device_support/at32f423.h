@@ -57,7 +57,8 @@ extern "C" {
     !defined (AT32F423C8T7)   && !defined (AT32F423CBT7)   && !defined (AT32F423CCT7)   && \
     !defined (AT32F423R8T7_7) && !defined (AT32F423RBT7_7) && !defined (AT32F423RCT7_7) && \
     !defined (AT32F423R8T7)   && !defined (AT32F423RBT7)   && !defined (AT32F423RCT7)   && \
-    !defined (AT32F423V8T7)   && !defined (AT32F423VBT7)   && !defined (AT32F423VCT7)
+    !defined (AT32F423V8T7)   && !defined (AT32F423VBT7)   && !defined (AT32F423VCT7)   && \
+    !defined (AT32F423CBU7_7)
 
     #error "Please select first the target device used in your application (in at32f423.h file)"
 #endif
@@ -68,7 +69,8 @@ extern "C" {
     defined (AT32F423C8T7)   || defined (AT32F423CBT7)   || defined (AT32F423CCT7)   || \
     defined (AT32F423R8T7_7) || defined (AT32F423RBT7_7) || defined (AT32F423RCT7_7) || \
     defined (AT32F423R8T7)   || defined (AT32F423RBT7)   || defined (AT32F423RCT7)   || \
-    defined (AT32F423V8T7)   || defined (AT32F423VBT7)   || defined (AT32F423VCT7)
+    defined (AT32F423V8T7)   || defined (AT32F423VBT7)   || defined (AT32F423VCT7)   || \
+    defined (AT32F423CBU7_7)
 
     #define AT32F423xx
 #endif
@@ -87,7 +89,8 @@ extern "C" {
 #endif
 
 #if defined (AT32F423C8U7)   || defined (AT32F423CBU7)   || defined (AT32F423CCU7)   || \
-    defined (AT32F423C8T7)   || defined (AT32F423CBT7)   || defined (AT32F423CCT7)
+    defined (AT32F423C8T7)   || defined (AT32F423CBT7)   || defined (AT32F423CCT7)   || \
+    defined (AT32F423CBU7_7)
 
     #define AT32F423Cx
 #endif
@@ -115,7 +118,7 @@ extern "C" {
 
 #if defined (AT32F423KBU7_4) || defined (AT32F423TBU7)   || defined (AT32F423CBU7)   || \
     defined (AT32F423CBT7)   || defined (AT32F423RBT7_7) || defined (AT32F423RBT7)   || \
-    defined (AT32F423VBT7)
+    defined (AT32F423VBT7)   || defined (AT32F423CBU7_7)
 
     #define AT32F423xB
 #endif
@@ -146,7 +149,7 @@ extern "C" {
   */
 #define __AT32F423_LIBRARY_VERSION_MAJOR    (0x02) /*!< [31:24] major version */
 #define __AT32F423_LIBRARY_VERSION_MIDDLE   (0x00) /*!< [23:16] middle version */
-#define __AT32F423_LIBRARY_VERSION_MINOR    (0x01) /*!< [15:8]  minor version */
+#define __AT32F423_LIBRARY_VERSION_MINOR    (0x06) /*!< [15:8]  minor version */
 #define __AT32F423_LIBRARY_VERSION_RC       (0x00) /*!< [7:0]  release candidate */
 #define __AT32F423_LIBRARY_VERSION          ((__AT32F423_LIBRARY_VERSION_MAJOR << 24)  | \
                                              (__AT32F423_LIBRARY_VERSION_MIDDLE << 16) | \
@@ -260,7 +263,7 @@ typedef enum IRQn
     USART7_IRQn                 = 82,     /*!< usart7 interrupt                                     */
     USART8_IRQn                 = 83,     /*!< usart8 interrupt                                     */
     DMAMUX_IRQn                 = 94,     /*!< dmamux global interrupt                              */
-    ACC_IRQn                    = 103,    /*!< acc interrupt                                        */
+    ACC_IRQn                    = 103     /*!< acc interrupt                                        */
 
 } IRQn_Type;
 

@@ -10,7 +10,9 @@
  *                             performance
  * 2022-10-15     shelton      optimize code
  * 2023-10-18     shelton      optimize code
+ * 2024-09-02     shelton      add support phy lan8720 and yt8512
  */
+
 #include "drv_common.h"
 
 #ifdef BSP_USING_EMAC
@@ -164,7 +166,8 @@ static void phy_clock_config(void)
     /* 83848 clkout output 50 mhz */
 #if defined (SOC_SERIES_AT32F407)
     crm_clock_out_set(CRM_CLKOUT_SCLK);
-#if defined (PHY_USING_DM9162)
+#if defined (PHY_USING_DM9162) || defined (PHY_USING_LAN8720) || \
+    defined (PHY_USING_YT8512)
     crm_clkout_div_set(CRM_CLKOUT_DIV_8);
 #elif defined (PHY_USING_DP83848)
     crm_clkout_div_set(CRM_CLKOUT_DIV_4);
@@ -173,7 +176,8 @@ static void phy_clock_config(void)
 
 #if defined (SOC_SERIES_AT32F437)
     crm_clock_out1_set(CRM_CLKOUT1_PLL);
-#if defined (PHY_USING_DM9162)
+#if defined (PHY_USING_DM9162) || defined (PHY_USING_LAN8720) || \
+    defined (PHY_USING_YT8512)
     crm_clkout_div_set(CRM_CLKOUT_INDEX_1, CRM_CLKOUT_DIV1_5, CRM_CLKOUT_DIV2_2);
 #elif defined (PHY_USING_DP83848)
     crm_clkout_div_set(CRM_CLKOUT_INDEX_1, CRM_CLKOUT_DIV1_5, CRM_CLKOUT_DIV2_1);
@@ -263,7 +267,7 @@ static error_status emac_speed_config(emac_auto_negotiation_type nego, emac_dupl
         {
             return ERROR;
         }
-#ifdef PHY_USING_DM9162
+#if defined (PHY_USING_DM9162) || defined (PHY_USING_LAN8720)
         if(data & PHY_FULL_DUPLEX_100MBPS_BIT)
         {
             emac_fast_speed_set(EMAC_SPEED_100MBPS);
@@ -285,7 +289,7 @@ static error_status emac_speed_config(emac_auto_negotiation_type nego, emac_dupl
             emac_duplex_mode_set(EMAC_HALF_DUPLEX);
         }
 #endif
-#ifdef PHY_USING_DP83848
+#if defined (PHY_USING_DP83848)
         if(data & PHY_DUPLEX_MODE)
         {
             emac_duplex_mode_set(EMAC_FULL_DUPLEX);
@@ -301,6 +305,24 @@ static error_status emac_speed_config(emac_auto_negotiation_type nego, emac_dupl
         else
         {
             emac_fast_speed_set(EMAC_SPEED_100MBPS);
+        }
+#endif
+#if defined (PHY_USING_YT8512)
+        if(data & PHY_DUPLEX_MODE)
+        {
+            emac_duplex_mode_set(EMAC_FULL_DUPLEX);
+        }
+        else
+        {
+            emac_duplex_mode_set(EMAC_HALF_DUPLEX);
+        }
+        if(data & PHY_SPEED_MODE)
+        {
+            emac_fast_speed_set(EMAC_SPEED_100MBPS);
+        }
+        else
+        {
+            emac_fast_speed_set(EMAC_SPEED_10MBPS);
         }
 #endif
     }
@@ -478,12 +500,12 @@ rt_err_t emac_txpkt_chainmode(rt_uint32_t frame_length)
     if((dma_tx_desc_to_set->status & EMAC_DMATXDESC_OWN) != (u32)RESET)
     {
         /* return error: own bit set */
-        return RT_ERROR;
+        return -RT_ERROR;
     }
 
     if(frame_length == 0)
     {
-        return RT_ERROR;
+        return -RT_ERROR;
     }
 
     if(frame_length > EMAC_MAX_PACKET_LENGTH)
@@ -632,7 +654,7 @@ rt_err_t emac_rxpkt_chainmode(void)
     if((dma_rx_desc_to_get->status & EMAC_DMARXDESC_OWN) != (u32)RESET)
     {
         /* return error: own bit set */
-        return RT_ERROR;
+        return -RT_ERROR;
     }
     if((dma_rx_desc_to_get->status & EMAC_DMARXDESC_LS) != (u32)RESET)
     {
@@ -663,7 +685,7 @@ rt_err_t emac_rxpkt_chainmode(void)
         dma_rx_desc_to_get = (emac_dma_desc_type*) (dma_rx_desc_to_get->buf2nextdescaddr);
     }
 
-    return RT_ERROR;
+    return -RT_ERROR;
 }
 
 /**
@@ -812,7 +834,9 @@ static void phy_linkchange()
 
         if (SR & (PHY_SPEED_MODE))
         {
+#if defined (PHY_USING_DP83848)
             phy_speed_new |= PHY_10M;
+#endif
         }
 
         if (SR & (PHY_DUPLEX_MODE))

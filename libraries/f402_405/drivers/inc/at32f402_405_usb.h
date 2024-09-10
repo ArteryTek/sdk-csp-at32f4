@@ -41,12 +41,12 @@ extern "C" {
 /** @addtogroup USB
   * @{
   */
-  
-/** @defgroup USB_global_interrupts_definition 
+
+/** @defgroup USB_global_interrupts_definition
   * @brief usb global interrupt mask
   * @{
   */
-  
+
 #define USB_OTG_MODEMIS_INT              ((uint32_t)0x00000002) /*!< usb otg mode mismatch interrupt */
 #define USB_OTG_OTGINT_INT               ((uint32_t)0x00000004) /*!< usb otg interrupt */
 #define USB_OTG_SOF_INT                  ((uint32_t)0x00000008) /*!< usb otg sof interrupt */
@@ -75,7 +75,7 @@ extern "C" {
   * @}
   */
 
-/** @defgroup USB_global_interrupt_flags_definition 
+/** @defgroup USB_global_interrupt_flags_definition
   * @brief usb global interrupt flag
   * @{
   */
@@ -108,9 +108,9 @@ extern "C" {
 /**
   * @}
   */
-  
 
-/** @defgroup USB_global_setting_definition 
+
+/** @defgroup USB_global_setting_definition
   * @brief usb global setting
   * @{
   */
@@ -151,7 +151,7 @@ extern "C" {
   * @}
   */
 
-/** @defgroup USB_host_config_definition 
+/** @defgroup USB_host_config_definition
   * @{
   */
 
@@ -212,6 +212,7 @@ extern "C" {
   */
 #define USB_OTG_HC_XFERCM_INT            ((uint32_t)0x00000001) /*!< channel transfer complete interrupt */
 #define USB_OTG_HC_CHHLTDM_INT           ((uint32_t)0x00000002) /*!< channel halted interrupt */
+#define USB_OTG_HC_AHBERRM_INT           ((uint32_t)0x00000004) /*!< channel ahb error */
 #define USB_OTG_HC_STALLM_INT            ((uint32_t)0x00000008) /*!< channel stall interrupt */
 #define USB_OTG_HC_NAKM_INT              ((uint32_t)0x00000010) /*!< channel nak interrupt */
 #define USB_OTG_HC_ACKM_INT              ((uint32_t)0x00000020) /*!< channel ack interrupt */
@@ -226,6 +227,7 @@ extern "C" {
   */
 #define USB_OTG_HC_XFERC_FLAG            ((uint32_t)0x00000001) /*!< channel transfer complete flag */
 #define USB_OTG_HC_CHHLTD_FLAG           ((uint32_t)0x00000002) /*!< channel halted flag */
+#define USB_OTG_HC_AHBERR_FLAG           ((uint32_t)0x00000004) /*!< channel ahb error flag */
 #define USB_OTG_HC_STALL_FLAG            ((uint32_t)0x00000008) /*!< channel stall flag */
 #define USB_OTG_HC_NAK_FLAG              ((uint32_t)0x00000010) /*!< channel nak flag */
 #define USB_OTG_HC_ACK_FLAG              ((uint32_t)0x00000020) /*!< channel ack flag */
@@ -240,7 +242,7 @@ extern "C" {
   */
 
 
-/** @defgroup USB_device_config_definition 
+/** @defgroup USB_device_config_definition
   * @{
   */
 /**
@@ -507,7 +509,7 @@ typedef struct
       __IO uint32_t reserved3                : 10; /* [31:22] */
     } gotgctrl_bit;
   };
-  
+
   /**
   * @brief otgfs interrupt register, offset:0x04
   */
@@ -961,7 +963,7 @@ typedef struct
     {
       __IO uint32_t xferc                    : 1; /* [0] */
       __IO uint32_t chhltd                   : 1; /* [1] */
-      __IO uint32_t reserved1                : 1; /* [2] */
+      __IO uint32_t ahberr                   : 1; /* [2] */
       __IO uint32_t stall                    : 1; /* [3] */
       __IO uint32_t nak                      : 1; /* [4] */
       __IO uint32_t ack                      : 1; /* [5] */
@@ -984,7 +986,7 @@ typedef struct
     {
       __IO uint32_t xfercmsk                 : 1; /* [0] */
       __IO uint32_t chhltdmsk                : 1; /* [1] */
-      __IO uint32_t reserved1                : 1; /* [2] */
+      __IO uint32_t ahberrmsk                : 1; /* [2] */
       __IO uint32_t stallmsk                 : 1; /* [3] */
       __IO uint32_t nakmsk                   : 1; /* [4] */
       __IO uint32_t ackmsk                   : 1; /* [5] */
@@ -1011,7 +1013,7 @@ typedef struct
       __IO uint32_t dopng                    : 1; /* [31] */
     } hctsiz_bit;
   };
-  
+
   /**
   * @brief otgfs host channel dma address, offset:0x514
   */
@@ -1023,7 +1025,7 @@ typedef struct
       __IO uint32_t dmaaddr                 : 32; /* [31:0] */
     } hcdma_bit;
   };
-  
+
   __IO uint32_t reserved3[2];
 
 }otg_hchannel_type;
@@ -1178,7 +1180,7 @@ typedef struct
       __IO uint32_t reserved1                : 16; /* [31:16] */
     } diepempmsk_bit;
   };
-  
+
   /**
   * @brief otg device each endpoint interrupt register, offset:0x838
   */
@@ -1210,9 +1212,9 @@ typedef struct
       __IO uint32_t reserved3                : 14; /* [18:31] */
     } deachintmsk_bit;
   };
-  
+
   __IO uint32_t reserved3[1];
-  
+
   /**
   * @brief otg device each endpoint in 1 interrupt mask register, offset:0x844
   */
@@ -1237,8 +1239,8 @@ typedef struct
     } diepeachmsk1_bit;
   };
   __IO uint32_t reserved4[15];
-  
-  
+
+
   /**
   * @brief otg device each endpoint out 1 interrupt mask register, offset:0x884
   */
@@ -1263,7 +1265,7 @@ typedef struct
       __IO uint32_t nyetmsk                  : 1; /* [14] */
       __IO uint32_t reserved5                : 17; /* [31:15] */
     } doepeachmsk1_bit;
-  }; 
+  };
 } otg_device_type;
 
 typedef struct
@@ -1421,7 +1423,7 @@ typedef struct
       __IO uint32_t reserved1                : 1; /* [31] */
     } doeptsiz_bit;
   };
-  
+
   /**
   * @brief otg device out endpoint dma address register, offset:0xb14 + endpoint number * 0x20
   */

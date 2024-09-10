@@ -333,10 +333,10 @@ void adc_voltage_monitor_enable(adc_type *adc_x, adc_voltage_monitoring_type adc
   *         - ADC1.
   * @param  adc_high_threshold: voltage monitoring's high thresholds value.
   *         this parameter can be:
-  *         - (0x000~0xFFF)
+  *         - (0x0000~0xFFFF)
   * @param  adc_low_threshold: voltage monitoring's low thresholds value.
   *         this parameter can be:
-  *         - (0x000~0xFFF)
+  *         - (0x0000~0xFFFF)
   * @retval none
   */
 void adc_voltage_monitor_threshold_value_set(adc_type *adc_x, uint16_t adc_high_threshold, uint16_t adc_low_threshold)
@@ -419,7 +419,7 @@ void adc_ordinary_channel_set(adc_type *adc_x, adc_channel_select_type adc_chann
     tmp_reg |= adc_sampletime << 3 * (adc_channel - ADC_CHANNEL_20);
     adc_x->spt3 = tmp_reg;
   }
-  
+
   if(adc_sequence < 7)
   {
     tmp_reg = adc_x->osq3;
@@ -511,7 +511,7 @@ void adc_preempt_channel_length_set(adc_type *adc_x, uint8_t adc_channel_lenght)
 void adc_preempt_channel_set(adc_type *adc_x, adc_channel_select_type adc_channel, uint8_t adc_sequence, adc_sampletime_select_type adc_sampletime)
 {
   uint32_t tmp_reg;
-  uint8_t sequence_index; 
+  uint8_t sequence_index;
   if(adc_channel < ADC_CHANNEL_10)
   {
     tmp_reg = adc_x->spt2;
@@ -533,7 +533,7 @@ void adc_preempt_channel_set(adc_type *adc_x, adc_channel_select_type adc_channe
     tmp_reg |= adc_sampletime << 3 * (adc_channel - ADC_CHANNEL_20);
     adc_x->spt3 = tmp_reg;
   }
-  
+
   sequence_index = adc_sequence + 3 - adc_x->psq_bit.pclen;
   switch(sequence_index)
   {
@@ -884,6 +884,54 @@ flag_status adc_flag_get(adc_type *adc_x, uint8_t adc_flag)
   else
   {
     status = SET;
+  }
+  return status;
+}
+
+/**
+  * @brief  get interrupt flag of the specified adc peripheral.
+  * @param  adc_x: select the adc peripheral.
+  *         this parameter can be one of the following values:
+  *         - ADC1.
+  * @param  adc_flag: select the adc flag.
+  *         this parameter can be one of the following values:
+  *         - ADC_VMOR_FLAG
+  *         - ADC_OCCE_FLAG
+  *         - ADC_PCCE_FLAG
+  *         - ADC_OCCO_FLAG
+  * @retval the new state of adc flag status(SET or RESET).
+  */
+flag_status adc_interrupt_flag_get(adc_type *adc_x, uint8_t adc_flag)
+{
+  flag_status status = RESET;
+  switch(adc_flag)
+  {
+    case ADC_VMOR_FLAG:
+      if(adc_x->sts_bit.vmor && adc_x->ctrl1_bit.vmorien)
+      {
+        status = SET;
+      }
+      break;
+    case ADC_OCCE_FLAG:
+      if(adc_x->sts_bit.occe && adc_x->ctrl1_bit.occeien)
+      {
+        status = SET;
+      }
+      break;
+    case ADC_PCCE_FLAG:
+      if(adc_x->sts_bit.pcce && adc_x->ctrl1_bit.pcceien)
+      {
+        status = SET;
+      }
+      break;
+    case ADC_OCCO_FLAG:
+      if(adc_x->sts_bit.occo && adc_x->ctrl1_bit.occoien)
+      {
+        status = SET;
+      }
+      break;
+    default:
+      break;
   }
   return status;
 }

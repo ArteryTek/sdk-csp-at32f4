@@ -84,8 +84,7 @@ void usart_reset(usart_type* usart_x)
     crm_periph_reset(CRM_USART7_PERIPH_RESET, TRUE);
     crm_periph_reset(CRM_USART7_PERIPH_RESET, FALSE);
   }
-#if defined (AT32F423Kx) || defined (AT32F423Tx) || defined (AT32F423Cx) || \
-    defined (AT32F423Rx) || defined (AT32F423Vx)
+#if defined (AT32F423Rx) || defined (AT32F423Vx)
   else if(usart_x == USART8)
   {
     crm_periph_reset(CRM_USART8_PERIPH_RESET, TRUE);
@@ -105,6 +104,9 @@ void usart_reset(usart_type* usart_x)
   *         - USART_DATA_7BITS
   *         - USART_DATA_8BITS
   *         - USART_DATA_9BITS.
+  *         note:
+  *         - when parity check is disabled, the data bit width is the actual data bit number.
+  *         - when parity check is enabled, the data bit width is the actual data bit number minus 1, and the MSB bit is replaced with the parity bit.
   * @param  stop_bit: stop bits transmitted
   *         this parameter can be one of the following values:
   *         - USART_STOP_1_BIT
@@ -118,9 +120,9 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
   crm_clocks_freq_type clocks_freq;
   uint32_t apb_clock, temp_val;
   crm_usart_clock_source_type usart_clk;
-  
+
   crm_clocks_freq_get(&clocks_freq);
-  
+
   if(usart_x == USART1)
   {
     usart_clk = crm_usart_clock_get(CRM_USART1);
@@ -134,11 +136,15 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
     }
     else if(CRM_USART_CLOCK_SOURCE_LEXT == usart_clk)
     {
-      apb_clock = LEXT_VALUE;  
+      apb_clock = LEXT_VALUE;
     }
     else
     {
       apb_clock = HICK_VALUE;
+      if(CRM->misc1_bit.hickdiv == CRM_HICK48_NODIV)
+      {
+        apb_clock = apb_clock * 6;
+      }
     }
   }
   else if(usart_x == USART2)
@@ -154,11 +160,15 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
     }
     else if(CRM_USART_CLOCK_SOURCE_LEXT == usart_clk)
     {
-      apb_clock = LEXT_VALUE;  
+      apb_clock = LEXT_VALUE;
     }
     else
     {
       apb_clock = HICK_VALUE;
+      if(CRM->misc1_bit.hickdiv == CRM_HICK48_NODIV)
+      {
+        apb_clock = apb_clock * 6;
+      }
     }
   }
   else if(usart_x == USART3)
@@ -174,11 +184,15 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
     }
     else if(CRM_USART_CLOCK_SOURCE_LEXT == usart_clk)
     {
-      apb_clock = LEXT_VALUE;  
+      apb_clock = LEXT_VALUE;
     }
     else
     {
       apb_clock = HICK_VALUE;
+      if(CRM->misc1_bit.hickdiv == CRM_HICK48_NODIV)
+      {
+        apb_clock = apb_clock * 6;
+      }
     }
   }
   else if(usart_x == USART6)
@@ -189,7 +203,7 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
   {
     apb_clock = clocks_freq.apb1_freq;
   }
-  
+
   temp_val = (apb_clock * 10 / baud_rate);
   if((temp_val % 10) < 5)
   {
@@ -200,7 +214,7 @@ void usart_init(usart_type* usart_x, uint32_t baud_rate, usart_data_bit_num_type
     temp_val = (temp_val / 10) + 1;
   }
   usart_x->baudr_bit.div = temp_val;
-  
+
   if(data_bit == USART_DATA_7BITS)
   {
     usart_x->ctrl1_bit.dbn1 = 1;
@@ -674,6 +688,91 @@ flag_status usart_flag_get(usart_type* usart_x, uint32_t flag)
 }
 
 /**
+  * @brief  check whether the specified usart interrupt flag is set or not.
+  * @param  usart_x: select the usart or the uart peripheral.
+  *         this parameter can be one of the following values:
+  *         USART1, USART2, USART3, USART4, USART5, USART6, USART7 or USART8.
+  * @param  flag: specifies the flag to check.
+  *         this parameter can be one of the following values:
+  *         - USART_RTODF_FLAG:  receiver time out detection flag
+  *         - USART_CMDF_FLAG:   character match detection flag
+  *         - USART_LPWUF_FLAG:  low power wake up flag
+  *         - USART_CTSCF_FLAG:  cts change flag
+  *         - USART_BFF_FLAG:    break frame flag
+  *         - USART_TDBE_FLAG:   transmit data buffer empty flag
+  *         - USART_TDC_FLAG:    transmit data complete flag
+  *         - USART_RDBF_FLAG:   receive data buffer full flag
+  *         - USART_IDLEF_FLAG:  idle flag
+  *         - USART_ROERR_FLAG:  receiver overflow error flag
+  *         - USART_NERR_FLAG:   noise error flag
+  *         - USART_FERR_FLAG:   framing error flag
+  *         - USART_PERR_FLAG:   parity error flag
+  * @retval the new state of usart_flag (SET or RESET).
+  */
+flag_status usart_interrupt_flag_get(usart_type* usart_x, uint32_t flag)
+{
+  flag_status int_status = RESET;
+
+  switch(flag)
+  {
+    case USART_CTSCF_FLAG:
+      int_status = (flag_status)usart_x->ctrl3_bit.ctscfien;
+      break;
+    case USART_BFF_FLAG:
+      int_status = (flag_status)usart_x->ctrl2_bit.bfien;
+      break;
+    case USART_TDBE_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.tdbeien;
+      break;
+    case USART_TDC_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.tdcien;
+      break;
+    case USART_RDBF_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.rdbfien;
+      break;
+    case USART_ROERR_FLAG:
+      int_status = (flag_status)(usart_x->ctrl1_bit.rdbfien || usart_x->ctrl3_bit.errien);
+      break;
+    case USART_IDLEF_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.idleien;
+      break;
+    case USART_NERR_FLAG:
+    case USART_FERR_FLAG:
+      int_status = (flag_status)usart_x->ctrl3_bit.errien;
+      break;
+    case USART_PERR_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.perrien;
+      break;
+    case USART_RTODF_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.retodie;
+      break;
+    case USART_CMDF_FLAG:
+      int_status = (flag_status)usart_x->ctrl1_bit.cmdie;
+      break;
+    case USART_LPWUF_FLAG:
+      int_status = (flag_status)usart_x->ctrl3_bit.lpwufie;
+      break;
+    default:
+      int_status = RESET;
+      break;
+  }
+
+  if(int_status != SET)
+  {
+    return RESET;
+  }
+
+  if(usart_x->sts & flag)
+  {
+    return SET;
+  }
+  else
+  {
+    return RESET;
+  }
+}
+
+/**
   * @brief  clear the usart's pending flags.
   * @param  usart_x: select the usart or the uart peripheral.
   *         this parameter can be one of the following values:
@@ -826,7 +925,7 @@ void usart_low_power_wakeup_set(usart_type* usart_x, usart_wakeup_method_type wa
   */
 void usart_deep_sleep_mode_enable(usart_type* usart_x, confirm_state new_state)
 {
-  usart_x->ctrl3_bit.smusen = new_state; 
+  usart_x->ctrl3_bit.smusen = new_state;
 }
 
 /**
@@ -882,7 +981,7 @@ void usart_transmit_pin_polarity_reverse(usart_type* usart_x, confirm_state new_
   */
 void usart_receive_pin_polarity_reverse(usart_type* usart_x, confirm_state new_state)
 {
-  usart_x->ctrl2_bit.rxrev = new_state; 
+  usart_x->ctrl2_bit.rxrev = new_state;
 }
 
 /**
@@ -896,7 +995,7 @@ void usart_receive_pin_polarity_reverse(usart_type* usart_x, confirm_state new_s
   */
 void usart_receiver_timeout_detection_enable(usart_type* usart_x, confirm_state new_state)
 {
-  usart_x->ctrl1_bit.rtoden = new_state; 
+  usart_x->ctrl1_bit.rtoden = new_state;
 }
 
 /**

@@ -198,7 +198,7 @@ flag_status qspi_interrupt_flag_get(qspi_type* qspi_x, uint32_t flag)
   */
 void qspi_flag_clear(qspi_type* qspi_x, uint32_t flag)
 {
-  qspi_x->cmdsts = QSPI_CMDSTS_FLAG;
+  qspi_x->cmdsts = flag;
 }
 
 /**
@@ -211,7 +211,7 @@ void qspi_flag_clear(qspi_type* qspi_x, uint32_t flag)
   *         this parameter can be one of the following values:
   *         - QSPI_DMA_FIFO_THOD_WORD08
   *         - QSPI_DMA_FIFO_THOD_WORD16
-  *         - QSPI_DMA_FIFO_THOD_WORD32
+  *         - QSPI_DMA_FIFO_THOD_WORD24
   * @retval none
   */
 void qspi_dma_rx_threshold_set(qspi_type* qspi_x, qspi_dma_fifo_thod_type new_threshold)
@@ -229,7 +229,7 @@ void qspi_dma_rx_threshold_set(qspi_type* qspi_x, qspi_dma_fifo_thod_type new_th
   *         this parameter can be one of the following values:
   *         - QSPI_DMA_FIFO_THOD_WORD08
   *         - QSPI_DMA_FIFO_THOD_WORD16
-  *         - QSPI_DMA_FIFO_THOD_WORD32
+  *         - QSPI_DMA_FIFO_THOD_WORD24
   * @retval none
   */
 void qspi_dma_tx_threshold_set(qspi_type* qspi_x, qspi_dma_fifo_thod_type new_threshold)
@@ -300,7 +300,7 @@ void qspi_xip_enable(qspi_type* qspi_x, confirm_state new_state)
   {
     __NOP();
   }
-  
+
   /* flush and reset qspi state */
   qspi_x->ctrl_bit.xiprcmdf = 1;
 
@@ -457,6 +457,16 @@ void qspi_half_word_write(qspi_type* qspi_x, uint16_t value)
 void qspi_word_write(qspi_type* qspi_x, uint32_t value)
 {
   qspi_x->dt = value;
+}
+
+/**
+  * @brief  enable auto input sampling phase correction
+  * @param  qspi_x: select the qspi peripheral.
+  * @retval none.
+  */
+void qspi_auto_ispc_enable(qspi_type* qspi_x)
+{
+  qspi_x->ctrl3_bit.ispc = TRUE;
 }
 
 /**

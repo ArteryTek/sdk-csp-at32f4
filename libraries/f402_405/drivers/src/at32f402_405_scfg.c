@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -39,24 +39,22 @@
   * @{
   */
 
-/** 
-  * @brief  scfg reset 
+/**
+  * @brief  scfg reset
   * @param  none
   * @retval none
   */
 void scfg_reset(void)
-{ 
+{
   crm_periph_reset(CRM_SCFG_PERIPH_RESET, TRUE);
   crm_periph_reset(CRM_SCFG_PERIPH_RESET, FALSE);
 }
 
-/** 
+/**
   * @brief  scfg infrared config
   * @param  source
   *         this parameter can be one of the following values:
   *         - SCFG_IR_SOURCE_TMR10
-  *         - SCFG_IR_SOURCE_USART1
-  *         - SCFG_IR_SOURCE_USART2
   * @param  polarity
   *         this parameter can be one of the following values:
   *         - SCFG_IR_POLARITY_NO_AFFECTE
@@ -116,18 +114,11 @@ void scfg_pvm_lock_enable(confirm_state new_state)
 /**
   * @brief  scfg sram odd parity error status get
   * @param  none
-  * @retval return sram odd parity error status (ERROR or SUCCESS)
+  * @retval return sram odd parity error status(SET or RESET)
   */
-error_status scfg_sram_operr_status_get(void)
+flag_status scfg_sram_operr_status_get(void)
 {
-  error_status status = SUCCESS;
-
-  if(SCFG->cfg2_bit.sram_operr_sts)
-    status = ERROR;
-  else
-    status = SUCCESS;
-
-  return status ;
+  return (flag_status)SCFG->cfg2_bit.sram_operr_sts;
 }
 
 /**
@@ -219,8 +210,8 @@ void scfg_exint_line_config(scfg_port_source_type port_source, scfg_pins_source_
   * @brief  enable or disable gpio pins ultra driven.
   * @param  value:
   *         this parameter can be one of the following values:
-  *         - SCFG_ULTRA_DRIVEN_PB3 
-  *         - SCFG_ULTRA_DRIVEN_PB9 
+  *         - SCFG_ULTRA_DRIVEN_PB3
+  *         - SCFG_ULTRA_DRIVEN_PB9
   *         - SCFG_ULTRA_DRIVEN_PB10
   * @param  new_state (TRUE or FALSE)
   * @retval none

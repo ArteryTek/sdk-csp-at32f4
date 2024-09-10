@@ -1,7 +1,7 @@
 ;**************************************************************************
 ;* @file     startup_at32f423.s
 ;* @brief    at32f423 startup file for keil
-;* <<< Use Configuration Wizard in Context Menu >>>  
+;* <<< Use Configuration Wizard in Context Menu >>>
 ;**************************************************************************
 ;
 

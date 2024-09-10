@@ -1,15 +1,15 @@
 /**
   **************************************************************************
-  * @file     at32f425_adc.h
-  * @brief    at32f425 adc header file
+  * @file     at32f402_405_adc.h
+  * @brief    at32f402_405 adc header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -29,12 +29,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
- 
- 
+
+
 /* Includes ------------------------------------------------------------------*/
 #include "at32f402_405.h"
 
-/** @addtogroup AT32F425_periph_driver
+/** @addtogroup AT32F402_405_periph_driver
   * @{
   */
 
@@ -43,10 +43,10 @@ extern "C" {
   */
 
 /** @defgroup ADC_interrupts_definition
-  * @brief adc interrupt    
+  * @brief adc interrupt
   * @{
   */
-  
+
 #define ADC_CCE_INT                      ((uint32_t)0x00000020) /*!< channels conversion end interrupt */
 #define ADC_VMOR_INT                     ((uint32_t)0x00000040) /*!< voltage monitoring out of range interrupt */
 #define ADC_PCCE_INT                     ((uint32_t)0x00000080) /*!< preempt channels conversion end interrupt */
@@ -56,10 +56,10 @@ extern "C" {
   */
 
 /** @defgroup ADC_flags_definition
-  * @brief adc flag  
+  * @brief adc flag
   * @{
   */
-  
+
 #define ADC_VMOR_FLAG                    ((uint8_t)0x01) /*!< voltage monitoring out of range flag */
 #define ADC_CCE_FLAG                     ((uint8_t)0x02) /*!< channels conversion end flag */
 #define ADC_PCCE_FLAG                    ((uint8_t)0x04) /*!< preempt channels conversion end flag */
@@ -99,7 +99,7 @@ typedef enum
 
 
 /**
-  * @brief adc data align type 
+  * @brief adc data align type
   */
 typedef enum
 {
@@ -108,7 +108,7 @@ typedef enum
 } adc_data_align_type;
 
 /**
-  * @brief adc channel select type 
+  * @brief adc channel select type
   */
 typedef enum
 {
@@ -133,7 +133,7 @@ typedef enum
 } adc_channel_select_type;
 
 /**
-  * @brief adc sampletime select type 
+  * @brief adc sampletime select type
   */
 typedef enum
 {
@@ -148,7 +148,7 @@ typedef enum
 } adc_sampletime_select_type;
 
 /**
-  * @brief adc ordinary group trigger event select type 
+  * @brief adc ordinary group trigger event select type
   */
 typedef enum
 {
@@ -164,7 +164,7 @@ typedef enum
  } adc_ordinary_trig_select_type;
 
 /**
-  * @brief adc preempt group trigger event select type 
+  * @brief adc preempt group trigger event select type
   */
 typedef enum
 {
@@ -177,10 +177,10 @@ typedef enum
   ADC12_PREEMPT_TRIG_TMR6TRGOUT          = 0x05, /*!< timer6 trgout event as trigger source of adc1 preempt sequence */
   ADC12_PREEMPT_TRIG_EXINT15             = 0x06, /*!< exint line15 event as trigger source of adc1 preempt sequence */
   ADC12_PREEMPT_TRIG_SOFTWARE            = 0x07, /*!< software(PCSWTRG) control bit as trigger source of adc1 preempt sequence */
-} adc_preempt_trig_select_type;                   
+} adc_preempt_trig_select_type;
 
 /**
-  * @brief adc preempt channel type 
+  * @brief adc preempt channel type
   */
 typedef enum
 {
@@ -191,7 +191,7 @@ typedef enum
 } adc_preempt_channel_type;
 
 /**
-  * @brief adc voltage_monitoring type 
+  * @brief adc voltage_monitoring type
   */
 typedef enum
 {
@@ -202,7 +202,7 @@ typedef enum
   ADC_VMONITOR_ALL_PREEMPT               = 0x00400000, /*!< voltage_monitoring on all preempt channel */
   ADC_VMONITOR_ALL_ORDINARY_PREEMPT      = 0x00C00000, /*!< voltage_monitoring on all ordinary and preempt channel */
   ADC_VMONITOR_NONE                      = 0x00000000  /*!< no channel guarded by the voltage_monitoring */
-} adc_voltage_monitoring_type;                         
+} adc_voltage_monitoring_type;
 
 /**
   * @brief adc oversample ratio type
@@ -252,8 +252,8 @@ typedef struct
   adc_div_type                           div;                             /*!< adc division select */
 } adc_common_config_type;
 
-/** 
-  * @brief adc base config type 
+/**
+  * @brief adc base config type
   */
 typedef struct
 {
@@ -267,10 +267,10 @@ typedef struct
   * @brief type define adc register all
   */
 typedef struct
-{  
-  
+{
+
   /**
-    * @brief adc sts register, offset:0x00 
+    * @brief adc sts register, offset:0x00
     */
   union
   {
@@ -281,13 +281,13 @@ typedef struct
       __IO uint32_t cce                  : 1; /* [1] */
       __IO uint32_t pcce                 : 1; /* [2] */
       __IO uint32_t pccs                 : 1; /* [3] */
-      __IO uint32_t occs                 : 1; /* [4] */      
+      __IO uint32_t occs                 : 1; /* [4] */
       __IO uint32_t reserved1            : 27;/* [31:5] */
     } sts_bit;
   };
-  
+
   /**
-    * @brief adc ctrl1 register, offset:0x04 
+    * @brief adc ctrl1 register, offset:0x04
     */
   union
   {
@@ -295,7 +295,7 @@ typedef struct
     struct
     {
       __IO uint32_t vmcsel               : 5; /* [4:0] */
-      __IO uint32_t cceien               : 1; /* [5] */ 
+      __IO uint32_t cceien               : 1; /* [5] */
       __IO uint32_t vmorien              : 1; /* [6] */
       __IO uint32_t pcceien              : 1; /* [7] */
       __IO uint32_t sqen                 : 1; /* [8] */
@@ -304,15 +304,15 @@ typedef struct
       __IO uint32_t ocpen                : 1; /* [11] */
       __IO uint32_t pcpen                : 1; /* [12] */
       __IO uint32_t ocpcnt               : 3; /* [15:13] */
-      __IO uint32_t reserved1            : 6; /* [21:16] */      
+      __IO uint32_t reserved1            : 6; /* [21:16] */
       __IO uint32_t pcvmen               : 1; /* [22] */
-      __IO uint32_t ocvmen               : 1; /* [23] */     
+      __IO uint32_t ocvmen               : 1; /* [23] */
       __IO uint32_t reserved2            : 8; /* [31:24] */
     } ctrl1_bit;
   };
-  
+
    /**
-    * @brief adc ctrl2 register, offset:0x08 
+    * @brief adc ctrl2 register, offset:0x08
     */
   union
   {
@@ -320,27 +320,27 @@ typedef struct
     struct
     {
       __IO uint32_t adcen                : 1; /* [0] */
-      __IO uint32_t rpen                 : 1; /* [1] */ 
+      __IO uint32_t rpen                 : 1; /* [1] */
       __IO uint32_t adcal                : 1; /* [2] */
-      __IO uint32_t adcalinit            : 1; /* [3] */ 
+      __IO uint32_t adcalinit            : 1; /* [3] */
       __IO uint32_t reserved1            : 4; /* [7:4] */
-      __IO uint32_t ocdmaen              : 1; /* [8] */ 
+      __IO uint32_t ocdmaen              : 1; /* [8] */
       __IO uint32_t reserved2            : 2; /* [10:9] */
-      __IO uint32_t dtalign              : 1; /* [11] */ 
+      __IO uint32_t dtalign              : 1; /* [11] */
       __IO uint32_t pctesel              : 3; /* [14:12] */
-      __IO uint32_t pcten                : 1; /* [15] */ 
+      __IO uint32_t pcten                : 1; /* [15] */
       __IO uint32_t reserved3            : 1; /* [16] */
-      __IO uint32_t octesel              : 3; /* [19:17] */ 
+      __IO uint32_t octesel              : 3; /* [19:17] */
       __IO uint32_t octen                : 1; /* [20] */
-      __IO uint32_t pcswtrg              : 1; /* [21] */ 
+      __IO uint32_t pcswtrg              : 1; /* [21] */
       __IO uint32_t ocswtrg              : 1; /* [22] */
-      __IO uint32_t itsrven              : 1; /* [23] */       
+      __IO uint32_t itsrven              : 1; /* [23] */
       __IO uint32_t reserved4            : 8; /* [31:24] */
     } ctrl2_bit;
   };
-   
+
   /**
-  * @brief adc spt1 register, offset:0x0C 
+  * @brief adc spt1 register, offset:0x0C
   */
   union
   {
@@ -349,18 +349,18 @@ typedef struct
     {
       __IO uint32_t cspt10               : 3; /* [2:0] */
       __IO uint32_t cspt11               : 3; /* [5:3] */
-      __IO uint32_t cspt12               : 3; /* [8:6] */  
+      __IO uint32_t cspt12               : 3; /* [8:6] */
       __IO uint32_t cspt13               : 3; /* [11:9] */
       __IO uint32_t cspt14               : 3; /* [14:12] */
-      __IO uint32_t cspt15               : 3; /* [17:15] */   
-      __IO uint32_t cspt16               : 3; /* [20:18] */  
-      __IO uint32_t cspt17               : 3; /* [23:21] */       
+      __IO uint32_t cspt15               : 3; /* [17:15] */
+      __IO uint32_t cspt16               : 3; /* [20:18] */
+      __IO uint32_t cspt17               : 3; /* [23:21] */
       __IO uint32_t reserved1            : 8;/* [31:24] */
     } spt1_bit;
   };
-   
+
   /**
-  * @brief adc spt2 register, offset:0x10 
+  * @brief adc spt2 register, offset:0x10
   */
   union
   {
@@ -369,238 +369,238 @@ typedef struct
     {
       __IO uint32_t cspt0                : 3;/* [2:0] */
       __IO uint32_t cspt1                : 3;/* [5:3] */
-      __IO uint32_t cspt2                : 3;/* [8:6] */  
+      __IO uint32_t cspt2                : 3;/* [8:6] */
       __IO uint32_t cspt3                : 3;/* [11:9] */
       __IO uint32_t cspt4                : 3;/* [14:12] */
-      __IO uint32_t cspt5                : 3;/* [17:15] */   
-      __IO uint32_t cspt6                : 3;/* [20:18] */  
-      __IO uint32_t cspt7                : 3;/* [23:21] */  
-      __IO uint32_t cspt8                : 3;/* [26:24] */   
-      __IO uint32_t cspt9                : 3;/* [29:27] */     
+      __IO uint32_t cspt5                : 3;/* [17:15] */
+      __IO uint32_t cspt6                : 3;/* [20:18] */
+      __IO uint32_t cspt7                : 3;/* [23:21] */
+      __IO uint32_t cspt8                : 3;/* [26:24] */
+      __IO uint32_t cspt9                : 3;/* [29:27] */
       __IO uint32_t reserved1            : 2;/* [31:30] */
     } spt2_bit;
   };
-   
+
   /**
-  * @brief adc pcdto1 register, offset:0x14 
+  * @brief adc pcdto1 register, offset:0x14
   */
   union
   {
     __IO uint32_t pcdto1;
     struct
     {
-      __IO uint32_t pcdto1               : 12; /* [11:0] */    
+      __IO uint32_t pcdto1               : 12; /* [11:0] */
       __IO uint32_t reserved1            : 20; /* [31:12] */
     } pcdto1_bit;
-  };    
-   
+  };
+
   /**
-  * @brief adc pcdto2 register, offset:0x18 
+  * @brief adc pcdto2 register, offset:0x18
   */
   union
   {
     __IO uint32_t pcdto2;
     struct
     {
-      __IO uint32_t pcdto2               : 12; /* [11:0] */    
+      __IO uint32_t pcdto2               : 12; /* [11:0] */
       __IO uint32_t reserved1            : 20; /* [31:12] */
     } pcdto2_bit;
-  }; 
-   
+  };
+
   /**
-  * @brief adc pcdto3 register, offset:0x1C 
+  * @brief adc pcdto3 register, offset:0x1C
   */
   union
   {
     __IO uint32_t pcdto3;
     struct
     {
-      __IO uint32_t pcdto3               : 12; /* [11:0] */    
+      __IO uint32_t pcdto3               : 12; /* [11:0] */
       __IO uint32_t reserved1            : 20; /* [31:12] */
     } pcdto3_bit;
-  };  
-   
+  };
+
   /**
-  * @brief adc pcdto4 register, offset:0x20 
+  * @brief adc pcdto4 register, offset:0x20
   */
   union
   {
     __IO uint32_t pcdto4;
     struct
     {
-      __IO uint32_t pcdto4               : 12; /* [11:0] */    
+      __IO uint32_t pcdto4               : 12; /* [11:0] */
       __IO uint32_t reserved1            : 20; /* [31:12] */
     } pcdto4_bit;
-  };   
-   
+  };
+
   /**
-  * @brief adc vmhb register, offset:0x24 
+  * @brief adc vmhb register, offset:0x24
   */
   union
   {
     __IO uint32_t vmhb;
     struct
     {
-      __IO uint32_t vmhb                 : 16; /* [15:0] */    
+      __IO uint32_t vmhb                 : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } vmhb_bit;
-  };   
-   
+  };
+
   /**
-  * @brief adc vmlb register, offset:0x28 
+  * @brief adc vmlb register, offset:0x28
   */
   union
   {
     __IO uint32_t vmlb;
     struct
     {
-      __IO uint32_t vmlb                 : 16; /* [15:0] */    
+      __IO uint32_t vmlb                 : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } vmlb_bit;
-  };    
-   
+  };
+
   /**
-  * @brief adc osq1 register, offset:0x2C 
+  * @brief adc osq1 register, offset:0x2C
   */
   union
   {
     __IO uint32_t osq1;
     struct
     {
-      __IO uint32_t osn13                : 5; /* [4:0] */  
-      __IO uint32_t osn14                : 5; /* [9:5] */ 
-      __IO uint32_t osn15                : 5; /* [14:10] */ 
+      __IO uint32_t osn13                : 5; /* [4:0] */
+      __IO uint32_t osn14                : 5; /* [9:5] */
+      __IO uint32_t osn15                : 5; /* [14:10] */
       __IO uint32_t osn16                : 5; /* [19:15] */
-      __IO uint32_t oclen                : 4; /* [23:20] */        
+      __IO uint32_t oclen                : 4; /* [23:20] */
       __IO uint32_t reserved1            : 8; /* [31:24] */
     } osq1_bit;
-  };      
-   
+  };
+
   /**
-  * @brief adc osq2 register, offset:0x30 
+  * @brief adc osq2 register, offset:0x30
   */
   union
   {
     __IO uint32_t osq2;
     struct
     {
-      __IO uint32_t osn7                 : 5; /* [4:0] */  
-      __IO uint32_t osn8                 : 5; /* [9:5] */ 
-      __IO uint32_t osn9                 : 5; /* [14:10] */ 
+      __IO uint32_t osn7                 : 5; /* [4:0] */
+      __IO uint32_t osn8                 : 5; /* [9:5] */
+      __IO uint32_t osn9                 : 5; /* [14:10] */
       __IO uint32_t osn10                : 5; /* [19:15] */
-      __IO uint32_t osn11                : 5; /* [24:20] */ 
-      __IO uint32_t osn12                : 5; /* [29:25] */      
+      __IO uint32_t osn11                : 5; /* [24:20] */
+      __IO uint32_t osn12                : 5; /* [29:25] */
       __IO uint32_t reserved1            : 2; /* [31:30] */
     } osq2_bit;
-  };    
-  
+  };
+
   /**
-  * @brief adc osq3 register, offset:0x34 
+  * @brief adc osq3 register, offset:0x34
   */
   union
   {
     __IO uint32_t osq3;
     struct
     {
-      __IO uint32_t osn1                 : 5; /* [4:0] */  
-      __IO uint32_t osn2                 : 5; /* [9:5] */ 
-      __IO uint32_t osn3                 : 5; /* [14:10] */ 
+      __IO uint32_t osn1                 : 5; /* [4:0] */
+      __IO uint32_t osn2                 : 5; /* [9:5] */
+      __IO uint32_t osn3                 : 5; /* [14:10] */
       __IO uint32_t osn4                 : 5; /* [19:15] */
-      __IO uint32_t osn5                 : 5; /* [24:20] */ 
-      __IO uint32_t osn6                 : 5; /* [29:25] */      
+      __IO uint32_t osn5                 : 5; /* [24:20] */
+      __IO uint32_t osn6                 : 5; /* [29:25] */
       __IO uint32_t reserved1            : 2; /* [31:30] */
     } osq3_bit;
-  };     
-  
+  };
+
   /**
-  * @brief adc psq register, offset:0x38 
+  * @brief adc psq register, offset:0x38
   */
   union
   {
     __IO uint32_t psq;
     struct
     {
-      __IO uint32_t psn1                 : 5; /* [4:0] */  
-      __IO uint32_t psn2                 : 5; /* [9:5] */ 
-      __IO uint32_t psn3                 : 5; /* [14:10] */ 
+      __IO uint32_t psn1                 : 5; /* [4:0] */
+      __IO uint32_t psn2                 : 5; /* [9:5] */
+      __IO uint32_t psn3                 : 5; /* [14:10] */
       __IO uint32_t psn4                 : 5; /* [19:15] */
-      __IO uint32_t pclen                : 2; /* [21:20] */      
+      __IO uint32_t pclen                : 2; /* [21:20] */
       __IO uint32_t reserved1            : 10;/* [31:22] */
     } psq_bit;
-  };   
-  
+  };
+
   /**
-  * @brief adc pdt1 register, offset:0x3C 
+  * @brief adc pdt1 register, offset:0x3C
   */
   union
   {
     __IO uint32_t pdt1;
     struct
     {
-      __IO uint32_t pdt1                 : 16; /* [15:0] */       
+      __IO uint32_t pdt1                 : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } pdt1_bit;
-  };   
-  
+  };
+
   /**
-  * @brief adc pdt2 register, offset:0x40 
+  * @brief adc pdt2 register, offset:0x40
   */
   union
   {
     __IO uint32_t pdt2;
     struct
     {
-      __IO uint32_t pdt2                 : 16; /* [15:0] */       
+      __IO uint32_t pdt2                 : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } pdt2_bit;
-  };   
-  
+  };
+
   /**
-  * @brief adc pdt3 register, offset:0x44 
+  * @brief adc pdt3 register, offset:0x44
   */
   union
   {
     __IO uint32_t pdt3;
     struct
     {
-      __IO uint32_t pdt3                 : 16; /* [15:0] */       
+      __IO uint32_t pdt3                 : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } pdt3_bit;
-  };   
-  
+  };
+
   /**
-  * @brief adc pdt4 register, offset:0x48 
+  * @brief adc pdt4 register, offset:0x48
   */
   union
   {
     __IO uint32_t pdt4;
     struct
     {
-      __IO uint32_t pdt4                 : 16; /* [15:0] */       
+      __IO uint32_t pdt4                 : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } pdt4_bit;
-  }; 
-  
+  };
+
   /**
-  * @brief adc odt register, offset:0x4C 
+  * @brief adc odt register, offset:0x4C
   */
   union
   {
     __IO uint32_t odt;
     struct
     {
-      __IO uint32_t odt                  : 16; /* [15:0] */       
+      __IO uint32_t odt                  : 16; /* [15:0] */
       __IO uint32_t reserved1            : 16; /* [31:16] */
     } odt_bit;
-  }; 
-    
+  };
+
   /**
   * @brief adc reserved register, offset:0x50~0x7C
   */
   __IO uint32_t reserved1[12];
-    
+
   /**
-  * @brief adc oversample register, offset:0x80 
+  * @brief adc oversample register, offset:0x80
   */
   union
   {
@@ -608,16 +608,16 @@ typedef struct
     struct
     {
       __IO uint32_t oosen                : 1;  /* [0] */
-      __IO uint32_t posen                : 1;  /* [1] */ 
-      __IO uint32_t osrsel               : 3;  /* [4:2] */ 
-      __IO uint32_t osssel               : 4;  /* [8:5] */ 
-      __IO uint32_t oostren              : 1;  /* [9] */ 
-      __IO uint32_t oosrsel              : 1;  /* [10] */       
+      __IO uint32_t posen                : 1;  /* [1] */
+      __IO uint32_t osrsel               : 3;  /* [4:2] */
+      __IO uint32_t osssel               : 4;  /* [8:5] */
+      __IO uint32_t oostren              : 1;  /* [9] */
+      __IO uint32_t oosrsel              : 1;  /* [10] */
       __IO uint32_t reserved1            : 21; /* [31:11] */
     } ovsp_bit;
   };
-  
-} adc_type;  
+
+} adc_type;
 
 
 /**
@@ -629,7 +629,7 @@ typedef struct
   * @brief adc reserved register, offset:0x00
   */
   __IO uint32_t reserved1;
-  
+
   /**
     * @brief adc cctrl register, offset:0x04
     */
@@ -648,7 +648,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 #define ADC1                             ((adc_type *) ADC1_BASE)
 #define ADCCOM                           ((adccom_type *) ADCCOM_BASE)
 

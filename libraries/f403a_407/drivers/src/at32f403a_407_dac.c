@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f403a_407_dac.c
-  * @version  v2.0.8
-  * @date     2022-04-02
   * @brief    contains all the functions for the dac firmware library
   **************************************************************************
   *                       Copyright notice & Disclaimer

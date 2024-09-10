@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -119,7 +119,7 @@ void adc_base_config(adc_type *adc_x, adc_base_config_type *adc_base_struct)
   adc_x->osq1_bit.oclen = adc_base_struct->ordinary_channel_length - 1;
 }
 
-/** 
+/**
   * @brief  set adc clock division
   * @param  div_value
   *         this parameter can be one of the following values:
@@ -171,7 +171,7 @@ void adc_interrupt_enable(adc_type *adc_x, uint32_t adc_int, confirm_state new_s
   else if(new_state == FALSE)
   {
     adc_x->ctrl1 &= ~adc_int;
-  } 
+  }
 }
 
 /**
@@ -267,10 +267,10 @@ void adc_voltage_monitor_enable(adc_type *adc_x, adc_voltage_monitoring_type adc
   *         ADC1.
   * @param  adc_high_threshold: voltage monitoring's high thresholds value.
   *         this parameter can be:
-  *         - (0x000~0xFFF)
+  *         - (0x0000~0xFFFF)
   * @param  adc_low_threshold: voltage monitoring's low thresholds value.
   *         this parameter can be:
-  *         - (0x000~0xFFF)
+  *         - (0x0000~0xFFFF)
   * @retval none
   */
 void adc_voltage_monitor_threshold_value_set(adc_type *adc_x, uint16_t adc_high_threshold, uint16_t adc_low_threshold)
@@ -329,7 +329,7 @@ void adc_ordinary_channel_set(adc_type *adc_x, adc_channel_select_type adc_chann
 {
   switch(adc_channel)
   {
-    case ADC_CHANNEL_0: 
+    case ADC_CHANNEL_0:
       adc_x->spt2_bit.cspt0 = adc_sampletime;
       break;
     case ADC_CHANNEL_1:
@@ -485,7 +485,7 @@ void adc_preempt_channel_length_set(adc_type *adc_x, uint8_t adc_channel_lenght)
   */
 void adc_preempt_channel_set(adc_type *adc_x, adc_channel_select_type adc_channel, uint8_t adc_sequence, adc_sampletime_select_type adc_sampletime)
 {
-  uint16_t sequence_index=0; 
+  uint16_t sequence_index=0;
   switch(adc_channel)
   {
     case ADC_CHANNEL_0:
@@ -560,7 +560,7 @@ void adc_preempt_channel_set(adc_type *adc_x, adc_channel_select_type adc_channe
     case 4:
       adc_x->psq_bit.psn4 = adc_channel;
       break;
-    default: 
+    default:
       break;
   }
 }
@@ -574,7 +574,7 @@ void adc_preempt_channel_set(adc_type *adc_x, adc_channel_select_type adc_channe
   * @param  adc_ordinary_trig: select the external trigger event.
   *         this parameter can be one of the following values:
   *         adc1
-  *         - ADC12_ORDINARY_TRIG_TMR1TRGOUT  - ADC12_ORDINARY_TRIG_TMR1CH4  - ADC12_ORDINARY_TRIG_TMR2TRGOUT   - ADC12_ORDINARY_TRIG_TMR3TRGOUT 
+  *         - ADC12_ORDINARY_TRIG_TMR1TRGOUT  - ADC12_ORDINARY_TRIG_TMR1CH4  - ADC12_ORDINARY_TRIG_TMR2TRGOUT   - ADC12_ORDINARY_TRIG_TMR3TRGOUT
   *         - ADC12_ORDINARY_TRIG_TMR9TRGOUT  - ADC12_ORDINARY_TRIG_TMR1CH1  - ADC12_ORDINARY_TRIG_EXINT11      - ADC12_ORDINARY_TRIG_SOFTWARE
   * @param  new_state: new state of ordinary channel's external trigger.
   *         this parameter can be: TRUE or FALSE.
@@ -595,7 +595,7 @@ void adc_ordinary_conversion_trigger_set(adc_type *adc_x, adc_ordinary_trig_sele
   * @param  adc_preempt_trig: select the external trigger event.
   *         this parameter can be one of the following values:
   *         adc1
-  *         - ADC12_PREEMPT_TRIG_TMR1CH2  - ADC12_PREEMPT_TRIG_TMR1CH3     - ADC12_PREEMPT_TRIG_TMR2CH4  - ADC12_PREEMPT_TRIG_TMR3CH4  
+  *         - ADC12_PREEMPT_TRIG_TMR1CH2  - ADC12_PREEMPT_TRIG_TMR1CH3     - ADC12_PREEMPT_TRIG_TMR2CH4  - ADC12_PREEMPT_TRIG_TMR3CH4
   *         - ADC12_PREEMPT_TRIG_TMR9CH1  - ADC12_PREEMPT_TRIG_TMR6TRGOUT  - ADC12_PREEMPT_TRIG_EXINT15  - ADC12_PREEMPT_TRIG_SOFTWARE
   * @param  new_state: new state of preempt channel's external trigger.
   *         this parameter can be: TRUE or FALSE.
@@ -799,27 +799,27 @@ uint16_t adc_ordinary_conversion_data_get(adc_type *adc_x)
   *         ADC1.
   * @param  adc_preempt_channel: select the preempt channel.
   *         this parameter can be one of the following values:
-  *         - ADC_PREEMPTED_CHANNEL_1
-  *         - ADC_PREEMPTED_CHANNEL_2
-  *         - ADC_PREEMPTED_CHANNEL_3
-  *         - ADC_PREEMPTED_CHANNEL_4
+  *         - ADC_PREEMPT_CHANNEL_1
+  *         - ADC_PREEMPT_CHANNEL_2
+  *         - ADC_PREEMPT_CHANNEL_3
+  *         - ADC_PREEMPT_CHANNEL_4
   * @retval the conversion data for selection preempt channel.
   */
 uint16_t adc_preempt_conversion_data_get(adc_type *adc_x, adc_preempt_channel_type adc_preempt_channel)
 {
-  uint16_t preempt_conv_data_index = 0; 
+  uint16_t preempt_conv_data_index = 0;
   switch(adc_preempt_channel)
   {
-    case ADC_PREEMPT_CHANNEL_1: 
+    case ADC_PREEMPT_CHANNEL_1:
       preempt_conv_data_index = (uint16_t)(adc_x->pdt1_bit.pdt1);
       break;
     case ADC_PREEMPT_CHANNEL_2:
       preempt_conv_data_index = (uint16_t)(adc_x->pdt2_bit.pdt2);
       break;
-    case ADC_PREEMPT_CHANNEL_3: 
+    case ADC_PREEMPT_CHANNEL_3:
       preempt_conv_data_index = (uint16_t)(adc_x->pdt3_bit.pdt3);
       break;
-    case ADC_PREEMPT_CHANNEL_4: 
+    case ADC_PREEMPT_CHANNEL_4:
       preempt_conv_data_index = (uint16_t)(adc_x->pdt4_bit.pdt4);
       break;
     default:
@@ -843,7 +843,7 @@ uint16_t adc_preempt_conversion_data_get(adc_type *adc_x, adc_preempt_channel_ty
   * @retval the new state of adc flag status(SET or RESET).
   */
 flag_status adc_flag_get(adc_type *adc_x, uint8_t adc_flag)
-{   
+{
   flag_status status = RESET;
 
   if((adc_x->sts & adc_flag) == RESET)
@@ -909,11 +909,11 @@ flag_status adc_interrupt_flag_get(adc_type *adc_x, uint8_t adc_flag)
   *         - ADC_CCE_FLAG(also can clear by reading the adc_x->odt)
   *         - ADC_PCCE_FLAG
   *         - ADC_PCCS_FLAG
-  *         - ADC_OCCS_FLAG       
-  * @retval none                            
+  *         - ADC_OCCS_FLAG
+  * @retval none
   */
 void adc_flag_clear(adc_type *adc_x, uint32_t adc_flag)
-{   
+{
   adc_x->sts = ~adc_flag;
 }
 

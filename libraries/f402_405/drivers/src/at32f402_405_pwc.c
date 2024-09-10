@@ -207,23 +207,19 @@ void pwc_deep_sleep_mode_enter(pwc_deep_sleep_enter_type pwc_deep_sleep_enter)
   * @param  pwc_regulator: set the regulator state.
   *         this parameter can be one of the following values:
   *         - PWC_REGULATOR_ON
-  *         - PWC_REGULATOR_LOW_POWER
   *         - PWC_REGULATOR_EXTRA_LOW_POWER
+  * @note:  when using extra low power mode, it is prohibited to enable deepsleep_debug for debugging!
   * @retval none
   */
 void pwc_voltage_regulate_set(pwc_regulator_type pwc_regulator)
 {
   switch(pwc_regulator)
   {
-    case 0:
+    case PWC_REGULATOR_ON:
       PWC->ldoov_bit.vrexlpen = 0;
       PWC->ctrl_bit.vrsel = 0;
       break;
-    case 1:
-      PWC->ldoov_bit.vrexlpen = 0;
-      PWC->ctrl_bit.vrsel = 1;
-      break;
-    case 2:
+    case PWC_REGULATOR_EXTRA_LOW_POWER:
       PWC->ldoov_bit.vrexlpen = 1;
       PWC->ctrl_bit.vrsel = 1;
       break;

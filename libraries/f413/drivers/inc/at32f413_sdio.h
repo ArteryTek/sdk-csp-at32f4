@@ -1,8 +1,6 @@
 /**
   **************************************************************************
   * @file     at32f413_sdio.h
-  * @version  v2.0.7
-  * @date     2022-08-16
   * @brief    at32f413 sdio header file
   **************************************************************************
   *                       Copyright notice & Disclaimer
@@ -569,7 +567,10 @@ typedef struct
   * @}
   */
 
+#if defined (AT32F413TBU7) || defined (AT32F413Rx) || defined (AT32F413Cx) || \
+    defined (AT32F413Kx)
 #define SDIO1                            ((sdio_type *) SDIO1_BASE)
+#endif
 
 /** @defgroup SDIO_exported_functions
   * @{
@@ -587,6 +588,7 @@ void sdio_clock_enable(sdio_type *sdio_x, confirm_state new_state);
 void sdio_dma_enable(sdio_type *sdio_x, confirm_state new_state);
 void sdio_interrupt_enable(sdio_type *sdio_x, uint32_t int_opt,  confirm_state new_state);
 flag_status sdio_flag_get(sdio_type *sdio_x, uint32_t flag);
+flag_status sdio_interrupt_flag_get(sdio_type *sdio_x, uint32_t flag);
 void sdio_flag_clear(sdio_type *sdio_x, uint32_t flag);
 void sdio_command_config(sdio_type *sdio_x, sdio_command_struct_type *command_struct);
 void sdio_command_state_machine_enable(sdio_type *sdio_x, confirm_state new_state);

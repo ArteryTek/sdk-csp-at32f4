@@ -10,6 +10,8 @@
  * 2023-04-08     shelton      add support f423
  * 2023-10-18     shelton      add support f402/f405
  * 2024-04-12     shelton      add support a403a and a423
+ * 2024-07-31     shelton      add support hwi2c driver
+ * 2024-08-30     shelton      add support m412 and m416
  */
 
 #ifndef __DRV_CONFIG_H__
@@ -26,56 +28,73 @@ extern "C" {
 #if defined(SOC_SERIES_AT32A403A)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #include "dac_config.h"
 #elif defined(SOC_SERIES_AT32A423)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #include "dac_config.h"
 #elif defined(SOC_SERIES_AT32F402) || defined (SOC_SERIES_AT32F405)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #elif defined(SOC_SERIES_AT32F403A) || defined (SOC_SERIES_AT32F407)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #include "dac_config.h"
 #elif defined(SOC_SERIES_AT32F413)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #elif defined(SOC_SERIES_AT32F415)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #elif defined(SOC_SERIES_AT32F421)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #elif defined(SOC_SERIES_AT32F423)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #include "dac_config.h"
 #elif defined(SOC_SERIES_AT32F425)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
 #elif defined(SOC_SERIES_AT32F435) || defined (SOC_SERIES_AT32F437)
 #include "dma_config.h"
 #include "uart_config.h"
+#include "i2c_config.h"
 #include "spi_config.h"
 #include "usb_config.h"
+#include "dac_config.h"
+#elif defined(SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416)
+#include "can_config.h"
+#include "dma_config.h"
+#include "uart_config.h"
+#include "i2c_config.h"
+#include "spi_config.h"
 #include "dac_config.h"
 #endif
 

@@ -505,7 +505,7 @@ typedef struct
     } togr_bit;
   };
 
-  
+
   /**
     * @brief gpio reserved1 register, offset:0x30~0x38
     */

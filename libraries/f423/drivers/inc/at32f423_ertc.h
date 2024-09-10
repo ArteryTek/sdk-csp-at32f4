@@ -91,7 +91,7 @@ extern "C" {
 /**
   * @brief compatible with older versions
   */
-#define ERTC_WAT_CLK_CK_A_16BITS         ERTC_WAT_CLK_CK_B_16BITS  
+#define ERTC_WAT_CLK_CK_A_16BITS         ERTC_WAT_CLK_CK_B_16BITS
 #define ERTC_WAT_CLK_CK_A_17BITS         ERTC_WAT_CLK_CK_B_17BITS
 
 /**
@@ -1170,6 +1170,7 @@ void ertc_tamper_enable(ertc_tamper_select_type tamper_x, confirm_state new_stat
 void ertc_interrupt_enable(uint32_t source, confirm_state new_state);
 flag_status ertc_interrupt_get(uint32_t source);
 flag_status ertc_flag_get(uint32_t flag);
+flag_status ertc_interrupt_flag_get(uint32_t flag);
 void ertc_flag_clear(uint32_t flag);
 void ertc_bpr_data_write(ertc_dt_type dt, uint32_t data);
 uint32_t ertc_bpr_data_read(ertc_dt_type dt);

@@ -237,7 +237,7 @@ typedef enum
   DMAMUX_DMAREQ_ID_TMR2_CH3              = 0x3A, /*!< dmamux channel dma request inputs resources: timer2 ch3 */
   DMAMUX_DMAREQ_ID_TMR2_CH4              = 0x3B, /*!< dmamux channel dma request inputs resources: timer2 ch4 */
   DMAMUX_DMAREQ_ID_TMR2_OVERFLOW         = 0x3C, /*!< dmamux channel dma request inputs resources: timer2 overflow */
-  DMAMUX_DMAREQ_ID_TMR2_TRIG             = 0x7E, /*!< dmamux channel dma request inputs resources: timer2 trig */    
+  DMAMUX_DMAREQ_ID_TMR2_TRIG             = 0x7E, /*!< dmamux channel dma request inputs resources: timer2 trig */
   DMAMUX_DMAREQ_ID_TMR3_CH1              = 0x3D, /*!< dmamux channel dma request inputs resources: timer3 ch1 */
   DMAMUX_DMAREQ_ID_TMR3_CH2              = 0x3E, /*!< dmamux channel dma request inputs resources: timer3 ch2 */
   DMAMUX_DMAREQ_ID_TMR3_CH3              = 0x3F, /*!< dmamux channel dma request inputs resources: timer3 ch3 */
@@ -262,7 +262,7 @@ typedef enum
   DMAMUX_DMAREQ_ID_TMR13_CH1             = 0x78, /*!< dmamux channel dma request inputs resources: timer13 ch1 */
   DMAMUX_DMAREQ_ID_TMR13_OVERFLOW        = 0x79, /*!< dmamux channel dma request inputs resources: timer13 overflow */
   DMAMUX_DMAREQ_ID_TMR14_CH1             = 0x7A, /*!< dmamux channel dma request inputs resources: timer14 ch1 */
-  DMAMUX_DMAREQ_ID_TMR14_OVERFLOW        = 0x7B, /*!< dmamux channel dma request inputs resources: timer14 overflow */ 
+  DMAMUX_DMAREQ_ID_TMR14_OVERFLOW        = 0x7B, /*!< dmamux channel dma request inputs resources: timer14 overflow */
   DMAMUX_DMAREQ_ID_I2SF5_RX              = 0x6C, /*!< dmamux channel dma request inputs resources: i2sf5 rx */
   DMAMUX_DMAREQ_ID_I2SF5_TX              = 0x6D  /*!< dmamux channel dma request inputs resources: i2sf5 tx */
 } dmamux_requst_id_sel_type;
@@ -727,6 +727,7 @@ uint16_t dma_data_number_get(dma_channel_type *dmax_channely);
 void dma_interrupt_enable(dma_channel_type *dmax_channely, uint32_t dma_int, confirm_state new_state);
 void dma_channel_enable(dma_channel_type *dmax_channely, confirm_state new_state);
 flag_status dma_flag_get(uint32_t dmax_flag);
+flag_status dma_interrupt_flag_get(uint32_t dmax_flag);
 void dma_flag_clear(uint32_t dmax_flag);
 void dma_default_para_init(dma_init_type *dma_init_struct);
 void dma_init(dma_channel_type *dmax_channely, dma_init_type *dma_init_struct);
@@ -742,8 +743,10 @@ void dmamux_generator_config(dmamux_generator_type *dmamux_gen_x, dmamux_gen_ini
 void dmamux_sync_interrupt_enable(dmamux_channel_type *dmamux_channelx, confirm_state new_state);
 void dmamux_generator_interrupt_enable(dmamux_generator_type *dmamux_gen_x, confirm_state new_state);
 flag_status dmamux_sync_flag_get(dma_type *dma_x, uint32_t flag);
+flag_status dmamux_sync_interrupt_flag_get(dma_type *dma_x, uint32_t flag);
 void dmamux_sync_flag_clear(dma_type *dma_x, uint32_t flag);
 flag_status dmamux_generator_flag_get(dma_type *dma_x, uint32_t flag);
+flag_status dmamux_generator_interrupt_flag_get(dma_type *dma_x, uint32_t flag);
 void dmamux_generator_flag_clear(dma_type *dma_x, uint32_t flag);
 
 /**

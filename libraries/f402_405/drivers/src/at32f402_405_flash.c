@@ -5,11 +5,11 @@
   **************************************************************************
   *                       Copyright notice & Disclaimer
   *
-  * The software Board Support Package (BSP) that is made available to 
-  * download from Artery official website is the copyrighted work of Artery. 
-  * Artery authorizes customers to use, copy, and distribute the BSP 
-  * software and its related documentation for the purpose of design and 
-  * development in conjunction with Artery microcontrollers. Use of the 
+  * The software Board Support Package (BSP) that is made available to
+  * download from Artery official website is the copyrighted work of Artery.
+  * Artery authorizes customers to use, copy, and distribute the BSP
+  * software and its related documentation for the purpose of design and
+  * development in conjunction with Artery microcontrollers. Use of the
   * software is governed by this copyright notice and the following disclaimer.
   *
   * THIS SOFTWARE IS PROVIDED ON "AS IS" BASIS WITHOUT WARRANTIES,
@@ -362,7 +362,7 @@ flash_status_type flash_user_system_data_program(uint32_t address, uint8_t data)
 
 /**
   * @brief  config erase/program protection for the desired sectors.
-  * @param  sector_bits:
+  * @param  sector_bits(1:ENABLE, 0:DISABLE)
   *         the pointer of the address of the sectors to be erase/program protected.
   *         the first 16bits general every bit is used to protect the 4KB bytes. the
   *         bit 31 is used to protect the extension memory.
@@ -536,7 +536,7 @@ flag_status flash_fap_high_level_status_get(void)
 }
 
 /**
-  * @brief  program the flash system setting byte in usd: wdt_ato_en / depslp_rst / stdby_rst / boot1 / depslp_wdt / stdby_wdt.
+  * @brief  program the flash system setting byte in usd: wdt_ato_en / depslp_rst / stdby_rst / boot1 / depslp_wdt / stdby_wdt / ram_prt_chk.
   * @param  usd_ssb: the system setting byte
   * @note   this parameter usd_ssb must contain a combination of all the following 6 types of data
   *         type 1: wdt_ato_en, select the wdt auto start
@@ -563,6 +563,10 @@ flag_status flash_fap_high_level_status_get(void)
   *         this data can be one of the following values:
   *         - USD_STDBY_WDT_CONTINUE: wdt continue count when entering in standby
   *         - USD_STDBY_WDT_STOP: wdt stop count when entering in standby
+  *         type 7: ram_prt_chk, ram parity check disable or enable.
+  *         this data can be one of the following values:
+  *         - USD_RAM_PRT_CHK_DISABLE: ram parity check disabled
+  *         - USD_RAM_PRT_CHK_ENABLE: ram parity check enabled
   * @retval status: the returned value can be: FLASH_PROGRAM_ERROR,
   *         FLASH_EPP_ERROR, FLASH_OPERATE_DONE or FLASH_OPERATE_TIMEOUT.
   */
@@ -593,7 +597,7 @@ flash_status_type flash_ssb_set(uint8_t usd_ssb)
   * @brief  return the flash system setting byte status.
   * @param  none
   * @retval values from flash_usd register: wdt_ato_en(bit0), depslp_rst(bit1),
-  *         stdby_rst(bit2), boot1(bit4), depslp_wdt(bit5) and stdby_wdt(bit6).
+  *         stdby_rst(bit2), boot1(bit4), depslp_wdt(bit5), stdby_wdt(bit6) and ram_prt_chk(bit7).
   */
 uint8_t flash_ssb_status_get(void)
 {

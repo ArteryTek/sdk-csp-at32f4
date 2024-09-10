@@ -362,7 +362,7 @@ flash_status_type flash_user_system_data_program(uint32_t address, uint8_t data)
 
 /**
   * @brief  config erase/program protection for the desired sectors.
-  * @param  sector_bits:
+  * @param  sector_bits(1:ENABLE, 0:DISABLE)
   *         the pointer of the address of the sectors to be erase/program protected.
   *         the first 16bits general every bit is used to protect the 4KB bytes. the
   *         bit 31 is used to protect the extension memory.
@@ -634,7 +634,7 @@ flash_status_type flash_slib_enable(uint32_t pwd, uint16_t start_sector, uint16_
   flash_status_type status = FLASH_OPERATE_DONE;
 
   /*check range param limits*/
-  if((start_sector>=inst_start_sector) || ((inst_start_sector > end_sector) && \
+  if((start_sector > inst_start_sector) || ((inst_start_sector > end_sector) && \
      (inst_start_sector != 0x7FF)) || (start_sector > end_sector))
     return FLASH_PROGRAM_ERROR;
 

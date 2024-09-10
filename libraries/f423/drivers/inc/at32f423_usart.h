@@ -351,7 +351,7 @@ typedef struct
       __IO uint32_t rtsen                : 1; /* [8] */
       __IO uint32_t ctsen                : 1; /* [9] */
       __IO uint32_t ctscfien             : 1; /* [10] */
-      __IO uint32_t smusen               : 1; /* [11] */ 
+      __IO uint32_t smusen               : 1; /* [11] */
       __IO uint32_t reserved1            : 1; /* [12] */
       __IO uint32_t lpwufie              : 1; /* [13] */
       __IO uint32_t rs485en              : 1; /* [14] */
@@ -374,7 +374,7 @@ typedef struct
       __IO uint32_t reserved1            : 16;/* [31:16] */
     } gdiv_bit;
   };
-  
+
   /**
   * @brief usart rtov register, offset:0x1C
   */
@@ -387,7 +387,7 @@ typedef struct
       __IO uint32_t reserved1            : 8; /* [31:24] */
     } rtov_bit;
   };
-  
+
   /**
   * @brief usart ifc register, offset:0x20
   */
@@ -418,8 +418,7 @@ typedef struct
 #define USART5                           ((usart_type *) USART5_BASE)
 #define USART6                           ((usart_type *) USART6_BASE)
 #define USART7                           ((usart_type *) USART7_BASE)
-#if defined (AT32F423Kx) || defined (AT32F423Tx) || defined (AT32F423Cx) || \
-    defined (AT32F423Rx) || defined (AT32F423Vx)
+#if defined (AT32F423Rx) || defined (AT32F423Vx)
 #define USART8                           ((usart_type *) USART8_BASE)
 #endif
 
@@ -455,6 +454,7 @@ void usart_irda_mode_enable(usart_type* usart_x, confirm_state new_state);
 void usart_irda_low_power_enable(usart_type* usart_x, confirm_state new_state);
 void usart_hardware_flow_control_set(usart_type* usart_x,usart_hardware_flow_control_type flow_state);
 flag_status usart_flag_get(usart_type* usart_x, uint32_t flag);
+flag_status usart_interrupt_flag_get(usart_type* usart_x, uint32_t flag);
 void usart_flag_clear(usart_type* usart_x, uint32_t flag);
 void usart_rs485_delay_time_config(usart_type* usart_x, uint8_t start_delay_time, uint8_t complete_delay_time);
 void usart_transmit_receive_pin_swap(usart_type* usart_x, confirm_state new_state);
