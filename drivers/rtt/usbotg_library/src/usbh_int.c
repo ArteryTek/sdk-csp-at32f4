@@ -252,8 +252,11 @@ void usbh_hch_in_handler(usbh_core_type *uhost, uint8_t chn)
     }
     else if(uhost->hch[chn].state == HCH_NAK)
     {
-      usb_chh->hcchar_bit.chdis = FALSE;
-      usb_chh->hcchar_bit.chena = TRUE;
+      if(usb_chh->hcchar_bit.eptype != EPT_INT_TYPE)
+      {
+        usb_chh->hcchar_bit.chdis = FALSE;
+        usb_chh->hcchar_bit.chena = TRUE;
+      }
       uhost->urb_state[chn] = URB_NOTREADY;
     }
     usb_chh->hcint = USB_OTG_HC_CHHLTD_FLAG;
@@ -599,15 +602,15 @@ void usbh_port_handler(usbh_core_type *uhost)
   usb_host->hprt = prt_0;
 }
 
-RT_WEAK void usbh_connect_callback(usbh_core_type *uhost)
+rt_weak void usbh_connect_callback(usbh_core_type *uhost)
 {
 }
 
-RT_WEAK void usbh_disconnect_callback(usbh_core_type *uhost)
+rt_weak void usbh_disconnect_callback(usbh_core_type *uhost)
 {
 }
 
-RT_WEAK void usbd_notify_urbchange_callback(usbh_core_type *uhost, uint8_t chnum, urb_sts_type sts)
+rt_weak void usbd_notify_urbchange_callback(usbh_core_type *uhost, uint8_t chnum, urb_sts_type sts)
 {
 }
 

@@ -332,7 +332,7 @@ static error_status qspi_data_receive(struct at32_qspi_bus *qspi_bus, rt_uint8_t
     return SUCCESS;
 }
 
-static rt_uint32_t qspi_xfer(struct rt_spi_device *device, struct rt_spi_message *message)
+static rt_ssize_t qspi_xfer(struct rt_spi_device *device, struct rt_spi_message *message)
 {
     rt_size_t len = 0;
 
