@@ -389,7 +389,7 @@ static void at32_dma_config(struct rt_serial_device *serial, rt_ubase_t flag)
 }
 #endif
 
-static rt_size_t at32_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, rt_uint32_t tx_flag)
+static rt_ssize_t at32_transmit(struct rt_serial_device *serial, rt_uint8_t *buf, rt_size_t size, rt_uint32_t tx_flag)
 {
     struct at32_uart *instance;
 
@@ -422,7 +422,7 @@ static const struct rt_uart_ops at32_uart_ops = {
 #ifdef RT_SERIAL_USING_DMA
 void dma_rx_isr(struct rt_serial_device *serial)
 {
-    volatile rt_uint32_t reg_sts = 0, index = 0;
+    volatile rt_uint32_t index = 0;
     rt_size_t recv_len = 0, counter = 0;
     struct at32_uart *instance;
     RT_ASSERT(serial != RT_NULL);

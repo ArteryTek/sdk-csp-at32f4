@@ -105,7 +105,7 @@ static void phy_reset(void)
 {
     gpio_init_type gpio_init_struct;
 
-#if defined (SOC_SERIES_AT32F437)
+#if defined (SOC_SERIES_AT32F437) || defined (SOC_SERIES_AT32F457)
     crm_periph_clock_enable(CRM_GPIOE_PERIPH_CLOCK, TRUE);
     crm_periph_clock_enable(CRM_GPIOG_PERIPH_CLOCK, TRUE);
 
@@ -452,14 +452,14 @@ static rt_err_t rt_at32_emac_close(rt_device_t dev)
     return RT_EOK;
 }
 
-static rt_size_t rt_at32_emac_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
+static rt_ssize_t rt_at32_emac_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
 {
     LOG_D("emac read");
     rt_set_errno(-RT_ENOSYS);
     return 0;
 }
 
-static rt_size_t rt_at32_emac_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
+static rt_ssize_t rt_at32_emac_write(rt_device_t dev, rt_off_t pos, const void *buffer, rt_size_t size)
 {
     LOG_D("emac write");
     rt_set_errno(-RT_ENOSYS);
@@ -1004,7 +1004,7 @@ static int rt_hw_at32_emac_init(void)
 #if defined (SOC_SERIES_AT32F407)
     gpio_pin_remap_config(MII_RMII_SEL_GMUX, TRUE);
 #endif
-#if defined (SOC_SERIES_AT32F437)
+#if defined (SOC_SERIES_AT32F437) || defined (SOC_SERIES_AT32F457)
     scfg_emac_interface_set(SCFG_EMAC_SELECT_RMII);
 #endif
 

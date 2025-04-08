@@ -89,6 +89,15 @@ extern "C" {
 #include "spi_config.h"
 #include "usb_config.h"
 #include "dac_config.h"
+#elif defined(SOC_SERIES_AT32F455) || defined (SOC_SERIES_AT32F456) || \
+      defined(SOC_SERIES_AT32F457)
+#include "can_config.h"
+#include "dma_config.h"
+#include "uart_config.h"
+#include "i2c_config.h"
+#include "spi_config.h"
+#include "usb_config.h"
+#include "dac_config.h"
 #elif defined(SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416)
 #include "can_config.h"
 #include "dma_config.h"

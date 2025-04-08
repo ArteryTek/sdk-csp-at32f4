@@ -11,6 +11,7 @@
  * 2023-10-18     shelton       add support f402/f405
  * 2024-04-12     shelton       add support a403a and a423
  * 2024-08-30     shelton       add support m412 and m416
+ * 2024-12-18     shelton       add support f455/f456 and f457
  */
 
 #include "drv_common.h"
@@ -26,7 +27,9 @@
     defined (SOC_SERIES_AT32F421) || defined (SOC_SERIES_AT32F425) || \
     defined (SOC_SERIES_AT32F423) || defined (SOC_SERIES_AT32F402) || \
     defined (SOC_SERIES_AT32F405) || defined (SOC_SERIES_AT32A423) || \
-    defined (SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416)
+    defined (SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416) || \
+    defined (SOC_SERIES_AT32F455) || defined (SOC_SERIES_AT32F456) || \
+    defined (SOC_SERIES_AT32F457)
 #define PIN_ATPORTSOURCE(pin)           (scfg_port_source_type)((uint8_t)(((pin) & 0xF0u) >> 4))
 #define PIN_ATPINSOURCE(pin)            (scfg_pins_source_type)((uint8_t)((pin) & 0xFu))
 #else
@@ -170,7 +173,7 @@ static rt_base_t at32_pin_get(const char *name)
     return pin;
 }
 
-static void at32_pin_write(rt_device_t dev, rt_base_t pin, rt_base_t value)
+static void at32_pin_write(rt_device_t dev, rt_base_t pin, rt_uint8_t value)
 {
     gpio_type *gpio_port;
 
@@ -187,7 +190,7 @@ static void at32_pin_write(rt_device_t dev, rt_base_t pin, rt_base_t value)
     gpio_bits_write(gpio_port, gpio_pin, (confirm_state)value);
 }
 
-static int at32_pin_read(rt_device_t dev, rt_base_t pin)
+static rt_ssize_t at32_pin_read(rt_device_t dev, rt_base_t pin)
 {
     gpio_type *gpio_port;
     uint16_t gpio_pin;
@@ -209,7 +212,7 @@ static int at32_pin_read(rt_device_t dev, rt_base_t pin)
     return value;
 }
 
-static void at32_pin_mode(rt_device_t dev, rt_base_t pin, rt_base_t mode)
+static void at32_pin_mode(rt_device_t dev, rt_base_t pin, rt_uint8_t mode)
 {
     gpio_init_type gpio_init_struct;
     gpio_type *gpio_port;
@@ -291,8 +294,8 @@ rt_inline const struct pin_irq_map *get_pin_irq_map(uint32_t pinbit)
     return &pin_irq_map[mapindex];
 };
 
-static rt_err_t at32_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
-                                    rt_uint32_t mode, void (*hdr)(void *args), void *args)
+static rt_err_t at32_pin_attach_irq(struct rt_device *device, rt_base_t pin,
+                                    rt_uint8_t mode, void (*hdr)(void *args), void *args)
 {
     uint16_t gpio_pin;
     rt_base_t level;
@@ -336,7 +339,7 @@ static rt_err_t at32_pin_attach_irq(struct rt_device *device, rt_int32_t pin,
     return RT_EOK;
 }
 
-static rt_err_t at32_pin_dettach_irq(struct rt_device *device, rt_int32_t pin)
+static rt_err_t at32_pin_dettach_irq(struct rt_device *device, rt_base_t pin)
 {
     uint16_t gpio_pin;
     rt_base_t level;
@@ -372,7 +375,7 @@ static rt_err_t at32_pin_dettach_irq(struct rt_device *device, rt_int32_t pin)
 }
 
 static rt_err_t at32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
-                                    rt_uint32_t enabled)
+                                    rt_uint8_t enabled)
 {
     gpio_init_type gpio_init_struct;
     exint_init_type exint_init_struct;
@@ -418,7 +421,7 @@ static rt_err_t at32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
         gpio_init_struct.gpio_pins = irqmap->pinbit;
         gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_STRONGER;
         exint_init_struct.line_select = irqmap->pinbit;
-        exint_init_struct.line_mode = EXINT_LINE_INTERRUPUT;
+        exint_init_struct.line_mode = EXINT_LINE_INTERRUPT;
         exint_init_struct.line_enable = TRUE;
         switch (pin_irq_handler_tab[irqindex].mode)
         {
@@ -438,7 +441,9 @@ static rt_err_t at32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
     defined (SOC_SERIES_AT32F421) || defined (SOC_SERIES_AT32F425) || \
     defined (SOC_SERIES_AT32F423) || defined (SOC_SERIES_AT32F402) || \
     defined (SOC_SERIES_AT32F405) || defined (SOC_SERIES_AT32A423) || \
-    defined (SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416)
+    defined (SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416) || \
+    defined (SOC_SERIES_AT32F455) || defined (SOC_SERIES_AT32F456) || \
+    defined (SOC_SERIES_AT32F457)
         scfg_exint_line_config(PIN_ATPORTSOURCE(pin), PIN_ATPINSOURCE(pin));
 #else
         gpio_exint_line_config(PIN_ATPORTSOURCE(pin), PIN_ATPINSOURCE(pin));
@@ -461,27 +466,26 @@ static rt_err_t at32_pin_irq_enable(struct rt_device *device, rt_base_t pin,
         level = rt_hw_interrupt_disable();
 
         pin_irq_enable_mask &= ~irqmap->pinbit;
-
+        exint_interrupt_enable(irqmap->lineno, FALSE);
 
         if ((irqmap->pinbit >= GPIO_PINS_5) && (irqmap->pinbit <= GPIO_PINS_9))
         {
             if (!(pin_irq_enable_mask & (GPIO_PINS_5 | GPIO_PINS_6 | GPIO_PINS_7 | GPIO_PINS_8 | GPIO_PINS_9)))
             {
-                irqn = irqmap->irqno;
+                nvic_irq_disable(irqmap->irqno);
             }
         }
         else if ((irqmap->pinbit >= GPIO_PINS_10) && (irqmap->pinbit <= GPIO_PINS_15))
         {
             if (!(pin_irq_enable_mask & (GPIO_PINS_10 | GPIO_PINS_11 | GPIO_PINS_12 | GPIO_PINS_13 | GPIO_PINS_14 | GPIO_PINS_15)))
             {
-                irqn = irqmap->irqno;
+                nvic_irq_disable(irqmap->irqno);
             }
         }
         else
         {
-            irqn = irqmap->irqno;
+            nvic_irq_disable(irqmap->irqno);
         }
-        nvic_irq_disable(irqn);
         rt_hw_interrupt_enable(level);
     }
     else
@@ -724,7 +728,9 @@ int rt_hw_pin_init(void)
     defined (SOC_SERIES_AT32F421) || defined (SOC_SERIES_AT32F425) || \
     defined (SOC_SERIES_AT32F423) || defined (SOC_SERIES_AT32F402) || \
     defined (SOC_SERIES_AT32F405) || defined (SOC_SERIES_AT32A423) || \
-    defined (SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416)
+    defined (SOC_SERIES_AT32M412) || defined (SOC_SERIES_AT32M416) || \
+    defined (SOC_SERIES_AT32F455) || defined (SOC_SERIES_AT32F456) || \
+    defined (SOC_SERIES_AT32F457)
     crm_periph_clock_enable(CRM_SCFG_PERIPH_CLOCK, TRUE);
 #else
     crm_periph_clock_enable(CRM_IOMUX_PERIPH_CLOCK, TRUE);

@@ -13,6 +13,8 @@
  */
 #include "drv_common.h"
 
+#ifndef BSP_USING_CAN_V2
+
 #if defined (BSP_USING_CAN1) || defined (BSP_USING_CAN2)
 #include "drv_can.h"
 #define LOG_TAG    "drv_can"
@@ -1074,3 +1076,5 @@ int rt_hw_can_init(void)
 INIT_BOARD_EXPORT(rt_hw_can_init);
 
 #endif /* BSP_USING_CAN */
+
+#endif

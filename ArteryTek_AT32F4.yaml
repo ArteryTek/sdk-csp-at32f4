@@ -2,7 +2,7 @@
 vendor: ArteryTek
 dvendor: ArteryTek
 name: AT32F4
-version: 0.1.9
+version: 0.2.0
 yaml_version: 1
 type: Chip_Support_Packages
 family_name: AT32
@@ -5283,5 +5283,1071 @@ series:
         - USE_STDPERIPH_DRIVER
         source_files:
         - drivers\rtt\f435_437
+        - drivers\rtt\common
+        - drivers\rtt\usbotg_library
+  - sub_series_name: AT32F455
+    cpu_info:
+      fpu: '1'
+      mpu: '1'
+      max_clock: '192000000'
+    source_files:
+      file:
+      - libraries\f45x\drivers\src
+      - libraries\f45x\drivers\inc
+      - libraries\f45x\cmsis\cm4\core_support
+      - libraries\f45x\cmsis\cm4\device_support\at32f45x_conf.h
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.h
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.c
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.h
+    chips:
+    - chip_name: AT32F455CCU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455CC\link.lds
+          marco:
+          - AT32F455CCU7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455CEU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455CE\link.lds
+          marco:
+          - AT32F455CEU7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455CCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455CC\link.lds
+          marco:
+          - AT32F455CCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455CET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455CE\link.lds
+          marco:
+          - AT32F455CET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455RCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455RC\link.lds
+          marco:
+          - AT32F455RCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455RET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455RE\link.lds
+          marco:
+          - AT32F455RET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455VCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455VC\link.lds
+          marco:
+          - AT32F455VCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455VET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455VE\link.lds
+          marco:
+          - AT32F455VET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455ZCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455ZC\link.lds
+          marco:
+          - AT32F455ZCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F455ZET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F455ZE\link.lds
+          marco:
+          - AT32F455ZET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F455_456_457_V2.00.pdf
+      title: AT32F455_456_457 Reference Manual
+    svd:
+      file: debug\svd\AT32F455xx_v2.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F455
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal\f45x
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F455
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano\f45x
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F455
+        - USE_STDPERIPH_DRIVER
+        - BSP_USING_CAN_V2
+        source_files:
+        - drivers\rtt\f45x
+        - drivers\rtt\common
+        - drivers\rtt\usbotg_library
+  - sub_series_name: AT32F456
+    cpu_info:
+      fpu: '1'
+      mpu: '1'
+      max_clock: '192000000'
+    source_files:
+      file:
+      - libraries\f45x\drivers\src
+      - libraries\f45x\drivers\inc
+      - libraries\f45x\cmsis\cm4\core_support
+      - libraries\f45x\cmsis\cm4\device_support\at32f45x_conf.h
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.h
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.c
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.h
+    chips:
+    - chip_name: AT32F456CCU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456CC\link.lds
+          marco:
+          - AT32F456CCU7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456CEU7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456CE\link.lds
+          marco:
+          - AT32F456CEU7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456CCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456CC\link.lds
+          marco:
+          - AT32F456CCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456CET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456CE\link.lds
+          marco:
+          - AT32F456CET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456RCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456RC\link.lds
+          marco:
+          - AT32F456RCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456RET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456RE\link.lds
+          marco:
+          - AT32F456RET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456VCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456VC\link.lds
+          marco:
+          - AT32F456VCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456VET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456VE\link.lds
+          marco:
+          - AT32F456VET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456ZCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456ZC\link.lds
+          marco:
+          - AT32F456ZCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F456ZET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F456ZE\link.lds
+          marco:
+          - AT32F456ZET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F455_456_457_V2.00.pdf
+      title: AT32F455_456_457 Reference Manual
+    svd:
+      file: debug\svd\AT32F456xx_v2.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F456
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal\f45x
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F456
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano\f45x
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F456
+        - USE_STDPERIPH_DRIVER
+        - BSP_USING_CAN_V2
+        source_files:
+        - drivers\rtt\f45x
+        - drivers\rtt\common
+        - drivers\rtt\usbotg_library
+  - sub_series_name: AT32F457
+    cpu_info:
+      fpu: '1'
+      mpu: '1'
+      max_clock: '192000000'
+    source_files:
+      file:
+      - libraries\f45x\drivers\src
+      - libraries\f45x\drivers\inc
+      - libraries\f45x\cmsis\cm4\core_support
+      - libraries\f45x\cmsis\cm4\device_support\at32f45x_conf.h
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.h
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.c
+      - libraries\f45x\cmsis\cm4\device_support\system_at32f45x.h
+    chips:
+    - chip_name: AT32F457RCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F457RC\link.lds
+          marco:
+          - AT32F457RCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F457RET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F457RE\link.lds
+          marco:
+          - AT32F457RET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F457VCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F457VC\link.lds
+          marco:
+          - AT32F457VCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F457VET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F457VE\link.lds
+          marco:
+          - AT32F457VET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F457ZCT7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00040000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x0001B000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F457ZC\link.lds
+          marco:
+          - AT32F457ZCT7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    - chip_name: AT32F457ZET7
+      peripheral: {}
+      memory:
+      - id: IROM1
+        start: '0x08000000'
+        size: '0x00080000'
+        default: '1'
+      - id: IRAM1
+        start: '0x20000000'
+        size: '0x00024000'
+        init: '0'
+        default: '1'
+      compiler:
+        gcc:
+          entry_point: entry
+          link_script: linkscripts\AT32F457ZE\link.lds
+          marco:
+          - AT32F457ZET7
+          files:
+          - libraries\f45x\cmsis\cm4\device_support\startup\gcc\startup_at32f45x.s
+          - libraries\f45x\cmsis\cm4\device_support\at32f45x.h
+          - libraries\cmsis\lib\gcc
+        armcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+        iarcc:
+          entry_point: none
+          link_script: none
+          marco: []
+          files: []
+    ui:
+      uart:
+        default_value: UART1
+        prompt_message_en: select one uart as console output interface
+        prompt_message_zh: 选择一个串口作为控制台信息输出接口
+      tx_pin:
+        default_value: PA9
+        prompt_message_en: 'set the tx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]",eg. PA2,PB6 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称, 名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2,
+          PB6
+      rx_pin:
+        default_value: PA10
+        prompt_message_en: 'set the rx pin name of the console device interface, the
+          value should be with a format"P+[port name][pin number]", eg. PA3, PB7 '
+        prompt_message_zh: 设置控制台设备的数据发送引脚的名称，名称应该具有以下格式“P+[端口名称][端口编号]”, 比如：PA2, PB6
+    docs:
+    - file: documents\RM_AT32F455_456_457_V2.00.pdf
+      title: AT32F455_456_457 Reference Manual
+    svd:
+      file: debug\svd\AT32F457xx_v2.svd
+    project_type:
+      bare_metal:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          sysTick: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F457
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\baremetal\f45x
+      rtt_nano:
+        function_map:
+          clk_init: none
+          uart_init: none
+          putc: none
+          getc: none
+          sysTick: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F457
+        - USE_STDPERIPH_DRIVER
+        source_files:
+        - drivers\nano\f45x
+      rtt:
+        function_map:
+          rt_hw_board_init;: none
+          rt_hw_serial_register: none
+          rt_hw_pin_register: none
+          heap_init: none
+        marco:
+        - SOC_FAMILY_AT32
+        - SOC_SERIES_AT32F457
+        - USE_STDPERIPH_DRIVER
+        - BSP_USING_CAN_V2
+        source_files:
+        - drivers\rtt\f45x
         - drivers\rtt\common
         - drivers\rtt\usbotg_library
